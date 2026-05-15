@@ -1,0 +1,85 @@
+.page { min-height: 100dvh; display: flex; flex-direction: column; background: #F4F7FA; }
+
+.header { background: #0A2540; padding: 14px 0; border-bottom: 3px solid #12824C; }
+.headerInner { display: flex; align-items: center; justify-content: space-between; }
+.logoText { color: #fff; font-weight: 800; font-size: 18px; }
+.statusBadge { 
+  background: rgba(18,130,76,0.2); color: #2ECC71; 
+  padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;
+  border: 1px solid rgba(46,204,113,0.3);
+}
+
+.main { flex: 1; padding: 24px 0 40px; }
+
+.alertCard {
+  background: #FFF5F5; border: 1px solid #FEB2B2; border-radius: 16px;
+  padding: 16px; display: flex; gap: 16px; margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
+}
+.alertIcon { font-size: 32px; }
+.alertTitle { color: #C53030; font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+.alertText { color: #9B2C2C; font-size: 14px; line-height: 1.5; font-weight: 500; }
+
+.resultsCard {
+  background: #fff; border-radius: 20px; padding: 24px;
+  box-shadow: 0 10px 30px rgba(10,37,64,0.08); border: 1px solid #E0E8F0;
+}
+
+.title { font-size: 24px; font-weight: 900; color: #0A2540; margin-bottom: 4px; text-align: center; }
+.subtitle { font-size: 13px; color: #8A9AB0; text-align: center; margin-bottom: 24px; font-weight: 600; }
+
+.summaryGrid { 
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;
+}
+.summaryItem { 
+  background: #F8FAFC; padding: 16px; border-radius: 12px; border: 1px solid #EDF2F7;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.summaryLabel { font-size: 11px; color: #718096; font-weight: 700; text-transform: uppercase; }
+.summaryValue { font-size: 16px; font-weight: 800; color: #0A2540; }
+.riskHigh { color: #E53E3E; }
+
+.previewBox {
+  position: relative; background: #EDF2F7; border-radius: 16px; padding: 20px;
+  margin-bottom: 28px; overflow: hidden; border: 1px solid #CBD5E0;
+}
+.previewOverlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: rgba(10, 37, 64, 0.85); backdrop-filter: blur(4px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px; text-align: center; color: #fff;
+}
+.lockIcon { font-size: 40px; margin-bottom: 12px; }
+.lockTitle { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.lockText { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+.blurredContent { opacity: 0.2; filter: blur(2px); }
+.fakeLine { height: 8px; background: #CBD5E0; border-radius: 4px; margin-bottom: 10px; }
+.fakeImage { height: 100px; background: #CBD5E0; border-radius: 8px; margin: 16px 0; }
+
+.features { margin-bottom: 28px; }
+.featuresTitle { font-size: 15px; font-weight: 800; color: #0A2540; margin-bottom: 12px; }
+.featuresList { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.featuresList li { font-size: 14px; color: #4A5568; font-weight: 500; display: flex; gap: 8px; }
+
+.paymentBox {
+  background: #F8FAFC; border: 2px solid #0A2540; border-radius: 16px; padding: 20px;
+  margin-bottom: 20px;
+}
+.priceRow { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.priceLabel { font-size: 16px; font-weight: 700; color: #4A5568; }
+.priceValue { font-size: 32px; font-weight: 900; color: #0A2540; }
+
+.stripeInfo { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.stripeLogo { 
+  font-weight: 900; color: #635BFF; font-size: 20px; letter-spacing: -0.5px;
+}
+.stripeText { font-size: 11px; color: #718096; text-align: center; }
+
+.guarantee { 
+  font-size: 12px; color: #718096; text-align: center; line-height: 1.6;
+  padding: 0 10px;
+}
+
+.footer { padding: 20px 0; text-align: center; }
+.footer p { font-size: 12px; color: #A0AEC0; }

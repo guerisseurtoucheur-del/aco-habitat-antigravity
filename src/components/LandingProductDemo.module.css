@@ -1,0 +1,934 @@
+.section {
+  padding: 40px 0 16px;
+  background: linear-gradient(180deg, #eef3f8 0%, #f4f7fa 100%);
+}
+
+.inner {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.segmentRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.segment {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #e0e8f0;
+  background: #fff;
+  color: #4a5568;
+}
+
+.segmentAccent {
+  background: rgba(18, 130, 76, 0.12);
+  border-color: rgba(18, 130, 76, 0.35);
+  color: #0e5c38;
+}
+
+.kicker {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #12824c;
+  margin-bottom: 8px;
+}
+
+.title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  color: #0a2540;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+.demoWrap {
+  position: relative;
+  border-radius: 20px;
+  padding: 20px 16px 16px;
+  background: #fff;
+  border: 1px solid #e0e8f0;
+  box-shadow:
+    0 4px 24px rgba(10, 37, 64, 0.08),
+    0 1px 3px rgba(10, 37, 64, 0.04);
+}
+
+.demoBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #12824c, #2ecc71);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(18, 130, 76, 0.35);
+}
+
+.viewport {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.phone {
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 9 / 18;
+  border-radius: 28px;
+  border: 3px solid #1e293b;
+  background: #0f172a;
+  padding: 10px 10px 14px;
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.phoneInner {
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #1e293b;
+}
+
+.phoneBar {
+  height: 22px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.06em;
+}
+
+.phoneScreen {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Slide 1 — photo (image réelle illustrative) */
+.photoBgWrap {
+  flex: 1;
+  position: relative;
+  min-height: 168px;
+  overflow: hidden;
+}
+
+.photoImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.scanFrame {
+  position: absolute;
+  inset: 14%;
+  border: 2px dashed rgba(46, 204, 113, 0.85);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cornerLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  z-index: 4;
+}
+
+/* Annotation overlays (illustration démo — pas des mesures réelles) */
+.annotationLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.annotationLayerPhoto {
+  z-index: 2;
+}
+
+.annotationLayerDetect {
+  z-index: 1;
+}
+
+.annoBox {
+  position: absolute;
+  border-radius: 6px;
+  border: 2px solid rgba(74, 222, 128, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 4px 14px rgba(34, 197, 94, 0.25);
+  background: rgba(22, 163, 74, 0.06);
+}
+
+.charpenteBox1 {
+  top: 20%;
+  left: 10%;
+  width: 54%;
+  height: 52%;
+}
+
+.charpenteBox2 {
+  top: 56%;
+  left: 58%;
+  width: 30%;
+  height: 26%;
+}
+
+.wallBox1 {
+  top: 12%;
+  left: 6%;
+  width: 46%;
+  height: 38%;
+}
+
+.wallBox2 {
+  top: 44%;
+  left: 50%;
+  width: 42%;
+  height: 42%;
+}
+
+.annoLabel {
+  position: absolute;
+  top: -20px;
+  left: -2px;
+  padding: 3px 7px 3px 6px;
+  border-radius: 5px 5px 5px 0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ecfdf5;
+  background: linear-gradient(135deg, rgba(22, 101, 52, 0.98), rgba(34, 197, 94, 0.92));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  max-width: min(140px, 52vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.annoMeta {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  font-size: 7px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.04em;
+}
+
+.annoConf {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 7px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.82);
+  color: #fde68a;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.annotationLayerDetect .annoBox {
+  border-color: rgba(250, 204, 21, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 16px rgba(250, 204, 21, 0.22);
+  background: rgba(250, 204, 21, 0.05);
+}
+
+.annotationLayerDetect .annoLabel {
+  background: linear-gradient(135deg, rgba(146, 64, 14, 0.95), rgba(245, 158, 11, 0.88));
+}
+
+.annoBoxScan {
+  opacity: 0;
+  transform: scale(0.94);
+  animation: annoReveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.wallBox1.annoBoxScan {
+  animation-delay: 0.15s;
+}
+
+.wallBox2.annoBoxScan {
+  animation-delay: 0.55s;
+}
+
+.annotationLayerFinal .annoBoxSolid {
+  border-color: rgba(52, 211, 153, 0.98);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 4px 18px rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.07);
+}
+
+.scanLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  top: 0;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(250, 250, 250, 0.08) 20%,
+    rgba(253, 224, 71, 0.85) 50%,
+    rgba(250, 250, 250, 0.08) 80%,
+    transparent
+  );
+  box-shadow: 0 0 14px rgba(253, 224, 71, 0.55);
+  animation: scanSweep 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes annoReveal {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scanSweep {
+  0%,
+  100% {
+    top: 8%;
+    opacity: 0.5;
+  }
+  50% {
+    top: 82%;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .annoBoxScan {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .scanLine {
+    animation: none;
+    top: 45%;
+    opacity: 0.75;
+  }
+}
+
+/* Slide 2 — analysing */
+.analyseBg {
+  flex: 1;
+  position: relative;
+  min-height: 168px;
+  overflow: hidden;
+}
+
+.analysePhoto {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.analyseOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 14px 18px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(15, 23, 42, 0.55) 62%,
+    rgba(15, 23, 42, 0.94) 100%
+  );
+}
+
+.progressTrack {
+  width: 100%;
+  max-width: 220px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: 72%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f59e0b, #ea580c);
+  animation: demoProgress 2.4s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    animation: none;
+    width: 72%;
+  }
+}
+
+@keyframes demoProgress {
+  from {
+    width: 42%;
+  }
+  to {
+    width: 78%;
+  }
+}
+
+.analyseLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+}
+
+/* Slide 3 — résultat prudent */
+.resultBg {
+  flex: 1;
+  min-height: 0;
+  background: #0f172a;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.resultImageWrap {
+  position: relative;
+  flex: 1;
+  min-height: 112px;
+  overflow: hidden;
+}
+
+.resultPhoto {
+  object-fit: cover;
+  object-position: center;
+}
+
+.resultGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    rgba(15, 23, 42, 0.65) 72%,
+    rgba(15, 23, 42, 0.96) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.annotationLayerFinal {
+  z-index: 3;
+}
+
+.resultBanner {
+  flex-shrink: 0;
+  margin: -38px 10px 8px;
+  position: relative;
+  z-index: 4;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.48);
+  border-radius: 10px;
+  padding: 9px 11px;
+  backdrop-filter: blur(8px);
+}
+
+.resultBannerTitle {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fcd34d;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.resultBannerText {
+  font-size: 10px;
+  line-height: 1.45;
+  color: rgba(254, 243, 199, 0.92);
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+
+.miniTag {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(226, 232, 240, 0.95);
+}
+
+/* Slide 4 — PDF */
+.pdfBg {
+  flex: 1;
+  min-height: 0;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(18, 130, 76, 0.35), transparent 55%),
+    linear-gradient(180deg, #0f172a, #020617);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 14px 12px 16px;
+}
+
+.pdfStage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 0;
+}
+
+.pdfFlyIn {
+  width: 100%;
+  max-width: 218px;
+  perspective: 520px;
+  animation: pdfArrive 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pdfArrive {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotateX(12deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
+}
+
+.pdfSheet {
+  position: relative;
+  border-radius: 10px;
+  background: linear-gradient(165deg, #ffffff 0%, #f8fafc 42%, #eef2f7 100%);
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.65) inset,
+    0 18px 36px rgba(0, 0, 0, 0.42),
+    0 4px 12px rgba(15, 23, 42, 0.2);
+  padding: 14px 12px 12px;
+  text-align: left;
+}
+
+.pdfRibbon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  padding: 4px 7px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.45);
+}
+
+.pdfSheetHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 48px;
+  margin-bottom: 8px;
+}
+
+.pdfBrand {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  color: #12824c;
+}
+
+.pdfDocTitle {
+  font-size: 11px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.pdfHorodate {
+  margin: 0 0 10px;
+  font-size: 8px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+.pdfThumbStrip {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.pdfThumb {
+  flex: 1;
+  height: 38px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
+  border: 1px solid #94a3b8;
+  position: relative;
+  overflow: hidden;
+}
+
+.pdfThumbAnn {
+  position: absolute;
+  inset: 8px 10px;
+  border: 2px solid rgba(34, 197, 94, 0.85);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.pdfThumbAnn2 {
+  inset: 11px 14px;
+  border-color: rgba(245, 158, 11, 0.85);
+}
+
+.pdfSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pdfLine {
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #e2e8f0, #f1f5f9);
+  animation: pdfLineShimmer 2.4s ease-in-out infinite;
+}
+
+.pdfLine:nth-child(2) {
+  animation-delay: 0.2s;
+  width: 92%;
+}
+
+.pdfLineShort {
+  width: 58%;
+  animation-delay: 0.35s;
+}
+
+@keyframes pdfLineShimmer {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pdfFooterMock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #0f172a;
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pdfCheck {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #12824c, #2ecc71);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  animation: pdfCheckPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s both;
+}
+
+@keyframes pdfCheckPop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pdfArrival {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.92);
+  animation: pdfCaptionFade 0.6s ease 0.35s both;
+}
+
+@keyframes pdfCaptionFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdfFlyIn {
+    animation: none;
+  }
+
+  .pdfLine {
+    animation: none;
+    opacity: 0.88;
+  }
+
+  .pdfCheck {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .pdfArrival {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pdfBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #12824c, #2ecc71);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(18, 130, 76, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pdfBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(18, 130, 76, 0.5);
+}
+
+.stepCaption {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a2540;
+}
+
+.stepHint {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.45;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.navBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #e0e8f0;
+  background: #fff;
+  color: #0a2540;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.navBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.dotActive {
+  background: #0a2540;
+  transform: scale(1.15);
+}
+
+.disclaimer {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #92400e;
+}
+
+.ctaRow {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaLink {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a2540;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes demoBadgePulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(18, 130, 76, 0.35);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 3px 16px rgba(46, 204, 113, 0.55);
+    transform: scale(1.02);
+  }
+}
+
+.demoBadgePulse {
+  animation: demoBadgePulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demoBadgePulse {
+    animation: none;
+  }
+}
+
+.autoRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.autoToggle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.autoToggle:hover:not(:disabled) {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.autoToggle:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

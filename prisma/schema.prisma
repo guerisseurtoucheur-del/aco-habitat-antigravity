@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum StatutDossier {
+  BROUILLON
+  EN_INSPECTION
+  EN_REDACTION
+  EN_VALIDATION_SENIOR
+  SIGNE_VERROUILLE
+  TRANSMIS_CLIENT
+  ARCHIVE
+}
+
+enum FamillePathologie {
+  INSECTE_XYLOPHAGE
+  CHAMPIGNON_LIGNIVORE
+  HUMIDITE
+}
+
+enum TypePathologieConstat {
+  CAPRICORNE_DES_MAISONS
+  PETITE_VRILLETTE
+  GROSSE_VRILLETTE
+  LYCTUS_BRUNNEUS
+  HESPEROPHANES_CINEREUS
+  TERMITES
+  MERULE_PLEUREUSE
+  CONIOPHORE_DES_CAVES
+  LENZITE_DES_CLOTURES
+  REMONTEES_CAPILLAIRES
+  INFILTRATIONS_PARIETALES
+  CONDENSATION_STRUCTURELLE
+  HUMIDITE_BOIS
+  AUTRE
+}
+
+enum ActiviteInsecteXylophage {
+  VIVANT
+  MORT
+  INDETERMINE
+}
+
+enum DegreInfestationSondage {
+  POSITIF
+  NEGATIF
+  INDETERMINE
+}
+
+model Dossier {
+  id                String        @id @default(cuid())
+  reference         String        @unique
+  statut            StatutDossier @default(BROUILLON)
+  inspecteLe        DateTime
+  commanditaireNom  String?
+  commanditaireEmail String?
+  commanditaireTelephone String?
+  adresseBien       String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  hashRapportSha256 String?
+  signeLe           DateTime?
+  diagnosticGlobalIa String?
+  scoreConfianceIa  String?
+  conclusionJuridiqueIa String?
+  analysesIaJson    Json?
+  preconisationsIaJson Json?
+
+  photos             PhotoDossier[]
+  constatsXylophages ConstatInsecteXylophage[]
+
+  @@index([statut, inspecteLe])
+}
+
+model PhotoDossier {
+  id                 String    @id @default(cuid())
+  dossierId          String
+  ordre              Int
+  storageKey         String    @unique
+  mimeType           String
+  tailleBytes        BigInt
+  largeurPx          Int
+  hauteurPx          Int
+  hashSha256Original String    @unique
+  capturedAt         DateTime?
+  exifBrutJson       Json
+  uploadedAt         DateTime  @default(now())
+
+  dossier Dossier @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+
+  @@unique([dossierId, ordre])
+  @@index([dossierId])
+}
+
+model ConstatInsecteXylophage {
+  id                              String                   @id @default(cuid())
+  dossierId                       String
+  ordre                           Int
+  famillePathologie               FamillePathologie      @default(INSECTE_XYLOPHAGE)
+  typePathologie                  TypePathologieConstat  @default(CAPRICORNE_DES_MAISONS)
+  activiteDiagnostic              ActiviteInsecteXylophage
+  degreInfestationSondage         DegreInfestationSondage  @default(INDETERMINE)
+  localisationStructurelle        String
+  elementsBoisTouches             String
+  releveDegradationsStructurelles String
+  profondeurAtteinteMm            Decimal?
+  sectionResiduellePct            Decimal?
+  indiceConfiancePct              Int
+  preuveMaterielle                String
+  hypothesesDifferentielles       String?
+  saisiLe                         DateTime                 @default(now())
+  verrouille                      Boolean                  @default(false)
+
+  dossier Dossier @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+  photos  PhotoConstatXylophage[]
+
+  @@unique([dossierId, ordre])
+  @@index([dossierId, typePathologie, activiteDiagnostic])
+}
+
+model PhotoConstatXylophage {
+  id               String   @id @default(cuid())
+  constatId        String
+  ordre            Int
+  storageKey       String   @unique
+  mimeType         String
+  tailleBytes      BigInt
+  hashSha256       String
+  legendeTechnique String
+  uploadedAt       DateTime @default(now())
+
+  constat          ConstatInsecteXylophage @relation(fields: [constatId], references: [id], onDelete: Cascade)
+
+  @@unique([constatId, ordre])
+  @@index([hashSha256])
+  @@index([constatId])
+}
+
+model DiagnosticSession {
+  id                    String            @id @default(uuid())
+  status                String            @default("queued") // "queued", "processing", "completed", "failed"
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  
+  // Données d'entrée
+  userAgent             String?
+  timestamp             DateTime?
+  
+  // Résultats de l'analyse IA
+  result                Json?             // DiagnosticReport
+  error                 String?
+  
+  // Informations Client
+  clientName            String?
+  clientEmail           String?
+  clientPhone           String?
+  clientAddress         String?
+  
+  // Paiement
+  isPaid                Boolean           @default(false)
+  paymentId             String?           // ID Stripe (pi_...)
+
+  // Traces de consentement RGPD / CGV (preuve d'acceptation au moment de la commande)
+  consentTermsAcceptedAt              DateTime?
+  consentNonOpposableAcknowledgedAt   DateTime?
+  consentIp                           String?
+  consentUserAgent                    String?
+  
+  // Photos transmises pour analyse
+  images                DiagnosticImage[]
+
+  @@index([status])
+}
+
+model DiagnosticImage {
+  id          String            @id @default(cuid())
+  sessionId   String
+  mediaType   String
+  base64      String            // Contenu de l'image compressée
+  session     DiagnosticSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
