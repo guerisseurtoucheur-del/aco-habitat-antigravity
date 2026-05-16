@@ -150,10 +150,10 @@ export function extractAnalyseRequestFromFormData(
     photo_4: formData.get("photo_4") as File | null,
     timestamp,
     userAgent,
-    clientName: formData.get("clientName") as string | null,
-    clientEmail: formData.get("clientEmail") as string | null,
-    clientPhone: formData.get("clientPhone") as string | null,
-    clientAddress: formData.get("clientAddress") as string | null,
+    clientName: (formData.get("clientName") as string) || "",
+    clientEmail: (formData.get("clientEmail") as string) || "",
+    clientPhone: (formData.get("clientPhone") as string) || "",
+    clientAddress: (formData.get("clientAddress") as string) || "",
   };
 }
 
