@@ -287,7 +287,7 @@ export function DiagnosticUpload() {
     const parsed = analyseRequestSchema.safeParse(payload);
     if (!parsed.success) {
       // Find the first error message to display
-      const firstError = parsed.error.errors[0]?.message || "Validation impossible: vérifiez les fichiers et coordonnées.";
+      const firstError = parsed.error.issues[0]?.message || "Validation impossible: vérifiez les fichiers et coordonnées.";
       setErrorMessage(firstError);
       return null;
     }
