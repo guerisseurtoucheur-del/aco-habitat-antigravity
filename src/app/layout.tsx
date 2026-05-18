@@ -20,7 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body>{children}</body>
+      <body className="min-h-screen bg-gray-50 flex flex-col">
+        <header className="w-full bg-white shadow-sm py-4">
+          <div className="container mx-auto px-4 flex justify-center">
+            <img src="/logo.png" alt="ACO-HABITAT Logo" className="h-12 w-auto object-contain" />
+          </div>
+        </header>
+        <main className="flex-grow">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
