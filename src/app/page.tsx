@@ -12,7 +12,7 @@ export default function HomePage() {
       <header className={styles.header}>
         <div className="container">
           <div className={styles.logo}>
-            <span className={styles.logoText}>ACO-HABITAT</span>
+            <img src="/logo.png" alt="ACO-HABITAT Logo" className={styles.logoImg} />
           </div>
         </div>
       </header>

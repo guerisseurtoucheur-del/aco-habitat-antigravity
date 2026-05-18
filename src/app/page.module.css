@@ -2,19 +2,14 @@
 
 /* HEADER */
 .header {
-  background: #0A2540;
-  padding: 16px 0;
+  background: #ffffff;
+  padding: 8px 0;
   position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 20px rgba(10,37,64,0.4);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e2e8f0;
 }
 .logo { display: flex; align-items: center; gap: 10px; }
-.logoIcon { font-size: 26px; }
-.logoText { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-.logoBadge {
-  font-size: 11px; font-weight: 700; color: #12824C;
-  background: rgba(18,130,76,0.2); border: 1px solid rgba(18,130,76,0.4);
-  padding: 3px 8px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase;
-}
+.logoImg { height: 40px; width: auto; display: block; }
 
 /* HERO */
 .hero {
