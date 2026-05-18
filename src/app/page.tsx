@@ -13,6 +13,7 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.logo}>
             <img src="/logo.png" alt="ACO-HABITAT Logo" className={styles.logoImg} />
+            <span className={styles.logoText}>ACO-HABITAT</span>
           </div>
         </div>
       </header>
