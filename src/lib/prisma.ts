@@ -11,7 +11,15 @@ const connectionString =
   process.env.DATABASE_URL ||
   "postgresql://postgres:postgres@localhost:5432/postgres";
 
-const pool = new pg.Pool({ connectionString });
+const isLocalhost = connectionString.includes("localhost") || connectionString.includes("127.0.0.1");
+const hasSslDisabled = connectionString.includes("sslmode=disable");
+
+const pool = new pg.Pool({
+  connectionString,
+  ssl: isLocalhost || hasSslDisabled
+    ? false
+    : { rejectUnauthorized: false }, // Résout l'erreur TLS self-signed certificate
+});
 const adapter = new PrismaPg(pool);
 
 export const prisma =
