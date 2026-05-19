@@ -6,7 +6,10 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres";
+const connectionString =
+  process.env.SUPABASE_POSTGRES_PRISMA_URL ||
+  process.env.DATABASE_URL ||
+  "postgresql://postgres:postgres@localhost:5432/postgres";
 
 const pool = new pg.Pool({ connectionString });
 const adapter = new PrismaPg(pool);
