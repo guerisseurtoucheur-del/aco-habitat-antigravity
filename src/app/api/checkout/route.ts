@@ -1,12 +1,37 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 import Stripe from "stripe";
 import { getAnalysisSession } from "@/lib/analysis-store";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
+// Construit l'URL de base du site de maniere fiable (env var > headers > fallback)
+function getBaseUrl(requestHeaders: Headers): string {
+  // 1. Variable d'environnement explicite (prioritaire)
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
+  }
+  // 2. Header x-forwarded-host (Vercel injecte ca)
+  const forwardedHost = requestHeaders.get("x-forwarded-host");
+  const forwardedProto = requestHeaders.get("x-forwarded-proto") || "https";
+  if (forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`;
+  }
+  // 3. Header host standard
+  const host = requestHeaders.get("host");
+  if (host) {
+    const proto = host.includes("localhost") ? "http" : "https";
+    return `${proto}://${host}`;
+  }
+  // 4. Fallback local
+  return "http://localhost:3000";
+}
+
 export async function POST(req: Request) {
   try {
     const { sessionId } = await req.json();
+    const requestHeaders = await headers();
+    const baseUrl = getBaseUrl(requestHeaders);
 
     if (!sessionId) {
       return NextResponse.json({ error: "Session ID requis" }, { status: 400 });
@@ -34,8 +59,8 @@ export async function POST(req: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/resultats/${sessionId}?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/resultats/${sessionId}?canceled=true`,
+      success_url: `${baseUrl}/resultats/${sessionId}?success=true`,
+      cancel_url: `${baseUrl}/resultats/${sessionId}?canceled=true`,
       metadata: {
         sessionId: sessionId,
       },
