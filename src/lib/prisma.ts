@@ -11,7 +11,11 @@ const connectionString =
   process.env.DATABASE_URL ||
   "postgresql://postgres:postgres@localhost:5432/postgres";
 
-const pool = new pg.Pool({ connectionString });
+// Configure SSL for Supabase connections
+const pool = new pg.Pool({ 
+  connectionString,
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+});
 const adapter = new PrismaPg(pool);
 
 export const prisma =
