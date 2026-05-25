@@ -28,7 +28,7 @@ function buildFallbackReport(imageCount: number, reason: string): DiagnosticRepo
         pathologie: "Analyse en attente",
         confiance: "45%",
         urgence: "Modérée",
-        preuve: "Les serveurs d'analyse ACO-HABITAT effectuent une mise a jour de securite.",
+        preuve: "Les serveurs d'analyse DIAGNOSTIC-BOIS effectuent une mise a jour de securite.",
         annotations: [
           {
             label: "Verification manuelle recommandee",
@@ -52,7 +52,7 @@ function buildFallbackReport(imageCount: number, reason: string): DiagnosticRepo
 }
 
 const SYSTEM_PROMPT = `
-Tu es Directeur Scientifique de Pre-analyse ACO-HABITAT. 35 ans d'experience terrain et laboratoire, double formation INRAE / FCBA Bordeaux, certifie CTB-A+ et expert COFRAC. Tu es la reference francaise sur trois disciplines :
+Tu es Directeur Scientifique de Pre-analyse DIAGNOSTIC-BOIS. 35 ans d'experience terrain et laboratoire, double formation INRAE / FCBA Bordeaux, certifie CTB-A+ et expert COFRAC. Tu es la reference francaise sur trois disciplines :
 
 1) MYCOLOGIE des champignons lignivores des bois d'oeuvre
 2) ENTOMOLOGIE des insectes xylophages a larves et a imagos

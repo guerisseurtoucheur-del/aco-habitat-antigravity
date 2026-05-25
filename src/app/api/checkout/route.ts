@@ -50,7 +50,7 @@ export async function POST(req: Request) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Rapport d'expertise ACO-HABITAT`,
+              name: `Rapport d'expertise DIAGNOSTIC-BOIS`,
               description: `Audit complet et rapport PDF pour le dossier ${sessionId.slice(0, 8).toUpperCase()}`,
             },
             unit_amount: 5990, // 59.90 € en centimes

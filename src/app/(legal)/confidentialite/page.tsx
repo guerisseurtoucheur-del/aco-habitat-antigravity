@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — ACO-HABITAT",
+  title: "Politique de confidentialité — DIAGNOSTIC-BOIS",
   description:
-    "Politique de confidentialité ACO-HABITAT : données collectées, finalités, durées de conservation, sous-traitants, transferts hors UE, droits RGPD.",
+    "Politique de confidentialité DIAGNOSTIC-BOIS : données collectées, finalités, durées de conservation, sous-traitants, transferts hors UE, droits RGPD.",
 };
 
 const Placeholder = ({ children }: { children: React.ReactNode }) => (
@@ -21,7 +21,7 @@ export default function ConfidentialitePage() {
       </div>
 
       <p className={styles.lead}>
-        ACO-HABITAT attache une importance fondamentale à la protection des données
+        DIAGNOSTIC-BOIS attache une importance fondamentale à la protection des données
         personnelles. La présente politique décrit, en application du Règlement (UE)
         2016/679 du 27 avril 2016 (RGPD) et de la loi n° 78-17 du 6 janvier 1978
         modifiée «&nbsp;Informatique et Libertés&nbsp;», les conditions de collecte,
@@ -36,7 +36,7 @@ export default function ConfidentialitePage() {
             <tr>
               <td>Identité</td>
               <td>
-                ACO-HABITAT (service de Traitement-bois.fr) —{" "}
+                DIAGNOSTIC-BOIS (service de Traitement-bois.fr) —{" "}
                 <Placeholder>forme juridique À COMPLÉTER</Placeholder>
               </td>
             </tr>
@@ -80,7 +80,7 @@ export default function ConfidentialitePage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>2. Données personnelles collectées</h2>
         <p>
-          Dans le cadre de l&apos;utilisation du service, ACO-HABITAT collecte les
+          Dans le cadre de l&apos;utilisation du service, DIAGNOSTIC-BOIS collecte les
           catégories de données suivantes&nbsp;:
         </p>
         <table className={styles.dataTable}>
@@ -379,7 +379,7 @@ export default function ConfidentialitePage() {
           <span className={styles.calloutTitle}>Comment exercer vos droits&nbsp;?</span>
           Toute demande peut être adressée par email à{" "}
           <a href="mailto:aco.habitat@orange.fr">aco.habitat@orange.fr</a> ou par
-          courrier à ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon, France.
+          courrier à DIAGNOSTIC-BOIS — 18 rue Bernard Palissy, 61000 Alençon, France.
           Une réponse vous sera apportée dans un délai d&apos;un mois maximum à
           compter de la réception de la demande. Une copie de votre pièce d&apos;identité
           pourra vous être demandée en cas de doute raisonnable sur votre identité.
@@ -424,7 +424,7 @@ export default function ConfidentialitePage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>8. Sécurité des données</h2>
         <p>
-          ACO-HABITAT met en œuvre les mesures techniques et organisationnelles
+          DIAGNOSTIC-BOIS met en œuvre les mesures techniques et organisationnelles
           appropriées pour assurer un niveau de sécurité adapté au risque&nbsp;:
         </p>
         <ul>
@@ -445,7 +445,7 @@ export default function ConfidentialitePage() {
         </ul>
         <p>
           En cas de violation de données susceptible d&apos;engendrer un risque pour
-          vos droits et libertés, ACO-HABITAT vous notifiera dans un délai
+          vos droits et libertés, DIAGNOSTIC-BOIS vous notifiera dans un délai
           raisonnable conformément à l&apos;article 34 RGPD.
         </p>
       </section>

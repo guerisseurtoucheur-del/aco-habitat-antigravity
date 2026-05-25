@@ -207,7 +207,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
               </div>
-              <span className="text-sm font-bold uppercase tracking-widest text-white">ACO-HABITAT</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-white">DIAGNOSTIC-BOIS</span>
               <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-emerald-400 border border-slate-700">
                 Senior Specialist
               </span>
@@ -629,7 +629,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
               {isActuallyPaid ? (
                 <a
                   href={`/api/resultats/${sessionId}/pdf`}
-                  download={`Rapport_ACO-HABITAT_${reportRef}.pdf`}
+                  download={`Rapport_DIAGNOSTIC-BOIS_${reportRef}.pdf`}
                   className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 transition-all"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
@@ -673,13 +673,13 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                 </p>
               </div>
               <div className="grid divide-y divide-slate-100 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-                {/* Signature ACO-HABITAT */}
+                {/* Signature DIAGNOSTIC-BOIS */}
                 <div className="flex flex-col justify-between px-6 py-6">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
                       Établi par
                     </p>
-                    <p className="mt-2 text-sm font-bold text-slate-900">ACO-HABITAT</p>
+                    <p className="mt-2 text-sm font-bold text-slate-900">DIAGNOSTIC-BOIS</p>
                     <p className="text-xs text-slate-500">Directeur Technique Senior</p>
                     <p className="text-xs text-slate-500">Pré-analyse par imagerie IA</p>
                   </div>
@@ -730,7 +730,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
 
         <footer className="py-4 text-center">
           <p className="text-[10px] text-slate-400">
-            {reportRef} · Généré le {session ? formatDate(session.updatedAt) : "—"} · Document non opposable · ACO-HABITAT © {new Date().getFullYear()}
+            {reportRef} · Généré le {session ? formatDate(session.updatedAt) : "—"} · Document non opposable · DIAGNOSTIC-BOIS © {new Date().getFullYear()}
           </p>
         </footer>
 
