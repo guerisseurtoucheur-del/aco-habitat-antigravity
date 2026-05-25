@@ -379,6 +379,70 @@
   line-height: 1.3;
 }
 
+/* ── Slot buttons (camera / gallery) ─────── */
+.slotButtons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.slotBtnCamera,
+.slotBtnGallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1.5px solid;
+}
+
+.slotBtnCamera {
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+  border-color: #0066ff;
+  color: #fff;
+}
+
+.slotBtnCamera:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+.slotBtnCamera svg {
+  width: 18px;
+  height: 18px;
+}
+
+.slotBtnGallery {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.slotBtnGallery:hover:not(:disabled) {
+  border-color: #0066ff;
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.04);
+  transform: translateY(-1px);
+}
+
+.slotBtnGallery svg {
+  width: 18px;
+  height: 18px;
+}
+
+.slotBtnCamera:disabled,
+.slotBtnGallery:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* ── Filled slot ─────────────────────────── */
 .preview {
   position: absolute;
