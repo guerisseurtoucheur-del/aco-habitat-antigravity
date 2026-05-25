@@ -42,6 +42,14 @@ const IconCamera = () => (
   </svg>
 );
 
+const IconGallery = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <polyline points="21 15 16 10 5 21" />
+  </svg>
+);
+
 const IconCheck = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
     <polyline points="20 6 9 17 4 12" />
@@ -82,6 +90,7 @@ export function DiagnosticUpload() {
   const [acknowledgedNonOpposable, setAcknowledgedNonOpposable] = useState(false);
   const [draggingSlot, setDraggingSlot] = useState<number | null>(null);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const cameraInputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const pollingIntervalRef = useRef<number | null>(null);
   const redirectTimeoutRef = useRef<number | null>(null);
   const addressTimeoutRef = useRef<number | null>(null);
@@ -521,14 +530,31 @@ export function DiagnosticUpload() {
                   </div>
                 </div>
               ) : (
-                /* Empty state */
+                /* Empty state with camera and gallery buttons */
                 <div className={styles.slotEmpty}>
-                  <div className={styles.slotIcon}>
-                    <IconCamera />
-                  </div>
                   <span className={styles.slotNumber}>Vue {index + 1}</span>
                   <span className={styles.slotLabel}>{slot.label}</span>
                   <span className={styles.slotHint}>{slot.hint}</span>
+                  <div className={styles.slotButtons}>
+                    <button
+                      type="button"
+                      className={styles.slotBtnCamera}
+                      onClick={(e) => { e.stopPropagation(); cameraInputRefs.current[index]?.click(); }}
+                      disabled={isBusy}
+                    >
+                      <IconCamera />
+                      <span>Prendre</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.slotBtnGallery}
+                      onClick={(e) => { e.stopPropagation(); inputRefs.current[index]?.click(); }}
+                      disabled={isBusy}
+                    >
+                      <IconGallery />
+                      <span>Galerie</span>
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -542,10 +568,18 @@ export function DiagnosticUpload() {
                 ref={(el) => { inputRefs.current[index] = el; }}
                 type="file"
                 accept="image/*"
+                className={styles.hiddenInput}
+                onChange={(e) => handleFileSelected(index, e)}
+                aria-label={`Sélectionner photo ${index + 1} depuis galerie`}
+              />
+              <input
+                ref={(el) => { cameraInputRefs.current[index] = el; }}
+                type="file"
+                accept="image/*"
                 capture="environment"
                 className={styles.hiddenInput}
                 onChange={(e) => handleFileSelected(index, e)}
-                aria-label={`Sélectionner photo ${index + 1}`}
+                aria-label={`Prendre photo ${index + 1} avec appareil`}
               />
             </div>
           );
