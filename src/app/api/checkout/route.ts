@@ -53,7 +53,7 @@ export async function POST(req: Request) {
               name: `Rapport d'expertise ACO-HABITAT`,
               description: `Audit complet et rapport PDF pour le dossier ${sessionId.slice(0, 8).toUpperCase()}`,
             },
-            unit_amount: 4900, // 49.00 € en centimes
+            unit_amount: 5990, // 59.90 € en centimes
           },
           quantity: 1,
         },
