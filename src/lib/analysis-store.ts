@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@prisma/client";
 import {
@@ -65,16 +66,16 @@ export async function createAnalysisSession(
     },
   });
 
-  // 2. Lancer l'analyse en arrière-plan
-  // Note: On utilise un IIFE async pour ne pas bloquer le retour de la réponse
-  void (async () => {
+  // 2. Lancer l'analyse en arriere-plan via after() pour garantir
+  // l'execution post-reponse meme en serverless (Vercel).
+  after(async () => {
     try {
+      console.info(`[analyse] Starting Claude analysis for session ${sessionId}`);
       await prisma.diagnosticSession.update({
         where: { id: sessionId },
         data: { status: "processing" },
       });
 
-      // Récupérer les images (elles sont déjà dans le scope de la fonction parente)
       const result = await runClaudeDiagnostic(images);
 
       await prisma.diagnosticSession.update({
@@ -84,25 +85,44 @@ export async function createAnalysisSession(
           result: result as Prisma.InputJsonValue,
         },
       });
+      console.info(`[analyse] Claude analysis completed for session ${sessionId}`);
 
-      // Envoyer l'email au propriétaire du site
+      // Envoyer l'email au proprietaire du site
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
       const reportUrl = `${baseUrl}/resultats/${sessionId}`;
-      await sendLeadEmail(session, reportUrl);
+      try {
+        await sendLeadEmail(session, reportUrl);
+      } catch (mailError) {
+        const mailMessage =
+          mailError instanceof Error ? mailError.message : "Erreur mail inconnue.";
+        console.error(`[analyse] Email send failed for ${sessionId}:`, mailMessage);
+      }
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Erreur inconnue lors de l'analyse.";
-      console.error(`[analyse] Claude diagnostic failed for session ${sessionId}:`, message);
-      
-      await prisma.diagnosticSession.update({
-        where: { id: sessionId },
-        data: {
-          status: "failed",
-          error: message,
-        },
-      });
+      const stack = error instanceof Error ? error.stack : undefined;
+      console.error(
+        `[analyse] Claude diagnostic failed for session ${sessionId}:`,
+        message,
+        stack,
+      );
+
+      try {
+        await prisma.diagnosticSession.update({
+          where: { id: sessionId },
+          data: {
+            status: "failed",
+            error: message,
+          },
+        });
+      } catch (dbError) {
+        console.error(
+          `[analyse] Failed to mark session ${sessionId} as failed:`,
+          dbError instanceof Error ? dbError.message : dbError,
+        );
+      }
     }
-  })();
+  });
 
   return {
     sessionId: session.id,

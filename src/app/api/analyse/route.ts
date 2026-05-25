@@ -9,6 +9,7 @@ import {
 import { createAnalysisSession } from "@/lib/analysis-store";
 
 export const runtime = "nodejs";
+export const maxDuration = 300;
 
 function extractClientIp(request: Request): string | null {
   const forwarded = request.headers.get("x-forwarded-for");
