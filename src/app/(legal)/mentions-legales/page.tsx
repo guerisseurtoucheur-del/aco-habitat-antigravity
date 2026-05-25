@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — ACO-HABITAT",
+  title: "Mentions légales — DIAGNOSTIC-BOIS",
   description:
-    "Mentions légales du service ACO-HABITAT : éditeur, hébergeur, propriété intellectuelle, contact.",
+    "Mentions légales du service DIAGNOSTIC-BOIS : éditeur, hébergeur, propriété intellectuelle, contact.",
 };
 
 const Placeholder = ({ children }: { children: React.ReactNode }) => (
@@ -23,7 +23,7 @@ export default function MentionsLegalesPage() {
       <p className={styles.lead}>
         Conformément aux dispositions de l&apos;article 6-III de la loi n° 2004-575 du
         21 juin 2004 pour la confiance dans l&apos;économie numérique (LCEN), il est
-        précisé aux utilisateurs du site <strong>ACO-HABITAT</strong> l&apos;identité
+        précisé aux utilisateurs du site <strong>DIAGNOSTIC-BOIS</strong> l&apos;identité
         des différents intervenants dans le cadre de sa réalisation et de son suivi.
       </p>
 
@@ -40,7 +40,7 @@ export default function MentionsLegalesPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>1. Éditeur du site</h2>
         <p>
-          Le service <strong>ACO-HABITAT</strong> est édité dans le cadre de
+          Le service <strong>DIAGNOSTIC-BOIS</strong> est édité dans le cadre de
           l&apos;activité de <strong>Traitement-bois.fr</strong>, spécialiste du
           traitement du bois et de l&apos;humidité depuis 2006.
         </p>
@@ -48,7 +48,7 @@ export default function MentionsLegalesPage() {
           <tbody>
             <tr>
               <td>Nom commercial</td>
-              <td>ACO-HABITAT (service de Traitement-bois.fr)</td>
+              <td>DIAGNOSTIC-BOIS (service de Traitement-bois.fr)</td>
             </tr>
             <tr>
               <td>Forme juridique</td>
@@ -110,7 +110,7 @@ export default function MentionsLegalesPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>2. Hébergement</h2>
         <p>
-          Le site <strong>ACO-HABITAT</strong> est hébergé par :
+          Le site <strong>DIAGNOSTIC-BOIS</strong> est hébergé par :
         </p>
         <table className={styles.dataTable}>
           <tbody>
@@ -149,7 +149,7 @@ export default function MentionsLegalesPage() {
           en page, logos, photographies, illustrations, signes distinctifs, marques,
           noms de domaine, code source, base de données, modèles d&apos;intelligence
           artificielle utilisés et rapports générés) est la propriété exclusive
-          d&apos;ACO-HABITAT ou de ses partenaires et est protégé par le Code de la
+          d&apos;DIAGNOSTIC-BOIS ou de ses partenaires et est protégé par le Code de la
           propriété intellectuelle.
         </p>
         <p>
@@ -161,7 +161,7 @@ export default function MentionsLegalesPage() {
         </p>
         <p>
           Les marques et logos figurant sur le site sont des marques déposées
-          d&apos;ACO-HABITAT ou de ses partenaires. Toute utilisation non autorisée
+          d&apos;DIAGNOSTIC-BOIS ou de ses partenaires. Toute utilisation non autorisée
           de ces marques constitue une contrefaçon engageant la responsabilité de son
           auteur.
         </p>
@@ -170,7 +170,7 @@ export default function MentionsLegalesPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>4. Crédits et technologies</h2>
         <p>
-          Le service ACO-HABITAT s&apos;appuie sur les technologies suivantes :
+          Le service DIAGNOSTIC-BOIS s&apos;appuie sur les technologies suivantes :
         </p>
         <ul>
           <li>
@@ -204,7 +204,7 @@ export default function MentionsLegalesPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>5. Limitation de responsabilité</h2>
         <p>
-          Le site et son contenu sont proposés à titre informatif. ACO-HABITAT
+          Le site et son contenu sont proposés à titre informatif. DIAGNOSTIC-BOIS
           s&apos;efforce d&apos;assurer au mieux de ses possibilités l&apos;exactitude
           et la mise à jour des informations diffusées, mais ne peut garantir
           l&apos;exhaustivité, la précision ou l&apos;exhaustive actualité des
@@ -215,7 +215,7 @@ export default function MentionsLegalesPage() {
           <strong>n&apos;ont pas valeur de diagnostic immobilier réglementé</strong>{" "}
           au sens du Code de la construction et de l&apos;habitation et ne se
           substituent en aucun cas à l&apos;avis d&apos;un spécialiste certifié
-          intervenant sur place. ACO-HABITAT décline toute responsabilité quant à
+          intervenant sur place. DIAGNOSTIC-BOIS décline toute responsabilité quant à
           l&apos;usage qui pourrait être fait de ces rapports dans le cadre
           d&apos;une transaction immobilière, d&apos;un sinistre ou d&apos;un
           contentieux.

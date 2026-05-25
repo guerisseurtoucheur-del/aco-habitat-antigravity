@@ -12,8 +12,8 @@ export default function HomePage() {
       <header className={styles.header}>
         <div className="container">
           <div className={styles.logo}>
-            <img src="/logo.png" alt="ACO-HABITAT Logo" className={styles.logoImg} />
-            <span className={styles.logoText}>ACO-HABITAT</span>
+            <img src="/logo.png" alt="DIAGNOSTIC-BOIS Logo" className={styles.logoImg} />
+            <span className={styles.logoText}>DIAGNOSTIC-BOIS</span>
           </div>
         </div>
       </header>
@@ -139,9 +139,9 @@ export default function HomePage() {
             <Link href="/cookies" className={styles.legalLink}>Cookies</Link>
           </nav>
           <p className={styles.footerIdentity}>
-            ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
+            DIAGNOSTIC-BOIS — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
           </p>
-          <p>© 2026 ACO-HABITAT — Service de pré-analyse par image · Spécialiste depuis 2006</p>
+          <p>© 2026 DIAGNOSTIC-BOIS — Service de pré-analyse par image · Spécialiste depuis 2006</p>
           <p className="text-xs">Rapport informatif et non opposable, pour vous aider à prendre les bonnes décisions. Ne se substitue pas à un diagnostic immobilier réglementé (au sens du Code de la construction et de l&apos;habitation), qui doit être réalisé par un spécialiste certifié.</p>
         </div>
       </footer>

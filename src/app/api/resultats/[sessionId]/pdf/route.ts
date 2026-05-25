@@ -45,7 +45,7 @@ export async function GET(
   try {
     const pdfBuffer = await generateDiagnosticPdfBuffer(session, parsed.data);
     const ref = sessionId.slice(0, 12).toUpperCase();
-    const filename = `Rapport_ACO-HABITAT_${ref}.pdf`;
+    const filename = `Rapport_DIAGNOSTIC-BOIS_${ref}.pdf`;
 
     return new Response(new Uint8Array(pdfBuffer), {
       status: 200,

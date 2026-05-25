@@ -15,7 +15,7 @@ export default async function ResultatsPage({ searchParams }: ResultatsPageProps
       <header className={styles.header}>
         <div className="container">
           <div className={styles.headerInner}>
-            <span className={styles.logoText}>ACO-HABITAT</span>
+            <span className={styles.logoText}>DIAGNOSTIC-BOIS</span>
             <span className={styles.statusBadge}>ANALYSE TERMINÉE</span>
           </div>
         </div>

@@ -174,7 +174,7 @@ export function LandingProductDemo() {
           >
             <div className={styles.phone} aria-hidden={false}>
               <div className={styles.phoneInner}>
-                <div className={styles.phoneBar}>ACO-HABITAT</div>
+                <div className={styles.phoneBar}>DIAGNOSTIC-BOIS</div>
                 <div className={styles.phoneScreen}>
                   {step.key === "photo" ? (
                     <div className={styles.photoBgWrap}>
@@ -278,7 +278,7 @@ export function LandingProductDemo() {
                           <div className={styles.pdfSheet}>
                             <span className={styles.pdfRibbon}>PDF</span>
                             <div className={styles.pdfSheetHeader}>
-                              <span className={styles.pdfBrand}>ACO-HABITAT</span>
+                              <span className={styles.pdfBrand}>DIAGNOSTIC-BOIS</span>
                               <span className={styles.pdfDocTitle}>Pré-analyse technique</span>
                             </div>
                             <p className={styles.pdfHorodate}>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
-  title: "Politique cookies — ACO-HABITAT",
+  title: "Politique cookies — DIAGNOSTIC-BOIS",
   description:
-    "Politique relative aux cookies et traceurs utilisés par ACO-HABITAT : cookies fonctionnels, sécurité, absence de tracking publicitaire.",
+    "Politique relative aux cookies et traceurs utilisés par DIAGNOSTIC-BOIS : cookies fonctionnels, sécurité, absence de tracking publicitaire.",
 };
 
 export default function CookiesPage() {
@@ -18,7 +18,7 @@ export default function CookiesPage() {
 
       <p className={styles.lead}>
         La présente politique décrit l&apos;usage que nous faisons des cookies et
-        autres traceurs sur le site <strong>ACO-HABITAT</strong>, conformément à
+        autres traceurs sur le site <strong>DIAGNOSTIC-BOIS</strong>, conformément à
         l&apos;article 82 de la loi Informatique et Libertés et aux lignes
         directrices et recommandations de la CNIL relatives aux cookies et autres
         traceurs.
@@ -37,12 +37,12 @@ export default function CookiesPage() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>2. Approche d&apos;ACO-HABITAT</h2>
+        <h2 className={styles.sectionTitle}>2. Approche d&apos;DIAGNOSTIC-BOIS</h2>
         <div className={styles.callout}>
           <span className={styles.calloutTitle}>
             Pas de pistage publicitaire ni d&apos;analytics tiers
           </span>
-          ACO-HABITAT n&apos;utilise <strong>aucun cookie publicitaire</strong>,{" "}
+          DIAGNOSTIC-BOIS n&apos;utilise <strong>aucun cookie publicitaire</strong>,{" "}
           <strong>aucun cookie de mesure d&apos;audience tiers</strong> (Google
           Analytics, Meta Pixel, etc.) et <strong>aucun traceur de réseaux
           sociaux</strong>. Aucun cookie nécessitant votre consentement n&apos;est
@@ -198,7 +198,7 @@ export default function CookiesPage() {
           6. Évolution future de la politique cookies
         </h2>
         <p>
-          Si ACO-HABITAT décide à l&apos;avenir de mettre en place des outils de
+          Si DIAGNOSTIC-BOIS décide à l&apos;avenir de mettre en place des outils de
           mesure d&apos;audience ou de marketing nécessitant un consentement
           (notamment audience non exemptée par la CNIL), un{" "}
           <strong>bandeau de consentement explicite</strong> sera déployé,

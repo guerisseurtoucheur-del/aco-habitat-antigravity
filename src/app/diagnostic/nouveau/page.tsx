@@ -266,7 +266,7 @@ export default function NouveauDiagnosticPage() {
       <div className="mx-auto max-w-5xl px-4">
         <header className="mb-8 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            ACO-HABITAT - Saisie Forensique
+            DIAGNOSTIC-BOIS - Saisie Forensique
           </p>
           <h1 className="mt-2 text-3xl font-bold text-slate-900">
             Nouveau dossier de pré-analyse pathologique

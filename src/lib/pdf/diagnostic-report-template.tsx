@@ -423,7 +423,7 @@ const RICH_FALLBACK_PRECONISATIONS: string[] = [
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. ACO-HABITAT décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -534,7 +534,7 @@ const PageFooter = ({
   <View fixed style={styles.footer}>
     <View style={{ flex: 1 }}>
       <Text style={{ fontSize: 7 }}>
-        Rapport d&apos;aide à la pré-analyse Haute Précision — ACO-HABITAT — Document non opposable
+        Rapport d&apos;aide à la pré-analyse Haute Précision — DIAGNOSTIC-BOIS — Document non opposable
       </Text>
       <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
         Horodaté le {generatedAtLabel} - Empreinte {fingerprintShort}
@@ -648,11 +648,11 @@ export const DiagnosticReportPdf = ({
   };
 
   return (
-    <Document title={`Rapport ACO-HABITAT ${refId}`}>
+    <Document title={`Rapport DIAGNOSTIC-BOIS ${refId}`}>
       {/* PAGE 1: COVER */}
       <Page size="A4" style={styles.page}>
         <View style={styles.cover}>
-          <View style={styles.coverBadge}><Text style={styles.coverBadgeText}>RAPPORT D&apos;INSPECTION PAR IMAGE — ACO-HABITAT</Text></View>
+          <View style={styles.coverBadge}><Text style={styles.coverBadgeText}>RAPPORT D&apos;INSPECTION PAR IMAGE — DIAGNOSTIC-BOIS</Text></View>
           <Text style={styles.h1}>PRÉ-ANALYSE TECHNIQUE</Text>
           <View style={styles.coverLine} />
           <Text style={{ color: "#0f172a", fontSize: 16, letterSpacing: 1, fontWeight: "bold" }}>PATHOLOGIES DES BOIS ET HUMIDITÉ</Text>
@@ -777,7 +777,7 @@ export const DiagnosticReportPdf = ({
               Il <Text style={{ fontWeight: "bold" }}>ne se substitue pas</Text> à un état parasitaire, un diagnostic termites réglementé (article L.133-1 du CCH) ou tout autre diagnostic immobilier réglementé, qui doivent être réalisés par un spécialiste certifié COFRAC, assuré en responsabilité civile professionnelle, après inspection physique du bien.
             </Text>
             <Text style={[styles.disclaimerText, { marginTop: 6 }]}>
-              ACO-HABITAT décline toute responsabilité quant à l&apos;usage de ce document dans le cadre d&apos;une transaction immobilière, d&apos;un litige ou d&apos;une décision technique. Une vérification terrain par un spécialiste qualifié est <Text style={{ fontWeight: "bold" }}>impérative</Text> avant toute action corrective.
+              DIAGNOSTIC-BOIS décline toute responsabilité quant à l&apos;usage de ce document dans le cadre d&apos;une transaction immobilière, d&apos;un litige ou d&apos;une décision technique. Une vérification terrain par un spécialiste qualifié est <Text style={{ fontWeight: "bold" }}>impérative</Text> avant toute action corrective.
             </Text>
           </View>
 
@@ -790,7 +790,7 @@ export const DiagnosticReportPdf = ({
               <Text style={styles.signatureLine}>Signature numérique ou manuscrite</Text>
             </View>
             <View style={styles.signatureBox}>
-              <Text style={styles.signatureTitle}>ACO-HABITAT</Text>
+              <Text style={styles.signatureTitle}>DIAGNOSTIC-BOIS</Text>
               <Text style={styles.signatureSub}>Direction technique — Analyse Haute Précision</Text>
               <Text style={{ fontSize: 9, color: "#10b981", marginBottom: 10, fontWeight: "bold" }}>SENIOR SPECIALIST</Text>
               <Text style={styles.signatureLine}>Document généré automatiquement</Text>

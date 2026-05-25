@@ -9,7 +9,7 @@ export default function SuccesPage() {
       <header className={styles.header}>
         <div className="container">
           <div className={styles.headerInner}>
-            <span className={styles.logoText}>ACO-HABITAT</span>
+            <span className={styles.logoText}>DIAGNOSTIC-BOIS</span>
           </div>
         </div>
       </header>
@@ -27,7 +27,7 @@ export default function SuccesPage() {
             <div className={styles.docBox}>
               <div className={styles.docIcon}>📄</div>
               <div className={styles.docInfo}>
-                <div className={styles.docName}>Rapport_ACO-HABITAT.pdf</div>
+                <div className={styles.docName}>Rapport_DIAGNOSTIC-BOIS.pdf</div>
                 <div className={styles.docMeta}>Document horodaté et signé cryptographiquement</div>
               </div>
             </div>
@@ -70,7 +70,7 @@ export default function SuccesPage() {
             <span className={styles.legalSep} aria-hidden="true">·</span>
             <Link href="/cookies" className={styles.legalLink}>Cookies</Link>
           </nav>
-          <p>© 2026 ACO-HABITAT — Inspection par image</p>
+          <p>© 2026 DIAGNOSTIC-BOIS — Inspection par image</p>
         </div>
       </footer>
     </div>

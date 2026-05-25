@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import styles from "./legal.module.css";
 
 export const metadata: Metadata = {
-  title: "Informations légales — ACO-HABITAT",
+  title: "Informations légales — DIAGNOSTIC-BOIS",
   description:
-    "Mentions légales, conditions générales de vente, politique de confidentialité et cookies du service de pré-analyse par image ACO-HABITAT.",
+    "Mentions légales, conditions générales de vente, politique de confidentialité et cookies du service de pré-analyse par image DIAGNOSTIC-BOIS.",
   robots: { index: true, follow: true },
 };
 
@@ -26,7 +26,7 @@ export default function LegalLayout({
       <header className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.headerInner}>
-            <span className={styles.brand}>ACO-HABITAT</span>
+            <span className={styles.brand}>DIAGNOSTIC-BOIS</span>
             <Link href="/" className={styles.backLink}>
               ← Retour à l&apos;accueil
             </Link>
@@ -52,7 +52,7 @@ export default function LegalLayout({
               </Link>
             </nav>
             <p className={styles.footerCopy}>
-              © 2026 ACO-HABITAT — Service de pré-analyse par image
+              © 2026 DIAGNOSTIC-BOIS — Service de pré-analyse par image
             </p>
           </div>
         </div>
