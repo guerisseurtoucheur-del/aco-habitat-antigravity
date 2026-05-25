@@ -286,7 +286,8 @@ async function discoverModel(anthropic: Anthropic): Promise<string | null> {
 
 export async function runClaudeDiagnostic(images: ImageInput[]): Promise<DiagnosticReport> {
   try {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    // Support both ANTHROPIC_API_KEY and anthropic_api_key (case-insensitive)
+    const apiKey = process.env.ANTHROPIC_API_KEY || process.env.anthropic_api_key;
     if (!apiKey) {
       console.warn("[analyse] ANTHROPIC_API_KEY manquante, utilisation du mode secours.");
       return buildFallbackReport(images.length, "cle API manquante");
