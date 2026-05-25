@@ -95,13 +95,69 @@ function redactPathologyForTeaser(pathologie: string): string {
   return "Pathologie identifiee - details masques";
 }
 
+// Liste exhaustive des noms latins binomiaux et noms communs a masquer dans tout texte libre.
+// On remplace par un placeholder generique pour conserver le sens sans reveler l'identification.
+const SPECIES_REDACTION_RULES: Array<{ pattern: RegExp; replacement: string }> = [
+  // ── Champignons lignivores : noms latins binomiaux ─────────────
+  { pattern: /\bSerpula\s+lacrymans\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bConiophora\s+puteana\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bPoria\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bFibroporia\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bAntrodia\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bGloeophyllum\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bDaedalea\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bLentinus\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bPhellinus\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bChaetomium\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  // ── Champignons : noms communs francais ────────────────────────
+  { pattern: /\bm[ée]rule(?:\s+pleureuse)?\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bconiophore(?:\s+des\s+caves)?\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bpolypore(?:\s+\w+)?\b/gi, replacement: "[espece champignon masquee]" },
+  // ── Insectes xylophages : noms latins binomiaux ────────────────
+  { pattern: /\bHylotrupes\s+bajulus\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bAnobium\s+punctatum\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bXestobium\s+rufovillosum\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bLyctus\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bReticulitermes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bKalotermes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bSirex\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bUrocerus\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bHesperophanes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  // ── Insectes : noms communs francais ───────────────────────────
+  { pattern: /\bcapricorne(?:\s+des\s+maisons)?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bvrillette(?:\s+\w+)?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\btermites?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\blyctus?\b/gi, replacement: "[espece insecte masquee]" },
+  // ── References techniques precises a masquer (DTU, NF, articles) ─
+  { pattern: /\bDTU\s*\d+[-.\d]*\b/gi, replacement: "[reference technique masquee]" },
+  { pattern: /\bNF\s*[A-Z]\s*\d+[-.\d]*\b/gi, replacement: "[reference technique masquee]" },
+  { pattern: /\bprotocole\s+NF\s*[A-Z]?\s*\d+[-.\d]*\b/gi, replacement: "[protocole masque]" },
+  { pattern: /\barticle\s+L?\.?\s*\d+[-.\d]*(?:\s+du\s+code\s+\w+)?/gi, replacement: "[reference juridique masquee]" },
+  { pattern: /\bloi\s+du\s+\d+\s+\w+\s+\d{4}\b/gi, replacement: "[reference juridique masquee]" },
+  // ── Pourcentages de confiance precis ───────────────────────────
+  { pattern: /\b(?:de\s+)?\d{2,3}\s*(?:pour\s*cent|pourcent|%)\b/gi, replacement: "[niveau masque]" },
+];
+
+// Masque les noms d'especes et references techniques dans n'importe quel texte libre.
+// Utilise pour le diagnostic global, la conclusion juridique, l'observation visuelle, etc.
+function redactTextForTeaser(text: string): string {
+  if (!text) return "";
+  let redacted = text;
+  for (const rule of SPECIES_REDACTION_RULES) {
+    redacted = redacted.replace(rule.pattern, rule.replacement);
+  }
+  return redacted;
+}
+
 // Tronque le diagnostic global pour ne garder que les 2 premieres phrases
 // (juste assez pour faire peur, pas assez pour le client se passe du paiement).
+// Applique aussi le masquage des especes pour eviter toute fuite.
 function truncateForTeaser(text: string, sentences: number = 2): string {
   if (!text) return "";
+  const redacted = redactTextForTeaser(text);
   const sentenceRegex = /[^.!?]+[.!?]+/g;
-  const matches = text.match(sentenceRegex);
-  if (!matches || matches.length <= sentences) return text;
+  const matches = redacted.match(sentenceRegex);
+  if (!matches || matches.length <= sentences) return redacted;
   return matches.slice(0, sentences).join(" ").trim() + " […]";
 }
 
@@ -419,7 +475,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           </span>
                         </td>
                         <td className={`px-4 py-3 text-xs leading-5 text-slate-500 ${!isActuallyPaid ? "blur-[3px] select-none pointer-events-none" : ""}`}>
-                          {analysis.preuve}
+                          {isActuallyPaid ? analysis.preuve : redactTextForTeaser(analysis.preuve)}
                         </td>
                       </tr>
                     ))}
@@ -553,7 +609,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
               </div>
             </section>
 
-            {/* ── CONCLUSION JURIDIQUE ────────────────────────────── */}
+            {/* ── CONCLUSION JURIDIQUE ──────────���─────────────────── */}
             <section className="rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 shadow-sm">
               <div className="mb-3 flex items-center gap-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 flex-shrink-0 text-amber-600">
@@ -561,7 +617,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                 </svg>
                 <h2 className="text-sm font-bold text-amber-800">Cadre réglementaire et limites du rapport</h2>
               </div>
-              <p className="text-xs leading-6 text-amber-900">{report.conclusion_juridique}</p>
+              <p className="text-xs leading-6 text-amber-900">{isActuallyPaid ? report.conclusion_juridique : redactTextForTeaser(report.conclusion_juridique)}</p>
             </section>
           </>
         )}
