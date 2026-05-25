@@ -25,6 +25,86 @@ function formatRef(sessionId: string): string {
   return `ACO-${sessionId.slice(0, 8).toUpperCase()}`;
 }
 
+// Mode teaser : on cache l'espece precise (Serpula lacrymans, Hylotrupes bajulus...)
+// et on n'affiche que la famille generique pour faire peur sans tout reveler.
+// Le client doit payer 49 euros pour acceder au binome nomenclatural complet.
+function redactPathologyForTeaser(pathologie: string): string {
+  const lower = pathologie.toLowerCase();
+  // Champignons lignivores
+  if (
+    lower.includes("serpula") ||
+    lower.includes("merul") ||
+    lower.includes("mérul") ||
+    lower.includes("coniophora") ||
+    lower.includes("coniophore") ||
+    lower.includes("poria") ||
+    lower.includes("fibroporia") ||
+    lower.includes("polypore") ||
+    lower.includes("lentinus") ||
+    lower.includes("lentin") ||
+    lower.includes("phellinus") ||
+    lower.includes("daedalea") ||
+    lower.includes("chaetomium") ||
+    lower.includes("champignon") ||
+    lower.includes("pourriture") ||
+    lower.includes("mycelium") ||
+    lower.includes("lignivore")
+  ) {
+    return "Champignon lignivore identifie - espece masquee";
+  }
+  // Insectes xylophages
+  if (
+    lower.includes("hylotrupes") ||
+    lower.includes("capricorne") ||
+    lower.includes("anobium") ||
+    lower.includes("vrillette") ||
+    lower.includes("xestobium") ||
+    lower.includes("lyctus") ||
+    lower.includes("reticulitermes") ||
+    lower.includes("termite") ||
+    lower.includes("kalotermes") ||
+    lower.includes("sirex") ||
+    lower.includes("urocerus") ||
+    lower.includes("cerambyc") ||
+    lower.includes("xylophage") ||
+    lower.includes("hesperophanes")
+  ) {
+    return "Insecte xylophage identifie - espece masquee";
+  }
+  // Pathologies hygrometriques
+  if (
+    lower.includes("capillair") ||
+    lower.includes("infiltration") ||
+    lower.includes("condensation") ||
+    lower.includes("ventilation") ||
+    lower.includes("pont thermique") ||
+    lower.includes("humidite") ||
+    lower.includes("humidité") ||
+    lower.includes("moisissure")
+  ) {
+    return "Pathologie hygrometrique identifiee - origine masquee";
+  }
+  // Cas par defaut : aucune pathologie reelle nommee
+  if (
+    lower.includes("attente") ||
+    lower.includes("aucune") ||
+    lower.length < 8
+  ) {
+    return pathologie;
+  }
+  return "Pathologie identifiee - details masques";
+}
+
+// Tronque le diagnostic global pour ne garder que les 2 premieres phrases
+// (juste assez pour faire peur, pas assez pour le client se passe du paiement).
+function truncateForTeaser(text: string, sentences: number = 2): string {
+  if (!text) return "";
+  const sentenceRegex = /[^.!?]+[.!?]+/g;
+  const matches = text.match(sentenceRegex);
+  if (!matches || matches.length <= sentences) return text;
+  return matches.slice(0, sentences).join(" ").trim() + " […]";
+}
+
 export default async function DiagnosticDashboardPage({ params, searchParams }: ResultPageProps) {
   const { sessionId } = await params;
   const { success } = await searchParams;
@@ -251,7 +331,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   <div className="h-5 w-1 rounded-full bg-emerald-500" />
                   <h2 className="text-base font-bold text-slate-900">Synthèse de l&apos;analyse</h2>
                 </div>
-                <p className="text-sm leading-7 text-slate-600">{report.diagnostic_global}</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  {isActuallyPaid ? report.diagnostic_global : truncateForTeaser(report.diagnostic_global, 2)}
+                </p>
                 {!isActuallyPaid && (
                   <div className="mt-4 rounded-xl bg-amber-50 border border-amber-100 p-4">
                     <p className="text-xs font-semibold text-amber-800 flex items-center gap-2">
@@ -277,7 +359,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                         <div className="min-w-0">
                           <p className="text-xs font-bold leading-snug">{analysis.urgence}</p>
                           <p className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{analysis.zone}</p>
-                          <p className="mt-0.5 text-[10px] text-slate-500">{analysis.pathologie}</p>
+                          <p className="mt-0.5 text-[10px] text-slate-500">
+                            {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
+                          </p>
                           <p className="mt-0.5 text-[10px] text-slate-400">Confiance {analysis.confiance}</p>
                         </div>
                       </div>
@@ -324,7 +408,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                     {report.analyses.map((analysis, idx) => (
                       <tr key={`${analysis.zone}-${idx}`} className="hover:bg-slate-50">
                         <td className="px-4 py-3 font-medium text-slate-900">{analysis.zone}</td>
-                        <td className="px-4 py-3 text-slate-700">{analysis.pathologie}</td>
+                        <td className="px-4 py-3 text-slate-700">
+                          {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
+                        </td>
                         <td className="px-4 py-3 text-slate-700">{analysis.confiance}</td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${urgenceColor(analysis.urgence)}`}>
@@ -404,7 +490,8 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           <div className="mt-1 space-y-0.5">
                             {matchingAnalyses.map((analysis, aIdx) => (
                               <p key={aIdx} className="text-xs text-slate-500">
-                                <span className="font-semibold text-slate-700">{aIdx + 1}.</span> {analysis.pathologie}
+                                <span className="font-semibold text-slate-700">{aIdx + 1}.</span>{" "}
+                                {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
                               </p>
                             ))}
                             {matchingAnalyses.length === 0 && (
