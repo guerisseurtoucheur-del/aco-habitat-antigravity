@@ -114,7 +114,7 @@ export default function VrillettesPage() {
             <p className={styles.ctaBoxText}>
               Envoyez des photos et notre IA determine s&apos;il s&apos;agit de vrillettes ou d&apos;un autre insecte xylophage.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Analyser mes photos
             </Link>
           </div>

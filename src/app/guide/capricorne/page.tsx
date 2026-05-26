@@ -171,7 +171,7 @@ export default function CapricornePage() {
               Envoyez des photos de votre charpente ou des degats constates. Notre IA analyse les indices 
               et vous oriente vers les bonnes solutions.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Analyser mes photos
             </Link>
           </div>

@@ -63,7 +63,7 @@ export default function BretagnePage() {
             <p className={styles.ctaBoxText}>
               Envoyez vos photos pour une pre-analyse adaptee aux pathologies locales.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

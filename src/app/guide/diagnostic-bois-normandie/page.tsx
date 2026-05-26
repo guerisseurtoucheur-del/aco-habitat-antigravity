@@ -122,7 +122,7 @@ export default function NormandiePage() {
               Envoyez vos photos et recevez une pre-analyse adaptee aux pathologies locales. 
               Resultat en quelques minutes.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

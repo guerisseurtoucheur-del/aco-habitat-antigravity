@@ -213,7 +213,7 @@ export default function MerulePage() {
               Envoyez vos photos et recevez un pre-diagnostic par IA en quelques minutes. 
               Notre analyse vous indiquera si une intervention d&apos;expert est necessaire.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Analyser mes photos maintenant
             </Link>
           </div>

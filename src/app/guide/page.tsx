@@ -146,7 +146,7 @@ export default function GuidePage() {
             <p className={styles.ctaBoxText}>
               Envoyez vos photos et recevez un pre-diagnostic par IA en quelques minutes.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer une analyse gratuite
             </Link>
           </div>

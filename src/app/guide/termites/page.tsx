@@ -141,7 +141,7 @@ export default function TermitesPage() {
               Envoyez des photos des indices constates. Notre analyse IA vous aide a determiner s&apos;il 
               s&apos;agit bien de termites et quelle action entreprendre.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Analyser mes photos
             </Link>
           </div>

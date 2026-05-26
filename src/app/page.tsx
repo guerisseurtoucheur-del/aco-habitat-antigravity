@@ -107,7 +107,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Final */}
-      <section className={styles.ctaSection}>
+      <section id="formulaire" className={styles.ctaSection}>
         <div className="container">
           <div className={styles.ctaBox}>
             <h2 className={styles.ctaTitle}>Protégez votre maison</h2>

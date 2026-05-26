@@ -63,7 +63,7 @@ export default function IleDeFrancePage() {
             <p className={styles.ctaBoxText}>
               Pre-analyse par photo : ideale pour les appartements parisiens ou le passage d&apos;un expert peut etre complexe.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>
