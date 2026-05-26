@@ -75,8 +75,70 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const schemaOrg = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://diagnostic-bois.com/#organization",
+        "name": "DIAGNOSTIC-BOIS.COM",
+        "alternateName": "ACO-HABITAT",
+        "url": "https://diagnostic-bois.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://diagnostic-bois.com/logo.png"
+        },
+        "sameAs": [],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "18 Rue Bernard Palissy",
+          "addressLocality": "Alencon",
+          "postalCode": "61000",
+          "addressCountry": "FR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "availableLanguage": "French"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://diagnostic-bois.com/#website",
+        "url": "https://diagnostic-bois.com",
+        "name": "DIAGNOSTIC-BOIS.COM",
+        "publisher": { "@id": "https://diagnostic-bois.com/#organization" },
+        "inLanguage": "fr-FR"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://diagnostic-bois.com/#service",
+        "name": "Pre-analyse bois et humidite par IA",
+        "description": "Analyse de photos pour detecter les pathologies du bois : merule, capricorne, termites, vrillettes, humidite. Rapport detaille en quelques minutes.",
+        "provider": { "@id": "https://diagnostic-bois.com/#organization" },
+        "serviceType": "Diagnostic bois",
+        "areaServed": {
+          "@type": "Country",
+          "name": "France"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "description": "Pre-analyse gratuite"
+        }
+      }
+    ]
+  };
+
   return (
     <html lang="fr" className={inter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
