@@ -140,6 +140,8 @@ export default function HomePage() {
             <Link href="/confidentialite" className={styles.legalLink}>Confidentialité</Link>
             <span className={styles.legalSep} aria-hidden="true">·</span>
             <Link href="/cookies" className={styles.legalLink}>Cookies</Link>
+            <span className={styles.legalSep} aria-hidden="true">·</span>
+            <Link href="/guide" className={styles.legalLink}>Ressources</Link>
           </nav>
           <p className={styles.footerIdentity}>
             ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
