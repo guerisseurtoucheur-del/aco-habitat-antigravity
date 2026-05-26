@@ -57,7 +57,7 @@ export default function PACAPage() {
             <p className={styles.ctaBoxText}>
               Envoyez vos photos pour une pre-analyse des risques termites et autres pathologies.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

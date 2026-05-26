@@ -51,7 +51,7 @@ export default function HautsDeFrancePage() {
             <p className={styles.ctaBoxText}>
               Envoyez vos photos pour une pre-analyse des pathologies du bois.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

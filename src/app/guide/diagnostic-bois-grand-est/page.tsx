@@ -51,7 +51,7 @@ export default function GrandEstPage() {
             <p className={styles.ctaBoxText}>
               Pre-analyse adaptee au patrimoine a colombages et aux charpentes traditionnelles.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

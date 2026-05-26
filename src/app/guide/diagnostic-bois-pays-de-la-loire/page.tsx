@@ -54,7 +54,7 @@ export default function PaysDeLoirePage() {
             <p className={styles.ctaBoxText}>
               Pre-analyse adaptee a cette zone de transition merule/termites.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Lancer mon analyse
             </Link>
           </div>

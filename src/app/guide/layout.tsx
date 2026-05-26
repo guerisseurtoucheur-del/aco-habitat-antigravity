@@ -12,7 +12,7 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
               <span className={styles.logoSub}>par ACO-HABITAT</span>
             </div>
           </Link>
-          <Link href="/diagnostic/nouveau" className={styles.ctaBtn}>
+          <Link href="/#formulaire" className={styles.ctaBtn}>
             Analyser mes photos
           </Link>
         </div>

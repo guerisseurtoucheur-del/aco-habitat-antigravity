@@ -141,7 +141,7 @@ export default function HumiditePage() {
               Envoyez des photos et notre IA analyse les risques : champignon, debut de pourriture, 
               ou simple tache superficielle.
             </p>
-            <Link href="/diagnostic/nouveau" className={styles.ctaBoxBtn}>
+            <Link href="/#formulaire" className={styles.ctaBoxBtn}>
               Analyser mes photos
             </Link>
           </div>
