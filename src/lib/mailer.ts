@@ -88,7 +88,7 @@ export async function sendLeadEmail(session: any, reportUrl: string) {
         <!-- Footer -->
         <div style="background: #f8fafc; padding: 16px 24px; text-align: center; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0; font-size: 11px; color: #94a3b8;">
-            diagnostic-bois.com | Pre-analyse automatisee par IA
+            DIAGNOSTIC-BOIS.COM | Emis par ACO-HABITAT
           </p>
         </div>
       </div>

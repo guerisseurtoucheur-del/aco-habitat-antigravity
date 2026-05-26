@@ -134,29 +134,62 @@ const styles = StyleSheet.create({
   },
 
   // Annotations
-  box: { position: "absolute", borderWidth: 2, borderRadius: 2 },
+  box: { position: "absolute", borderWidth: 3, borderRadius: 4 },
   boxTag: {
     position: "absolute",
-    top: -16,
+    top: -18,
     left: -2,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    fontSize: 7,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    fontSize: 8,
     fontWeight: "bold",
     color: "#ffffff",
-    borderRadius: 2,
+    borderRadius: 3,
   },
   dot: {
     position: "absolute",
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 3,
     borderColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -10,
-    marginLeft: -10,
+    marginTop: -14,
+    marginLeft: -14,
+  },
+  dotNumber: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  annotationLegend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 8,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    backgroundColor: "#f8fafc",
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  legendItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  legendDot: {
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  legendText: {
+    fontSize: 7,
+    color: "#475569",
+    maxWidth: 150,
   },
 
   // Table
@@ -359,6 +392,172 @@ const styles = StyleSheet.create({
     color: "#94a3b8",
     textAlign: "center",
   },
+
+  // Invoice Page Styles
+  invoicePage: {
+    padding: 50,
+    fontFamily: "Helvetica",
+    color: "#1e293b",
+    backgroundColor: "#ffffff",
+  },
+  invoiceHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 40,
+    paddingBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: "#0f172a",
+  },
+  invoiceBrand: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#0f172a",
+    letterSpacing: 1,
+  },
+  invoiceBrandSub: {
+    fontSize: 8,
+    color: "#64748b",
+    marginTop: 4,
+  },
+  invoiceTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#0f172a",
+    textAlign: "right",
+  },
+  invoiceNumber: {
+    fontSize: 10,
+    color: "#64748b",
+    textAlign: "right",
+    marginTop: 4,
+  },
+  invoiceSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 30,
+  },
+  invoiceBox: {
+    width: "48%",
+  },
+  invoiceBoxTitle: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "#64748b",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: 8,
+    paddingBottom: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e2e8f0",
+  },
+  invoiceBoxText: {
+    fontSize: 10,
+    color: "#0f172a",
+    lineHeight: 1.6,
+  },
+  invoiceTable: {
+    marginTop: 20,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: "#e2e8f0",
+    borderRadius: 6,
+    overflow: "hidden",
+  },
+  invoiceTableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#0f172a",
+    padding: 12,
+  },
+  invoiceTableHeaderText: {
+    color: "#ffffff",
+    fontSize: 9,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  invoiceTableRow: {
+    flexDirection: "row",
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f1f5f9",
+    backgroundColor: "#ffffff",
+  },
+  invoiceTableCell: {
+    fontSize: 10,
+    color: "#1e293b",
+  },
+  invoiceTotalSection: {
+    alignItems: "flex-end",
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceTotalRow: {
+    flexDirection: "row",
+    marginBottom: 6,
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalLabel: {
+    fontSize: 10,
+    color: "#64748b",
+  },
+  invoiceTotalValue: {
+    fontSize: 10,
+    color: "#0f172a",
+    fontWeight: "bold",
+  },
+  invoiceTotalFinal: {
+    flexDirection: "row",
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 2,
+    borderTopColor: "#0f172a",
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalFinalLabel: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#0f172a",
+  },
+  invoiceTotalFinalValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+  },
+  invoicePaidBadge: {
+    marginTop: 20,
+    alignSelf: "flex-end",
+    backgroundColor: "#ecfdf5",
+    borderWidth: 2,
+    borderColor: "#10b981",
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  invoicePaidText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+  },
+  invoiceFooter: {
+    position: "absolute",
+    bottom: 40,
+    left: 50,
+    right: 50,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceFooterText: {
+    fontSize: 7,
+    color: "#94a3b8",
+    textAlign: "center",
+    lineHeight: 1.5,
+  },
 });
 
 const FRENCH_PARTICLES = new Set([
@@ -514,11 +713,11 @@ function computeReportFingerprint(
 const PageHeader = ({ refId }: { refId: string }) => (
   <View fixed style={styles.header}>
     <View>
-      <Text style={styles.headerBrand}>ACO<Text style={{ color: "#10b981" }}>-HABITAT</Text></Text>
-      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>DIRECTION TECHNIQUE — PRÉ-ANALYSE PAR IMAGE</Text>
+      <Text style={styles.headerBrand}>DIAGNOSTIC<Text style={{ color: "#10b981" }}>-BOIS</Text></Text>
+      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>PRE-ANALYSE PAR IMAGE — RAPPORT TECHNIQUE</Text>
     </View>
     <View style={{ alignItems: "flex-end" }}>
-      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRÉ-ANALYSE</Text>
+      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRE-ANALYSE</Text>
       <Text style={{ color: "#0f172a", fontSize: 10, fontWeight: "bold" }}>REF #{refId}</Text>
     </View>
   </View>
@@ -534,10 +733,10 @@ const PageFooter = ({
   <View fixed style={styles.footer}>
     <View style={{ flex: 1 }}>
       <Text style={{ fontSize: 7 }}>
-        Rapport d&apos;aide à la pré-analyse Haute Précision — DIAGNOSTIC-BOIS — Document non opposable
+        Rapport Haute Precision DIAGNOSTIC-BOIS.COM — Emis par ACO-HABITAT (SIRET 344 616 412 00062) — Document non opposable
       </Text>
       <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
-        Horodaté le {generatedAtLabel} - Empreinte {fingerprintShort}
+        Horodate le {generatedAtLabel} - Empreinte {fingerprintShort}
       </Text>
     </View>
     <Text
@@ -582,31 +781,71 @@ export const DiagnosticReportPdf = ({
     const matching = report.analyses.filter(a => (a as any).image_index === index + 1);
     const base64Clean = img.base64.replace(/\s/g, '');
     
+    // Collecter toutes les annotations avec leur numero
+    let annotationIndex = 0;
+    const allAnnotations: Array<{ num: number; label: string; couleur: string; x: number; y: number; width?: number; height?: number; urgence: string }> = [];
+    matching.forEach(a => {
+      (a.annotations || []).forEach(ann => {
+        annotationIndex++;
+        allAnnotations.push({
+          num: annotationIndex,
+          label: ann.label,
+          couleur: ann.couleur,
+          x: ann.position_relative.x,
+          y: ann.position_relative.y,
+          width: ann.width,
+          height: ann.height,
+          urgence: a.urgence,
+        });
+      });
+    });
+    
     return (
       <View style={styles.evidenceBox} key={index} wrap={false}>
-        {/* L'image en grand */}
+        {/* L'image en grand avec annotations numerotees */}
         <View style={styles.imageContainer}>
           <Image src={Buffer.from(base64Clean, 'base64')} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          {matching.flatMap(a => (a.annotations || []).map((ann, ai) => {
+          {allAnnotations.map((ann) => {
             const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
             if (ann.width && ann.height) {
+              // Rectangle avec bordure coloree
               return (
-                <View key={ai} style={[styles.box, { 
-                  top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
+                <View key={ann.num} style={[styles.box, { 
+                  top: `${ann.y}%`, left: `${ann.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
                 }]}>
-                  <View style={[styles.boxTag, { backgroundColor: color }]}><Text>{ann.label}</Text></View>
+                  <View style={[styles.boxTag, { backgroundColor: color }]}>
+                    <Text style={styles.dotNumber}>{ann.num}. {ann.label}</Text>
+                  </View>
                 </View>
               );
             }
+            // Cercle numerote
             return (
-              <View key={ai} style={[styles.dot, { top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, backgroundColor: color }]}>
-                <Text style={{ fontSize: 9, color: "#fff", fontWeight: "bold" }}>!</Text>
+              <View key={ann.num} style={[styles.dot, { top: `${ann.y}%`, left: `${ann.x}%`, backgroundColor: color }]}>
+                <Text style={styles.dotNumber}>{ann.num}</Text>
               </View>
             );
-          }))}
+          })}
         </View>
 
-        {/* Le bloc de texte descriptif dessous pour combler le vide */}
+        {/* Legende des annotations sous l'image */}
+        {allAnnotations.length > 0 && (
+          <View style={styles.annotationLegend}>
+            {allAnnotations.map((ann) => {
+              const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
+              return (
+                <View key={ann.num} style={styles.legendItem}>
+                  <View style={[styles.legendDot, { backgroundColor: color }]}>
+                    <Text style={{ fontSize: 8, color: "#fff", fontWeight: "bold" }}>{ann.num}</Text>
+                  </View>
+                  <Text style={styles.legendText}>{ann.label} ({ann.urgence})</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {/* Le bloc de texte descriptif dessous */}
         <View style={styles.evidenceMeta}>
           <Text style={{ fontSize: 12, fontWeight: "bold", color: "#0f172a", marginBottom: 6 }}>
             PIÈCE JUSTIFICATIVE #{index + 1}
@@ -892,6 +1131,103 @@ export const DiagnosticReportPdf = ({
           </View>
         </View>
       </Page>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          PAGE FACTURE — Confirmation de paiement
+          ══════════════════════════════════════════════════════════════════════ */}
+      <Page size="A4" style={styles.invoicePage}>
+        {/* En-tête facture */}
+        <View style={styles.invoiceHeader}>
+          <View>
+            <Text style={styles.invoiceBrand}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBrandSub}>Expertise bois et humidite</Text>
+          </View>
+          <View>
+            <Text style={styles.invoiceTitle}>FACTURE</Text>
+            <Text style={styles.invoiceNumber}>N° FAC-{createdAt.getFullYear()}-{refId}</Text>
+            <Text style={[styles.invoiceNumber, { marginTop: 2 }]}>Date : {formatParisDateTime(generatedAt).split(" ").slice(0, 4).join(" ")}</Text>
+          </View>
+        </View>
+
+        {/* Emetteur / Client */}
+        <View style={styles.invoiceSection}>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Emetteur</Text>
+            <Text style={styles.invoiceBoxText}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBoxText}>18 Rue Bernard Palissy</Text>
+            <Text style={styles.invoiceBoxText}>61000 Alencon</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 8, fontSize: 8, color: "#64748b" }]}>SIRET : 344 616 412 00062</Text>
+            <Text style={[styles.invoiceBoxText, { fontSize: 8, color: "#64748b" }]}>TVA Intracom. : FR65 344 616 412</Text>
+          </View>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Client</Text>
+            <Text style={styles.invoiceBoxText}>{clientName}</Text>
+            <Text style={styles.invoiceBoxText}>{session.clientEmail || "Email non renseigne"}</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 4 }]}>{clientAddress}</Text>
+          </View>
+        </View>
+
+        {/* Tableau de facturation */}
+        <View style={styles.invoiceTable}>
+          <View style={styles.invoiceTableHeader}>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 3 }]}>Designation</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "center" }]}>Qte</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>P.U. HT</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>Total HT</Text>
+          </View>
+          <View style={styles.invoiceTableRow}>
+            <View style={{ flex: 3 }}>
+              <Text style={[styles.invoiceTableCell, { fontWeight: "bold" }]}>
+                Rapport d&apos;analyse technique Haute Precision
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b", marginTop: 2 }]}>
+                Reference dossier : {refId}
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b" }]}>
+                Pre-analyse IA multi-images — Document PDF complet
+              </Text>
+            </View>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "center" }]}>1</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
+          </View>
+        </View>
+
+        {/* Totaux */}
+        <View style={styles.invoiceTotalSection}>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>Sous-total HT</Text>
+            <Text style={styles.invoiceTotalValue}>49,92 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>TVA (20%)</Text>
+            <Text style={styles.invoiceTotalValue}>9,98 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalFinal}>
+            <Text style={styles.invoiceTotalFinalLabel}>TOTAL TTC</Text>
+            <Text style={styles.invoiceTotalFinalValue}>59,90 EUR</Text>
+          </View>
+
+          {/* Badge Acquitte */}
+          <View style={styles.invoicePaidBadge}>
+            <Text style={styles.invoicePaidText}>ACQUITTEE</Text>
+          </View>
+        </View>
+
+        {/* Mentions legales pied de page */}
+        <View style={styles.invoiceFooter}>
+          <Text style={styles.invoiceFooterText}>
+            ACO-HABITAT — 18 Rue Bernard Palissy, 61000 Alencon — SIRET 344 616 412 00062 — TVA FR65 344 616 412
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Paiement recu par carte bancaire. En cas de retard de paiement, une penalite de 3 fois le taux d&apos;interet legal sera appliquee, ainsi qu&apos;une indemnite forfaitaire de 40 EUR pour frais de recouvrement (art. L.441-6 et D.441-5 du Code de commerce).
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Document genere automatiquement — DIAGNOSTIC-BOIS.COM
+          </Text>
+        </View>
+      </Page>
+
     </Document>
   );
 };
