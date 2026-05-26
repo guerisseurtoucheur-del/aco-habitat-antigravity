@@ -52,7 +52,7 @@ export default function LegalLayout({
               </Link>
             </nav>
             <p className={styles.footerCopy}>
-              © 2026 DIAGNOSTIC-BOIS — Service de pré-analyse par image
+              © 2026 ACO-HABITAT — DIAGNOSTIC-BOIS.COM
             </p>
           </div>
         </div>

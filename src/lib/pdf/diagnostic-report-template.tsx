@@ -713,11 +713,11 @@ function computeReportFingerprint(
 const PageHeader = ({ refId }: { refId: string }) => (
   <View fixed style={styles.header}>
     <View>
-      <Text style={styles.headerBrand}>ACO<Text style={{ color: "#10b981" }}>-HABITAT</Text></Text>
-      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>DIRECTION TECHNIQUE — PRÉ-ANALYSE PAR IMAGE</Text>
+      <Text style={styles.headerBrand}>DIAGNOSTIC<Text style={{ color: "#10b981" }}>-BOIS</Text></Text>
+      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>PRE-ANALYSE PAR IMAGE — RAPPORT TECHNIQUE</Text>
     </View>
     <View style={{ alignItems: "flex-end" }}>
-      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRÉ-ANALYSE</Text>
+      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRE-ANALYSE</Text>
       <Text style={{ color: "#0f172a", fontSize: 10, fontWeight: "bold" }}>REF #{refId}</Text>
     </View>
   </View>
@@ -733,10 +733,10 @@ const PageFooter = ({
   <View fixed style={styles.footer}>
     <View style={{ flex: 1 }}>
       <Text style={{ fontSize: 7 }}>
-        Rapport d&apos;aide à la pré-analyse Haute Précision — DIAGNOSTIC-BOIS — Document non opposable
+        Rapport Haute Precision DIAGNOSTIC-BOIS.COM — Emis par ACO-HABITAT (SIRET 344 616 412 00062) — Document non opposable
       </Text>
       <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
-        Horodaté le {generatedAtLabel} - Empreinte {fingerprintShort}
+        Horodate le {generatedAtLabel} - Empreinte {fingerprintShort}
       </Text>
     </View>
     <Text

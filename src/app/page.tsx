@@ -139,9 +139,9 @@ export default function HomePage() {
             <Link href="/cookies" className={styles.legalLink}>Cookies</Link>
           </nav>
           <p className={styles.footerIdentity}>
-            DIAGNOSTIC-BOIS — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
+            ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
           </p>
-          <p>© 2026 DIAGNOSTIC-BOIS — Service de pré-analyse par image · Spécialiste depuis 2006</p>
+          <p>© 2026 ACO-HABITAT — DIAGNOSTIC-BOIS.COM · Specialiste depuis 2006</p>
           <p className="text-xs">Rapport informatif et non opposable, pour vous aider à prendre les bonnes décisions. Ne se substitue pas à un diagnostic immobilier réglementé (au sens du Code de la construction et de l&apos;habitation), qui doit être réalisé par un spécialiste certifié.</p>
         </div>
       </footer>
