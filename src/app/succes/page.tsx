@@ -9,7 +9,10 @@ export default function SuccesPage() {
       <header className={styles.header}>
         <div className="container">
           <div className={styles.headerInner}>
-            <span className={styles.logoText}>DIAGNOSTIC-BOIS</span>
+            <div className={styles.logoWrap}>
+              <span className={styles.logoText}>DIAGNOSTIC-BOIS<span className={styles.logoDotCom}>.COM</span></span>
+              <span className={styles.logoSub}>par ACO-HABITAT</span>
+            </div>
           </div>
         </div>
       </header>

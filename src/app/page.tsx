@@ -13,7 +13,10 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.logo}>
             <img src="/logo.png" alt="DIAGNOSTIC-BOIS Logo" className={styles.logoImg} />
-            <span className={styles.logoText}>DIAGNOSTIC-BOIS</span>
+            <div className={styles.logoTextWrap}>
+              <span className={styles.logoText}>DIAGNOSTIC-BOIS<span className={styles.logoDotCom}>.COM</span></span>
+              <span className={styles.logoSub}>par ACO-HABITAT</span>
+            </div>
           </div>
         </div>
       </header>

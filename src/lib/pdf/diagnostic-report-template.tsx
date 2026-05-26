@@ -622,7 +622,7 @@ const RICH_FALLBACK_PRECONISATIONS: string[] = [
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle �� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -713,8 +713,8 @@ function computeReportFingerprint(
 const PageHeader = ({ refId }: { refId: string }) => (
   <View fixed style={styles.header}>
     <View>
-      <Text style={styles.headerBrand}>DIAGNOSTIC<Text style={{ color: "#10b981" }}>-BOIS</Text></Text>
-      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>PRE-ANALYSE PAR IMAGE — RAPPORT TECHNIQUE</Text>
+      <Text style={styles.headerBrand}>DIAGNOSTIC-BOIS<Text style={{ color: "#10b981" }}>.COM</Text></Text>
+      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 1 }}>par ACO-HABITAT</Text>
     </View>
     <View style={{ alignItems: "flex-end" }}>
       <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRE-ANALYSE</Text>
