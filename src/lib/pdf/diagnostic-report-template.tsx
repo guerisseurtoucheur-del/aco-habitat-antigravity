@@ -359,6 +359,172 @@ const styles = StyleSheet.create({
     color: "#94a3b8",
     textAlign: "center",
   },
+
+  // Invoice Page Styles
+  invoicePage: {
+    padding: 50,
+    fontFamily: "Helvetica",
+    color: "#1e293b",
+    backgroundColor: "#ffffff",
+  },
+  invoiceHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 40,
+    paddingBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: "#0f172a",
+  },
+  invoiceBrand: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#0f172a",
+    letterSpacing: 1,
+  },
+  invoiceBrandSub: {
+    fontSize: 8,
+    color: "#64748b",
+    marginTop: 4,
+  },
+  invoiceTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#0f172a",
+    textAlign: "right",
+  },
+  invoiceNumber: {
+    fontSize: 10,
+    color: "#64748b",
+    textAlign: "right",
+    marginTop: 4,
+  },
+  invoiceSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 30,
+  },
+  invoiceBox: {
+    width: "48%",
+  },
+  invoiceBoxTitle: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "#64748b",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: 8,
+    paddingBottom: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e2e8f0",
+  },
+  invoiceBoxText: {
+    fontSize: 10,
+    color: "#0f172a",
+    lineHeight: 1.6,
+  },
+  invoiceTable: {
+    marginTop: 20,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: "#e2e8f0",
+    borderRadius: 6,
+    overflow: "hidden",
+  },
+  invoiceTableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#0f172a",
+    padding: 12,
+  },
+  invoiceTableHeaderText: {
+    color: "#ffffff",
+    fontSize: 9,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  invoiceTableRow: {
+    flexDirection: "row",
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f1f5f9",
+    backgroundColor: "#ffffff",
+  },
+  invoiceTableCell: {
+    fontSize: 10,
+    color: "#1e293b",
+  },
+  invoiceTotalSection: {
+    alignItems: "flex-end",
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceTotalRow: {
+    flexDirection: "row",
+    marginBottom: 6,
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalLabel: {
+    fontSize: 10,
+    color: "#64748b",
+  },
+  invoiceTotalValue: {
+    fontSize: 10,
+    color: "#0f172a",
+    fontWeight: "bold",
+  },
+  invoiceTotalFinal: {
+    flexDirection: "row",
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 2,
+    borderTopColor: "#0f172a",
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalFinalLabel: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#0f172a",
+  },
+  invoiceTotalFinalValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+  },
+  invoicePaidBadge: {
+    marginTop: 20,
+    alignSelf: "flex-end",
+    backgroundColor: "#ecfdf5",
+    borderWidth: 2,
+    borderColor: "#10b981",
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  invoicePaidText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+  },
+  invoiceFooter: {
+    position: "absolute",
+    bottom: 40,
+    left: 50,
+    right: 50,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceFooterText: {
+    fontSize: 7,
+    color: "#94a3b8",
+    textAlign: "center",
+    lineHeight: 1.5,
+  },
 });
 
 const FRENCH_PARTICLES = new Set([
@@ -892,6 +1058,103 @@ export const DiagnosticReportPdf = ({
           </View>
         </View>
       </Page>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          PAGE FACTURE — Confirmation de paiement
+          ══════════════════════════════════════════════════════════════════════ */}
+      <Page size="A4" style={styles.invoicePage}>
+        {/* En-tête facture */}
+        <View style={styles.invoiceHeader}>
+          <View>
+            <Text style={styles.invoiceBrand}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBrandSub}>Expertise bois et humidite</Text>
+          </View>
+          <View>
+            <Text style={styles.invoiceTitle}>FACTURE</Text>
+            <Text style={styles.invoiceNumber}>N° FAC-{createdAt.getFullYear()}-{refId}</Text>
+            <Text style={[styles.invoiceNumber, { marginTop: 2 }]}>Date : {formatParisDateTime(generatedAt).split(" ").slice(0, 4).join(" ")}</Text>
+          </View>
+        </View>
+
+        {/* Emetteur / Client */}
+        <View style={styles.invoiceSection}>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Emetteur</Text>
+            <Text style={styles.invoiceBoxText}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBoxText}>18 Rue Bernard Palissy</Text>
+            <Text style={styles.invoiceBoxText}>61000 Alencon</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 8, fontSize: 8, color: "#64748b" }]}>SIRET : 344 616 412 00062</Text>
+            <Text style={[styles.invoiceBoxText, { fontSize: 8, color: "#64748b" }]}>TVA Intracom. : FR65 344 616 412</Text>
+          </View>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Client</Text>
+            <Text style={styles.invoiceBoxText}>{clientName}</Text>
+            <Text style={styles.invoiceBoxText}>{session.clientEmail || "Email non renseigne"}</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 4 }]}>{clientAddress}</Text>
+          </View>
+        </View>
+
+        {/* Tableau de facturation */}
+        <View style={styles.invoiceTable}>
+          <View style={styles.invoiceTableHeader}>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 3 }]}>Designation</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "center" }]}>Qte</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>P.U. HT</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>Total HT</Text>
+          </View>
+          <View style={styles.invoiceTableRow}>
+            <View style={{ flex: 3 }}>
+              <Text style={[styles.invoiceTableCell, { fontWeight: "bold" }]}>
+                Rapport d&apos;analyse technique Haute Precision
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b", marginTop: 2 }]}>
+                Reference dossier : {refId}
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b" }]}>
+                Pre-analyse IA multi-images — Document PDF complet
+              </Text>
+            </View>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "center" }]}>1</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
+          </View>
+        </View>
+
+        {/* Totaux */}
+        <View style={styles.invoiceTotalSection}>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>Sous-total HT</Text>
+            <Text style={styles.invoiceTotalValue}>49,92 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>TVA (20%)</Text>
+            <Text style={styles.invoiceTotalValue}>9,98 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalFinal}>
+            <Text style={styles.invoiceTotalFinalLabel}>TOTAL TTC</Text>
+            <Text style={styles.invoiceTotalFinalValue}>59,90 EUR</Text>
+          </View>
+
+          {/* Badge Acquitte */}
+          <View style={styles.invoicePaidBadge}>
+            <Text style={styles.invoicePaidText}>ACQUITTEE</Text>
+          </View>
+        </View>
+
+        {/* Mentions legales pied de page */}
+        <View style={styles.invoiceFooter}>
+          <Text style={styles.invoiceFooterText}>
+            ACO-HABITAT — 18 Rue Bernard Palissy, 61000 Alencon — SIRET 344 616 412 00062 — TVA FR65 344 616 412
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Paiement recu par carte bancaire. En cas de retard de paiement, une penalite de 3 fois le taux d&apos;interet legal sera appliquee, ainsi qu&apos;une indemnite forfaitaire de 40 EUR pour frais de recouvrement (art. L.441-6 et D.441-5 du Code de commerce).
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Document genere automatiquement — DIAGNOSTIC-BOIS.COM
+          </Text>
+        </View>
+      </Page>
+
     </Document>
   );
 };
