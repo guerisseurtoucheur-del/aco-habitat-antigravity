@@ -134,29 +134,62 @@ const styles = StyleSheet.create({
   },
 
   // Annotations
-  box: { position: "absolute", borderWidth: 2, borderRadius: 2 },
+  box: { position: "absolute", borderWidth: 3, borderRadius: 4 },
   boxTag: {
     position: "absolute",
-    top: -16,
+    top: -18,
     left: -2,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    fontSize: 7,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    fontSize: 8,
     fontWeight: "bold",
     color: "#ffffff",
-    borderRadius: 2,
+    borderRadius: 3,
   },
   dot: {
     position: "absolute",
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 3,
     borderColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -10,
-    marginLeft: -10,
+    marginTop: -14,
+    marginLeft: -14,
+  },
+  dotNumber: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  annotationLegend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 8,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    backgroundColor: "#f8fafc",
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  legendItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  legendDot: {
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  legendText: {
+    fontSize: 7,
+    color: "#475569",
+    maxWidth: 150,
   },
 
   // Table
@@ -748,31 +781,71 @@ export const DiagnosticReportPdf = ({
     const matching = report.analyses.filter(a => (a as any).image_index === index + 1);
     const base64Clean = img.base64.replace(/\s/g, '');
     
+    // Collecter toutes les annotations avec leur numero
+    let annotationIndex = 0;
+    const allAnnotations: Array<{ num: number; label: string; couleur: string; x: number; y: number; width?: number; height?: number; urgence: string }> = [];
+    matching.forEach(a => {
+      (a.annotations || []).forEach(ann => {
+        annotationIndex++;
+        allAnnotations.push({
+          num: annotationIndex,
+          label: ann.label,
+          couleur: ann.couleur,
+          x: ann.position_relative.x,
+          y: ann.position_relative.y,
+          width: ann.width,
+          height: ann.height,
+          urgence: a.urgence,
+        });
+      });
+    });
+    
     return (
       <View style={styles.evidenceBox} key={index} wrap={false}>
-        {/* L'image en grand */}
+        {/* L'image en grand avec annotations numerotees */}
         <View style={styles.imageContainer}>
           <Image src={Buffer.from(base64Clean, 'base64')} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          {matching.flatMap(a => (a.annotations || []).map((ann, ai) => {
+          {allAnnotations.map((ann) => {
             const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
             if (ann.width && ann.height) {
+              // Rectangle avec bordure coloree
               return (
-                <View key={ai} style={[styles.box, { 
-                  top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
+                <View key={ann.num} style={[styles.box, { 
+                  top: `${ann.y}%`, left: `${ann.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
                 }]}>
-                  <View style={[styles.boxTag, { backgroundColor: color }]}><Text>{ann.label}</Text></View>
+                  <View style={[styles.boxTag, { backgroundColor: color }]}>
+                    <Text style={styles.dotNumber}>{ann.num}. {ann.label}</Text>
+                  </View>
                 </View>
               );
             }
+            // Cercle numerote
             return (
-              <View key={ai} style={[styles.dot, { top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, backgroundColor: color }]}>
-                <Text style={{ fontSize: 9, color: "#fff", fontWeight: "bold" }}>!</Text>
+              <View key={ann.num} style={[styles.dot, { top: `${ann.y}%`, left: `${ann.x}%`, backgroundColor: color }]}>
+                <Text style={styles.dotNumber}>{ann.num}</Text>
               </View>
             );
-          }))}
+          })}
         </View>
 
-        {/* Le bloc de texte descriptif dessous pour combler le vide */}
+        {/* Legende des annotations sous l'image */}
+        {allAnnotations.length > 0 && (
+          <View style={styles.annotationLegend}>
+            {allAnnotations.map((ann) => {
+              const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
+              return (
+                <View key={ann.num} style={styles.legendItem}>
+                  <View style={[styles.legendDot, { backgroundColor: color }]}>
+                    <Text style={{ fontSize: 8, color: "#fff", fontWeight: "bold" }}>{ann.num}</Text>
+                  </View>
+                  <Text style={styles.legendText}>{ann.label} ({ann.urgence})</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {/* Le bloc de texte descriptif dessous */}
         <View style={styles.evidenceMeta}>
           <Text style={{ fontSize: 12, fontWeight: "bold", color: "#0f172a", marginBottom: 6 }}>
             PIÈCE JUSTIFICATIVE #{index + 1}
