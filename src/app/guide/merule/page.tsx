@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "../guide.module.css";
 
@@ -56,6 +57,15 @@ export default function MerulePage() {
           </p>
         </header>
 
+        <Image 
+          src="/images/pathologies/merule-mycelium-actif.jpg" 
+          alt="Mycelium actif de merule pleureuse - filaments blancs caracteristiques sur mur de cave" 
+          width={1200} 
+          height={400} 
+          className={styles.heroImage}
+          priority
+        />
+
         <div className={styles.articleContent}>
           <div className={styles.toc}>
             <p className={styles.tocTitle}>Sommaire</p>
@@ -111,6 +121,45 @@ export default function MerulePage() {
             <li><strong>Peinture qui cloque</strong> — Des cloques ou decollements de peinture sans cause apparente</li>
             <li><strong>Bois qui s&apos;effrite</strong> — Le bois devient friable et s&apos;effrite au toucher</li>
           </ul>
+
+          <div className={styles.imageGallery}>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/merule-mur-cave-1.jpg" 
+                alt="Taches oranges de merule sur mur en pierre de cave - stade initial d'infestation" 
+                width={600} 
+                height={400}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Stade initial</strong>
+                Taches jaunes-oranges caracteristiques sur mur en pierre. Intervention urgente recommandee.
+              </figcaption>
+            </figure>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/merule-mur-cave-2.jpg" 
+                alt="Merule en developpement sur mur de cave avec traces d'humidite et efflorescences" 
+                width={600} 
+                height={400}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Stade avance</strong>
+                Merule en expansion avec mycelium blanc visible et taches orangees etendues.
+              </figcaption>
+            </figure>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/effondrement-plafond-merule.jpg" 
+                alt="Effondrement de plafond cause par une attaque severe de merule - degats structurels" 
+                width={600} 
+                height={400}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Degats structurels</strong>
+                Effondrement de plafond du a une attaque non traitee. Le bois a perdu toute resistance.
+              </figcaption>
+            </figure>
+          </div>
 
           <h2 id="causes">Les causes d&apos;apparition de la merule</h2>
           <p>
