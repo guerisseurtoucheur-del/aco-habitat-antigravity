@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "../guide.module.css";
 
@@ -21,6 +22,15 @@ export default function VrillettesPage() {
           <h1 className={styles.articleTitle}>Les Vrillettes : petits insectes, grands degats</h1>
           <p className={styles.articleMeta}>Guide complet par ACO-HABITAT — Expert diagnostic bois depuis 2006</p>
         </header>
+
+        <Image 
+          src="/images/pathologies/charpente-xylophages.jpg" 
+          alt="Charpente attaquee par des insectes xylophages - vrillettes et capricornes" 
+          width={1200} 
+          height={400} 
+          className={styles.heroImage}
+          priority
+        />
 
         <div className={styles.articleContent}>
           <h2>Les deux types de vrillettes</h2>

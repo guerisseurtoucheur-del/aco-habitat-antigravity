@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "../guide.module.css";
 
@@ -37,6 +38,15 @@ export default function CapricornePage() {
           <h1 className={styles.articleTitle}>Le Capricorne des maisons : l&apos;ennemi des charpentes</h1>
           <p className={styles.articleMeta}>Guide complet par ACO-HABITAT — Expert diagnostic bois depuis 2006</p>
         </header>
+
+        <Image 
+          src="/images/pathologies/poutre-capricorne-degat.jpg" 
+          alt="Poutre de charpente detruite par le capricorne des maisons - vermoulure et galeries visibles" 
+          width={1200} 
+          height={400} 
+          className={styles.heroImage}
+          priority
+        />
 
         <div className={styles.articleContent}>
           <div className={styles.toc}>

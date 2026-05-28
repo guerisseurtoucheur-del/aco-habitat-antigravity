@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "./guide.module.css";
 
@@ -111,6 +112,47 @@ export default function GuidePage() {
                 <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.5, margin: 0 }}>{guide.description}</p>
               </Link>
             ))}
+          </div>
+
+          <h2>Exemples de pathologies diagnostiquees</h2>
+
+          <div className={styles.imageGallery} style={{ marginBottom: 32 }}>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/merule-mycelium-actif.jpg" 
+                alt="Mycelium de merule actif - filaments blancs sur sol de cave" 
+                width={400} 
+                height={250}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Merule active</strong>
+                Mycelium en pleine croissance
+              </figcaption>
+            </figure>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/poutre-capricorne-degat.jpg" 
+                alt="Degats de capricorne sur poutre de charpente" 
+                width={400} 
+                height={250}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Attaque de capricorne</strong>
+                Poutre severement endommagee
+              </figcaption>
+            </figure>
+            <figure className={styles.imageCard}>
+              <Image 
+                src="/images/pathologies/merule-mur-cave-3.jpg" 
+                alt="Taches de merule sur mur de cave en pierre" 
+                width={400} 
+                height={250}
+              />
+              <figcaption className={styles.imageCaption}>
+                <strong>Merule sur mur</strong>
+                Taches orangees caracteristiques
+              </figcaption>
+            </figure>
           </div>
 
           <h2>Diagnostic bois par region</h2>
