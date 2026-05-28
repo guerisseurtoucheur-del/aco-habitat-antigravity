@@ -39,6 +39,15 @@ export default function CapricornePage() {
           <p className={styles.articleMeta}>Guide complet par ACO-HABITAT — Expert diagnostic bois depuis 2006</p>
         </header>
 
+        <Image 
+          src="/images/pathologies/poutre-capricorne-degat.jpg" 
+          alt="Poutre de charpente detruite par le capricorne des maisons - vermoulure et galeries visibles" 
+          width={1200} 
+          height={400} 
+          className={styles.heroImage}
+          priority
+        />
+
         <div className={styles.articleContent}>
           <div className={styles.toc}>
             <p className={styles.tocTitle}>Sommaire</p>

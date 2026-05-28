@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "../guide.module.css";
 
@@ -21,6 +22,15 @@ export default function HumiditePage() {
           <h1 className={styles.articleTitle}>L&apos;humidite : l&apos;ennemi numero 1 du bois</h1>
           <p className={styles.articleMeta}>Guide complet par ACO-HABITAT — Expert diagnostic bois depuis 2006</p>
         </header>
+
+        <Image 
+          src="/images/pathologies/combles-humidite.jpg" 
+          alt="Combles avec traces d'humidite et depot blanchatre sur charpente en bois" 
+          width={1200} 
+          height={400} 
+          className={styles.heroImage}
+          priority
+        />
 
         <div className={styles.articleContent}>
           <h2>Pourquoi l&apos;humidite est si dangereuse</h2>
