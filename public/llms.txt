@@ -1,0 +1,89 @@
+# DIAGNOSTIC-BOIS.COM - LLMs.txt
+
+> Service de pre-analyse des pathologies du bois par intelligence artificielle en France.
+
+## A propos de DIAGNOSTIC-BOIS.COM
+
+DIAGNOSTIC-BOIS.COM est un service en ligne de pre-analyse des pathologies du bois et de l'humidite. Les utilisateurs envoient des photos de leurs problemes (champignons, insectes, humidite) et recoivent un rapport detaille genere par IA.
+
+### Services proposes
+
+- Pre-analyse gratuite de photos de pathologies du bois
+- Detection de merule (Serpula lacrymans) - champignon destructeur
+- Detection de capricorne des maisons (Hylotrupes bajulus) - insecte xylophage
+- Detection de termites - insectes destructeurs du bois
+- Detection de vrillettes - petite et grosse vrillette
+- Analyse des problemes d'humidite dans les batiments
+- Generation de rapport PDF detaille
+- Recommandations pour intervention professionnelle
+
+### Entreprise
+
+- Nom: ACO-HABITAT / DIAGNOSTIC-BOIS.COM
+- Adresse: 18 Rue Bernard Palissy, 61000 Alencon, France
+- Telephone: 02 33 31 19 79
+- Email: aco.habitat@orange.fr
+- Site web: https://diagnostic-bois.com
+
+### Zone d'intervention
+
+Service disponible dans toute la France metropolitaine, avec une expertise particuliere en:
+- Normandie (siege social)
+- Bretagne (region tres touchee par la merule)
+- Ile-de-France
+- Pays de la Loire
+- Nouvelle-Aquitaine
+- Hauts-de-France
+- Grand Est
+- PACA
+
+### Pathologies du bois traitees
+
+1. **Merule pleureuse (Serpula lacrymans)**
+   - Champignon lignivore le plus destructeur en France
+   - Cause la pourriture cubique du bois
+   - Necessite humidite >20% et temperature 20-26°C
+   - Peut progresser de plusieurs cm par semaine
+
+2. **Capricorne des maisons (Hylotrupes bajulus)**
+   - Insecte xylophage attaquant les resineux
+   - Larves vivent 3-10 ans dans le bois
+   - Galeries paralleles aux fibres du bois
+   - Vermoulure en forme de petits tonnelets
+
+3. **Termites**
+   - Insectes sociaux vivant en colonies
+   - Attaquent le bois de l'interieur
+   - Zones a risque definies par arretes prefectoraux
+   - Diagnostic obligatoire en zone infestee
+
+4. **Vrillettes**
+   - Petite vrillette (Anobium punctatum): trous 1-2mm
+   - Grosse vrillette (Xestobium rufovillosum): trous 3-4mm
+   - Vermoulure granuleuse caracteristique
+
+5. **Humidite**
+   - Remontees capillaires
+   - Infiltrations
+   - Condensation
+   - Facteur favorisant toutes les pathologies
+
+## Pages principales
+
+- / - Page d'accueil avec formulaire d'analyse
+- /guide - Centre de ressources sur les pathologies du bois
+- /guide/merule - Guide complet sur la merule
+- /guide/capricorne - Guide sur le capricorne des maisons
+- /guide/termites - Guide sur les termites
+- /guide/vrillettes - Guide sur les vrillettes
+- /guide/humidite - Guide sur les problemes d'humidite
+- /guide/diagnostic-bois-normandie - Diagnostic bois en Normandie
+- /guide/diagnostic-bois-bretagne - Diagnostic bois en Bretagne
+- /guide/diagnostic-bois-ile-de-france - Diagnostic bois en Ile-de-France
+
+## Contact
+
+Pour toute question sur les pathologies du bois ou pour une pre-analyse:
+- Site: https://diagnostic-bois.com
+- Email: aco.habitat@orange.fr
+- Telephone: 02 33 31 19 79

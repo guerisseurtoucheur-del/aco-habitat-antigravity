@@ -98,6 +98,38 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- Guide - Departements -->
+  <url>
+    <loc>https://diagnostic-bois.com/guide/diagnostic-bois-orne</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://diagnostic-bois.com/guide/diagnostic-bois-sarthe</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://diagnostic-bois.com/guide/diagnostic-bois-mayenne</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://diagnostic-bois.com/guide/diagnostic-bois-eure</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://diagnostic-bois.com/guide/diagnostic-bois-eure-et-loir</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Pages legales -->
   <url>
     <loc>https://diagnostic-bois.com/cgv</loc>

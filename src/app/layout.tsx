@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ChatBot from "@/components/ChatBot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,6 +19,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://diagnostic-bois.com"),
   alternates: {
     canonical: "/",
+  },
+  other: {
+    "ai:description": "Service francais de pre-analyse des pathologies du bois par intelligence artificielle. Detection de merule, capricorne, termites, vrillettes et problemes d'humidite. Rapport PDF gratuit en quelques minutes.",
+    "ai:site-type": "service, educational",
+    "ai:industry": "construction, renovation, expertise-bois",
+    "ai:geographic-focus": "France",
+    "ai:language": "fr-FR",
   },
   openGraph: {
     type: "website",
@@ -98,9 +106,14 @@ export default function RootLayout({
         },
         "contactPoint": {
           "@type": "ContactPoint",
+          "telephone": "+33-2-33-31-19-79",
+          "email": "aco.habitat@orange.fr",
           "contactType": "customer service",
-          "availableLanguage": "French"
-        }
+          "availableLanguage": "French",
+          "areaServed": "FR"
+        },
+        "telephone": "+33-2-33-31-19-79",
+        "email": "aco.habitat@orange.fr"
       },
       {
         "@type": "WebSite",
@@ -134,12 +147,21 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <head>
+        <link rel="author" href="https://diagnostic-bois.com" />
+        <link rel="me" href="mailto:aco.habitat@orange.fr" />
+        <meta name="geo.region" content="FR-61" />
+        <meta name="geo.placename" content="Alencon" />
+        <meta name="geo.position" content="48.4333;0.0833" />
+        <meta name="ICBM" content="48.4333, 0.0833" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ChatBot />
+      </body>
     </html>
   );
 }
