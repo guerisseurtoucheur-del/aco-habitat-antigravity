@@ -228,6 +228,18 @@
   border-bottom-left-radius: 4px;
 }
 
+.chatLink {
+  color: #10b981;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.chatLink:hover {
+  color: #059669;
+}
+
 .typingIndicator {
   display: flex;
   gap: 4px;

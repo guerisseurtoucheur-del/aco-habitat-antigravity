@@ -5,6 +5,31 @@ import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import styles from './ChatBot.module.css'
 
+// Fonction pour convertir les liens markdown en HTML cliquables
+function parseMarkdownLinks(text: string) {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+  const parts: (string | { text: string; url: string })[] = []
+  let lastIndex = 0
+  let match
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    // Ajouter le texte avant le lien
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+    // Ajouter le lien
+    parts.push({ text: match[1], url: match[2] })
+    lastIndex = match.index + match[0].length
+  }
+
+  // Ajouter le texte restant
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts
+}
+
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
@@ -127,7 +152,26 @@ export default function ChatBot() {
                 <div className={styles.messageContent}>
                   {message.parts.map((part, index) => {
                     if (part.type === 'text') {
-                      return <span key={index}>{part.text}</span>
+                      const parsed = parseMarkdownLinks(part.text)
+                      return (
+                        <span key={index}>
+                          {parsed.map((p, i) => 
+                            typeof p === 'string' ? (
+                              <span key={i}>{p}</span>
+                            ) : (
+                              <a 
+                                key={i} 
+                                href={p.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.chatLink}
+                              >
+                                {p.text}
+                              </a>
+                            )
+                          )}
+                        </span>
+                      )
                     }
                     return null
                   })}
