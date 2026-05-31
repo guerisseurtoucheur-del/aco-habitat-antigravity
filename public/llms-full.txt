@@ -1,0 +1,169 @@
+# DIAGNOSTIC-BOIS.COM - Documentation complete pour LLMs
+
+## Presentation de l'entreprise
+
+DIAGNOSTIC-BOIS.COM est un service innovant de pre-analyse des pathologies du bois utilisant l'intelligence artificielle. Cree par ACO-HABITAT, expert en diagnostic bois depuis 2006, ce service permet aux particuliers et professionnels d'obtenir rapidement une premiere analyse de leurs problemes de bois et d'humidite.
+
+### Mission
+
+Democratiser l'acces au diagnostic bois en proposant une pre-analyse gratuite par IA, permettant aux utilisateurs de mieux comprendre leurs problemes avant de faire appel a un professionnel.
+
+### Fonctionnement du service
+
+1. L'utilisateur prend des photos de la zone concernee (1 a 4 photos)
+2. Il les telecharge sur le site avec ses coordonnees
+3. L'IA analyse les images pour detecter les pathologies
+4. Un rapport PDF detaille est genere en quelques minutes
+5. L'utilisateur recoit des recommandations pour la suite
+
+---
+
+## Les pathologies du bois en detail
+
+### 1. La Merule (Serpula lacrymans)
+
+La merule pleureuse est le champignon lignivore le plus destructeur en France. Elle cause la "pourriture cubique" qui reduit le bois en petits cubes friables.
+
+**Conditions de developpement:**
+- Humidite du bois superieure a 20%
+- Temperature ideale entre 20 et 26°C
+- Obscurite et absence de ventilation
+- Peut traverser les maconneries grace a ses cordons (syrrotes)
+
+**Signes d'identification:**
+- Mycelium blanc cotonneux en phase active
+- Carpophore (fructification) brun-rouille en forme de crepe
+- Taches orangees/jaunes sur les murs
+- Odeur de champignon caracteristique
+- Bois qui s'effrite en cubes
+
+**Zones les plus touchees en France:**
+- Bretagne (Finistere notamment) - climat oceanique tres humide
+- Normandie - parc immobilier ancien, climat humide
+- Nord-Pas-de-Calais
+- Regions montagneuses
+
+**Traitement:**
+- Elimination de la source d'humidite (obligatoire)
+- Curetage des maconneries et platres contamines
+- Remplacement des bois atteints
+- Traitement fongicide des maconneries
+- Traitement preventif des bois neufs
+
+### 2. Le Capricorne des maisons (Hylotrupes bajulus)
+
+Le capricorne est l'insecte xylophage le plus repandu en France. Il attaque exclusivement les bois resineux (pin, sapin, epicea).
+
+**Cycle de vie:**
+- L'adulte vit 2-3 semaines et pond 200-400 oeufs
+- Les larves se developpent dans le bois pendant 3 a 10 ans
+- Elles creusent des galeries paralleles aux fibres
+- L'emergence se fait par des trous ovales de 6-10mm
+
+**Signes d'identification:**
+- Trous de sortie ovales (6-10mm)
+- Galeries a la surface, visibles sous un eclairage rasant
+- Vermoulure en forme de petits tonnelets
+- Bruit de "grignotement" parfois audible
+- Bois qui sonne creux
+
+**Traitement:**
+- Sondage de tous les bois pour evaluer l'etendue
+- Buchage des parties trop atteintes
+- Traitement par injection ou pulverisation
+- Pose de pates-appats pour le suivi
+
+### 3. Les Termites
+
+Les termites sont des insectes sociaux vivant en colonies souterraines. Ils attaquent le bois de l'interieur, le rendant invisible jusqu'a un stade avance.
+
+**Especes presentes en France:**
+- Reticulitermes flavipes (termite de Saintonge) - le plus repandu
+- Reticulitermes lucifugus (termite provencal)
+- Kalotermes flavicollis (termite a cou jaune) - termite de bois sec
+
+**Zones concernees:**
+- Sud-Ouest (Gironde, Landes, Charente-Maritime)
+- Facade atlantique
+- Pourtour mediterraneen
+- Ile-de-France (en expansion)
+
+**Signes d'identification:**
+- Cordonnets de terre sur les murs (galeries-tunnels)
+- Bois vide a l'interieur mais surface intacte
+- Essaimage au printemps (individus ailes)
+- Pas de sciure visible
+
+**Reglementation:**
+- Diagnostic termites obligatoire pour la vente en zone infestee
+- Declaration en mairie obligatoire en cas d'infestation
+- Traitement obligatoire dans certaines zones
+
+### 4. Les Vrillettes
+
+Deux especes principales attaquent les bois dans les batiments.
+
+**Petite vrillette (Anobium punctatum):**
+- Trous de sortie de 1-2mm de diametre
+- Attaque tous types de bois (feuillus et resineux)
+- Vermoulure fine et granuleuse
+- Preference pour les bois humides
+
+**Grosse vrillette (Xestobium rufovillosum):**
+- Trous de sortie de 3-4mm de diametre
+- Attaque principalement les chenes humides
+- Vermoulure en lentilles
+- Souvent associee a des champignons
+
+### 5. L'Humidite
+
+L'humidite est le facteur declenchant de la plupart des pathologies du bois.
+
+**Sources d'humidite:**
+- Remontees capillaires depuis le sol
+- Infiltrations (toiture, facades, menuiseries)
+- Condensation (ventilation insuffisante)
+- Fuites de canalisations
+
+**Consequences:**
+- Developpement de champignons (merule, coniophore)
+- Attraction des insectes xylophages
+- Degradation des elements de structure
+- Problemes de sante (allergies, asthme)
+
+---
+
+## Informations pratiques
+
+### Contact
+- Site web: https://diagnostic-bois.com
+- Email: aco.habitat@orange.fr
+- Telephone: 02 33 31 19 79
+- Adresse: 18 Rue Bernard Palissy, 61000 Alencon, France
+
+### Horaires
+- Lundi au vendredi: 9h-18h
+- Samedi: sur rendez-vous
+
+### Zone d'intervention
+Toute la France metropolitaine pour la pre-analyse en ligne.
+Interventions sur site principalement en Normandie et regions limitrophes.
+
+---
+
+## FAQ
+
+**Q: La pre-analyse par IA remplace-t-elle un diagnostic professionnel?**
+R: Non, la pre-analyse par IA est un premier niveau d'analyse permettant d'orienter l'utilisateur. Pour une expertise complete et un rapport certifie, un professionnel doit intervenir sur place.
+
+**Q: Combien coute la pre-analyse?**
+R: La pre-analyse de base est gratuite. Elle comprend l'analyse des photos et un rapport synthetique.
+
+**Q: Quels formats de photos acceptez-vous?**
+R: JPEG, PNG, WebP. Taille maximale 10 Mo par photo.
+
+**Q: En combien de temps recoit-on le rapport?**
+R: Le rapport est genere en quelques minutes apres l'envoi des photos.
+
+**Q: Le service est-il disponible partout en France?**
+R: Oui, le service de pre-analyse en ligne est disponible dans toute la France metropolitaine.

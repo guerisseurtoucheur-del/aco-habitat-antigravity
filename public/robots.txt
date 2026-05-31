@@ -1,11 +1,48 @@
 # https://www.robotstxt.org/robotstxt.html
+
+# Allow all crawlers (including AI crawlers)
 User-agent: *
 Allow: /
 
 # Sitemap
 Sitemap: https://diagnostic-bois.com/sitemap.xml
 
-# Disallow admin/API routes
+# LLM/AI Documentation
+# llms.txt: https://diagnostic-bois.com/llms.txt
+# ai.txt: https://diagnostic-bois.com/ai.txt
+
+# Explicitly allow AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+# Disallow private routes
 Disallow: /api/
 Disallow: /resultats/
 Disallow: /succes/
