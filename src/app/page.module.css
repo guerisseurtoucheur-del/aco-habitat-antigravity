@@ -7,6 +7,12 @@
   position: sticky; top: 0; z-index: 100;
   box-shadow: 0 2px 20px rgba(10,37,64,0.4);
 }
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 .logo { display: flex; align-items: center; gap: 12px; }
 .logoTextWrap { display: flex; flex-direction: column; line-height: 1.1; }
 .logoText { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
@@ -20,6 +26,40 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: #ffffff;
   padding: 2px;
+}
+.headerContact {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.headerPhone, .headerEmail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.9);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.headerPhone:hover, .headerEmail:hover {
+  color: #10b981;
+}
+.headerPhone svg, .headerEmail svg {
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .headerContact {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .headerPhone, .headerEmail {
+    font-size: 12px;
+  }
+  .headerEmail {
+    display: none;
+  }
 }
 
 /* HERO */
