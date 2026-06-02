@@ -8,6 +8,8 @@ import {
 } from "@/types/diagnostic";
 import { runClaudeDiagnostic } from "@/lib/claude-diagnostic";
 import { sendLeadEmail } from "@/lib/mailer";
+import { generateDiagnosticPdfBuffer } from "@/lib/pdf/diagnostic-report-template";
+import { diagnosticReportSchema } from "@/types/diagnostic";
 
 export type SessionRecord = {
   sessionId: string;
@@ -87,11 +89,32 @@ export async function createAnalysisSession(
       });
       console.info(`[analyse] Claude analysis completed for session ${sessionId}`);
 
-      // Envoyer l'email au proprietaire du site
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://diagnostic-bois.com";
+      // Envoyer l'email au proprietaire du site avec le PDF en piece jointe
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://diagnostic-bois.com");
       const reportUrl = `${baseUrl}/resultats/${sessionId}`;
+      
+      // Generer le PDF pour l'attacher a l'email
+      let pdfBuffer: Buffer | undefined;
       try {
-        await sendLeadEmail(session, reportUrl);
+        const parsed = diagnosticReportSchema.safeParse(result);
+        if (parsed.success) {
+          // Recuperer la session complete avec images pour le PDF
+          const fullSession = await prisma.diagnosticSession.findUnique({
+            where: { id: sessionId },
+            include: { images: true },
+          });
+          if (fullSession) {
+            pdfBuffer = await generateDiagnosticPdfBuffer(fullSession, parsed.data);
+            console.info(`[analyse] PDF generated for session ${sessionId}, size: ${pdfBuffer.length} bytes`);
+          }
+        }
+      } catch (pdfError) {
+        console.error(`[analyse] PDF generation failed for ${sessionId}:`, pdfError);
+        // Continue sans le PDF, on envoie quand meme l'email
+      }
+      
+      try {
+        await sendLeadEmail(session, reportUrl, result, pdfBuffer);
       } catch (mailError) {
         const mailMessage =
           mailError instanceof Error ? mailError.message : "Erreur mail inconnue.";
