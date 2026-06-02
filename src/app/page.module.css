@@ -89,6 +89,26 @@
   background: linear-gradient(90deg, #2ECC71, #12824C);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
+
+/* MERULE clignotant rouge */
+.meruleText {
+  color: #ef4444;
+  font-weight: 900;
+  animation: merulePulse 1.5s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+@keyframes merulePulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 30px rgba(239, 68, 68, 0.4);
+  }
+}
+
 .heroSubtitle {
   font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.8);
   margin-bottom: 32px; position: relative;

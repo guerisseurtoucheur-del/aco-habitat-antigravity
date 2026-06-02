@@ -40,7 +40,7 @@ export default function HomePage() {
             <span className="text-xs">Pré-analyse maison en ligne</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Pré-analyse bois et humidité <br />
+            Pré-analyse bois, <span className={styles.meruleText}>MÉRULE</span> et humidité <br />
             <span className={styles.heroAccent}>simple, rapide et compréhensible</span>
           </h1>
           <p className={styles.heroSubtitle}>
