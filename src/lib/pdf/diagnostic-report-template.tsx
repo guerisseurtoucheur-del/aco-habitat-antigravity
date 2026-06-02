@@ -622,7 +622,7 @@ const RICH_FALLBACK_PRECONISATIONS: string[] = [
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle �� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle ���� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -1196,16 +1196,16 @@ export const DiagnosticReportPdf = ({
         {/* Totaux */}
         <View style={styles.invoiceTotalSection}>
           <View style={styles.invoiceTotalRow}>
-            <Text style={styles.invoiceTotalLabel}>Sous-total HT</Text>
-            <Text style={styles.invoiceTotalValue}>49,92 EUR</Text>
+            <Text style={styles.invoiceTotalLabel}>Montant HT</Text>
+            <Text style={styles.invoiceTotalValue}>15,83 EUR</Text>
           </View>
           <View style={styles.invoiceTotalRow}>
             <Text style={styles.invoiceTotalLabel}>TVA (20%)</Text>
-            <Text style={styles.invoiceTotalValue}>9,98 EUR</Text>
+            <Text style={styles.invoiceTotalValue}>3,17 EUR</Text>
           </View>
           <View style={styles.invoiceTotalFinal}>
             <Text style={styles.invoiceTotalFinalLabel}>TOTAL TTC</Text>
-            <Text style={styles.invoiceTotalFinalValue}>59,90 EUR</Text>
+            <Text style={styles.invoiceTotalFinalValue}>19,00 EUR</Text>
           </View>
 
           {/* Badge Acquitte */}

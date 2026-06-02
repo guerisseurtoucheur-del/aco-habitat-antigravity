@@ -28,7 +28,7 @@ export default function NormandiePage() {
               "addressCountry": "FR"
             },
             "areaServed": ["Calvados", "Manche", "Orne", "Eure", "Seine-Maritime"],
-            "priceRange": "59.90€"
+            "priceRange": "19€"
           }),
         }}
       />
