@@ -9,8 +9,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
+  console.log("[Stripe Webhook] Received webhook request");
+  
   const body = await req.text();
   const signature = (await headers()).get("stripe-signature") as string;
+
+  if (!signature) {
+    console.error("[Stripe Webhook] Missing stripe-signature header");
+    return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+  }
 
   let event: Stripe.Event;
 
@@ -41,8 +48,10 @@ export async function POST(req: Request) {
 
       // Envoyer le rapport par email au client
       if (updatedSession.clientEmail) {
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://diagnostic-bois.com";
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://diagnostic-bois.com");
         const reportUrl = `${baseUrl}/resultats/${sessionId}`;
+        
+        console.log(`[Stripe Webhook] Sending report to ${updatedSession.clientEmail}, URL: ${reportUrl}`);
         
         try {
           await sendReportToClient(updatedSession, reportUrl);
