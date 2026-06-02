@@ -11,22 +11,21 @@ function getTransporter() {
   });
 }
 
-export async function sendLeadEmail(session: any, reportUrl: string) {
+export async function sendLeadEmail(session: any, reportUrl: string, result?: any, pdfBuffer?: Buffer) {
   // Configurer le transporteur Gmail
   const transporter = getTransporter();
 
   // Extraire les infos du rapport si disponibles
-  const result = session.result || {};
-  const analyses = result.analyses || [];
+  const analyses = result?.analyses || [];
   const nbPathologies = analyses.filter((a: any) => a.pathologie && !a.pathologie.toLowerCase().includes("aucune")).length;
   const maxUrgence = analyses.some((a: any) => a.urgence?.toLowerCase() === "critique") ? "CRITIQUE" :
                      analyses.some((a: any) => a.urgence?.toLowerCase() === "moderee") ? "MODÉRÉE" : "FAIBLE";
-  const scoreConfiance = result.score_confiance_general || "N/A";
+  const scoreConfiance = result?.score_confiance_general || "N/A";
 
-  const mailOptions = {
+  const mailOptions: any = {
     from: process.env.GMAIL_USER,
     to: process.env.LEAD_EMAIL_RECIPIENT || process.env.GMAIL_USER,
-    subject: `🚨 Nouveau Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
+    subject: `Nouveau Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
         
@@ -99,6 +98,18 @@ export async function sendLeadEmail(session: any, reportUrl: string) {
       </div>
     `,
   };
+
+  // Ajouter le PDF en piece jointe si disponible
+  if (pdfBuffer) {
+    const ref = session.id ? session.id.slice(0, 12).toUpperCase() : "DIAG";
+    mailOptions.attachments = [
+      {
+        filename: `Rapport_DIAGNOSTIC-BOIS_${ref}.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      },
+    ];
+  }
 
   try {
     await transporter.sendMail(mailOptions);
