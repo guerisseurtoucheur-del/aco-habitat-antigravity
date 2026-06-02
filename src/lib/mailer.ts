@@ -157,20 +157,20 @@ export async function sendReportToClient(session: any, reportUrl: string, pdfBuf
             <td align="center" style="padding: 40px 20px;">
               <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
                 
-                <!-- Header avec logo -->
+                <!-- Header avec logo - Bulletproof -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 32px 40px; text-align: center;">
+                  <td style="background-color: #0f172a; padding: 32px 40px; text-align: center;">
                     <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">DIAGNOSTIC-BOIS.COM</h1>
                     <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 13px; font-weight: 400;">Expert en pathologies du bois depuis 2006</p>
                   </td>
                 </tr>
 
-                <!-- Badge de confirmation -->
+                <!-- Badge de confirmation - Bulletproof -->
                 <tr>
                   <td style="padding: 32px 40px 0 40px;">
                     <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                       <tr>
-                        <td style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 8px; padding: 16px 24px; text-align: center;">
+                        <td style="background-color: #10b981; border-radius: 8px; padding: 16px 24px; text-align: center;">
                           <p style="margin: 0; color: #ffffff; font-size: 14px; font-weight: 600;">
                             Paiement confirme - Votre rapport est pret !
                           </p>
@@ -209,12 +209,18 @@ export async function sendReportToClient(session: any, reportUrl: string, pdfBuf
                   </td>
                 </tr>
 
-                <!-- Bouton CTA -->
+                <!-- Bouton CTA - Bulletproof pour Gmail -->
                 <tr>
                   <td style="padding: 0 40px 32px 40px; text-align: center;">
-                    <a href="${reportUrl}" style="display: inline-block; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px;">
-                      CONSULTER MON RAPPORT EN LIGNE
-                    </a>
+                    <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+                      <tr>
+                        <td style="background-color: #0f172a; border-radius: 8px;">
+                          <a href="${reportUrl}" target="_blank" style="display: inline-block; padding: 16px 40px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            CONSULTER MON RAPPORT EN LIGNE
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                     <p style="margin: 12px 0 0 0; font-size: 12px; color: #94a3b8;">
                       ou copiez ce lien : <a href="${reportUrl}" style="color: #0066ff;">${reportUrl}</a>
                     </p>
