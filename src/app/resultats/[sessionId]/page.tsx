@@ -27,7 +27,7 @@ function formatRef(sessionId: string): string {
 
 // Mode teaser : on cache l'espece precise (Serpula lacrymans, Hylotrupes bajulus...)
 // et on n'affiche que la famille generique pour faire peur sans tout reveler.
-// Le client doit payer 59.90 euros pour acceder au binome nomenclatural complet.
+// Le client doit payer 19 euros pour acceder au binome nomenclatural complet.
 function redactPathologyForTeaser(pathologie: string): string {
   const lower = pathologie.toLowerCase();
   // Champignons lignivores
@@ -371,10 +371,10 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   </div>
                   <UnlockButton 
                     sessionId={sessionId} 
-                    price="59.90"
+                    price="19.00"
                     className="rounded-xl bg-red-600 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-red-200 hover:bg-red-700 transition-all"
                   >
-                    Stopper les dégâts (59,90€)
+                    Stopper les dégâts (19€)
                   </UnlockButton>
                 </div>
               </section>
@@ -640,17 +640,17 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
               ) : (
                 <UnlockButton
                   sessionId={sessionId}
-                  price="59.90"
+                  price="19.00"
                   className="inline-flex flex-col items-center gap-1 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all"
                 >
                   <div className="flex items-center gap-2">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    DÉBLOQUER MON ANALYSE HAUTE PRÉCISION (59,90€)
+                    DÉBLOQUER MON ANALYSE HAUTE PRÉCISION (19€)
                   </div>
                   <span className="text-[10px] font-normal opacity-90 italic">
-                    Offert : 59,90€ déduits de vos futurs travaux avec nos partenaires
+                    Offert : 19€ déduits de vos futurs travaux avec nos partenaires
                   </span>
                 </UnlockButton>
               )}
