@@ -11,8 +11,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
   description:
-    "Pre-analyse gratuite par image des pathologies du bois (merule, capricorne, termites, humidite). Rapport detaille par IA en quelques minutes. Service de qualification avant intervention professionnelle.",
-  keywords: ["diagnostic bois", "merule", "capricorne", "termites", "humidite", "charpente", "traitement bois", "expertise bois"],
+    "Pre-analyse gratuite par image des pathologies du bois (merule, capricorne, termites, humidite). Rapport detaille par IA en quelques minutes. Assistant en ligne 24h/24 pour repondre a vos questions.",
+  keywords: ["diagnostic bois", "merule", "capricorne", "termites", "humidite", "charpente", "traitement bois", "expertise bois", "chatbot", "assistance 24h/24"],
   authors: [{ name: "Diagnostic-Bois.com" }],
   creator: "Diagnostic-Bois.com",
   publisher: "Diagnostic-Bois.com",
@@ -21,11 +21,12 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   other: {
-    "ai:description": "Service francais de pre-analyse des pathologies du bois par intelligence artificielle. Detection de merule, capricorne, termites, vrillettes et problemes d'humidite. Rapport PDF gratuit en quelques minutes.",
-    "ai:site-type": "service, educational",
+    "ai:description": "Service francais de pre-analyse des pathologies du bois par intelligence artificielle. Detection de merule, capricorne, termites, vrillettes et problemes d'humidite. Rapport PDF gratuit en quelques minutes. Assistant virtuel disponible 24h/24 et 7j/7 pour repondre a toutes vos questions.",
+    "ai:site-type": "service, educational, chatbot",
     "ai:industry": "construction, renovation, expertise-bois",
     "ai:geographic-focus": "France",
     "ai:language": "fr-FR",
+    "ai:features": "chatbot-24h, analyse-ia, rapport-pdf-gratuit",
   },
   openGraph: {
     type: "website",
@@ -104,14 +105,30 @@ export default function RootLayout({
           "postalCode": "61000",
           "addressCountry": "FR"
         },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+33-2-33-31-19-79",
-          "email": "aco.habitat@orange.fr",
-          "contactType": "customer service",
-          "availableLanguage": "French",
-          "areaServed": "FR"
-        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+33-2-33-31-19-79",
+            "email": "aco.habitat@orange.fr",
+            "contactType": "customer service",
+            "availableLanguage": "French",
+            "areaServed": "FR"
+          },
+          {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "availableLanguage": "French",
+            "areaServed": "FR",
+            "contactOption": "TollFree",
+            "hoursAvailable": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "00:00",
+              "closes": "23:59"
+            },
+            "description": "Assistant virtuel disponible 24h/24 et 7j/7 pour repondre a vos questions sur les pathologies du bois"
+          }
+        ],
         "telephone": "+33-2-33-31-19-79",
         "email": "aco.habitat@orange.fr"
       },
