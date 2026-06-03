@@ -26,10 +26,10 @@ type PhotoSlot = {
 };
 
 const initialSlots: PhotoSlot[] = [
-  { key: "photo_1", label: "Contexte global", hint: "Vue d'ensemble de la zone", file: null, previewUrl: null },
-  { key: "photo_2", label: "Détail de la zone", hint: "Gros plan sur l'anomalie", file: null, previewUrl: null },
-  { key: "photo_3", label: "Structure porteuse", hint: "Charpente, solives, murs", file: null, previewUrl: null },
-  { key: "photo_4", label: "Indices annexes", hint: "Traces, taches, dégâts", file: null, previewUrl: null },
+  { key: "photo_1", label: "Vue d'ensemble", hint: "Photo large de la zone", file: null, previewUrl: null },
+  { key: "photo_2", label: "Zone touchée", hint: "Gros plan sur le problème", file: null, previewUrl: null },
+  { key: "photo_3", label: "Dégâts visibles", hint: "Traces, champignons, trous", file: null, previewUrl: null },
+  { key: "photo_4", label: "Autre photo", hint: "Optionnel", file: null, previewUrl: null },
 ];
 
 const STEPS = ["Upload", "Validation", "Analyse", "Rapport"] as const;
