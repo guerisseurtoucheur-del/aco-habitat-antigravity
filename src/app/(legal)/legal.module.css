@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -26,6 +27,31 @@
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.4px;
+  text-decoration: none;
+}
+
+.headerContact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerPhone, .headerEmail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.headerPhone:hover, .headerEmail:hover {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .headerEmail { display: none; }
 }
 
 .backLink {
