@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   title: "Problemes d'humidite dans le bois : causes et solutions | DIAGNOSTIC-BOIS.COM",
   description: "Guide complet sur les problemes d'humidite affectant le bois : remontees capillaires, condensation, infiltrations. Diagnostic, consequences et traitements.",
   keywords: ["humidite bois", "remontees capillaires", "condensation", "infiltration eau", "bois pourri", "traitement humidite", "ventilation"],
+  openGraph: {
+    title: "Problemes d'humidite dans le bois : causes et solutions",
+    description: "Guide complet sur les problemes d'humidite affectant le bois. Diagnostic et traitements.",
+    type: "article",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
+  },
 };
 
 export default function HumiditePage() {

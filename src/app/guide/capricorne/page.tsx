@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   title: "Le Capricorne des maisons : identification et traitement | DIAGNOSTIC-BOIS.COM",
   description: "Guide complet sur le capricorne des maisons (Hylotrupes bajulus). Identifier les degats, reconnaitre les signes d'infestation et les solutions de traitement. Expert bois depuis 2006.",
   keywords: ["capricorne des maisons", "hylotrupes bajulus", "insecte xylophage", "traitement capricorne", "charpente", "larve capricorne", "bois attaque"],
+  openGraph: {
+    title: "Le Capricorne des maisons : identification et traitement",
+    description: "Guide complet sur le capricorne des maisons. Identifier les degats et solutions de traitement.",
+    type: "article",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
+  },
 };
 
 export default function CapricornePage() {

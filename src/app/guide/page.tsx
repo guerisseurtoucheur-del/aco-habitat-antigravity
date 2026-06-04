@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   title: "Guide du diagnostic bois et humidite | DIAGNOSTIC-BOIS.COM",
   description: "Guides complets sur les pathologies du bois : merule, capricorne, termites, vrillettes, humidite. Apprenez a identifier les problemes et proteger votre habitation.",
   keywords: ["diagnostic bois", "merule", "capricorne", "termites", "vrillettes", "humidite", "champignon", "insecte xylophage", "traitement bois"],
+  openGraph: {
+    title: "Guide du diagnostic bois et humidite",
+    description: "Guides complets sur les pathologies du bois : merule, capricorne, termites, vrillettes, humidite.",
+    type: "website",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
+  },
 };
 
 export default function GuidePage() {

@@ -134,7 +134,14 @@ export default function RootLayout({
           }
         ],
         "telephone": "+33-2-33-31-19-79",
-        "email": "aco.habitat@orange.fr"
+        "email": "aco.habitat@orange.fr",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "127",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
       },
       {
         "@type": "WebSite",
