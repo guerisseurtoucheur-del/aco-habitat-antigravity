@@ -11,6 +11,14 @@ export const metadata: Metadata = {
     title: "La Merule : le guide complet",
     description: "Tout savoir sur la merule pleureuse : identification, traitement, prevention. Guide expert.",
     type: "article",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
   },
 };
 

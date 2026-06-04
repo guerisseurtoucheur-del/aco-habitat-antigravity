@@ -6,6 +6,19 @@ export const metadata: Metadata = {
   title: "Les Termites : detection, traitement et prevention | DIAGNOSTIC-BOIS.COM",
   description: "Guide complet sur les termites en France. Zones infestees, signes de presence, traitements anti-termites et obligations legales. Expert diagnostic bois depuis 2006.",
   keywords: ["termites", "termites France", "traitement termites", "diagnostic termites", "zone termites", "insecte xylophage", "termite souterrain"],
+  openGraph: {
+    title: "Les Termites : detection, traitement et prevention",
+    description: "Guide complet sur les termites en France. Zones infestees, signes de presence, traitements anti-termites.",
+    type: "article",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
+  },
 };
 
 export default function TermitesPage() {

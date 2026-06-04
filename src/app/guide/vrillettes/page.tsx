@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   title: "Les Vrillettes du bois : identification et traitement | DIAGNOSTIC-BOIS.COM",
   description: "Guide sur les vrillettes (petite et grosse vrillette). Identifier les degats, comprendre le cycle de vie et les solutions de traitement pour proteger vos meubles et structures.",
   keywords: ["vrillette", "petite vrillette", "grosse vrillette", "anobium punctatum", "xestobium rufovillosum", "ver du bois", "traitement vrillette"],
+  openGraph: {
+    title: "Les Vrillettes du bois : identification et traitement",
+    description: "Guide sur les vrillettes. Identifier les degats et solutions de traitement.",
+    type: "article",
+    images: [
+      {
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois - DIAGNOSTIC-BOIS.COM",
+      },
+    ],
+  },
 };
 
 export default function VrillettesPage() {

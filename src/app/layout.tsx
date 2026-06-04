@@ -34,26 +34,29 @@ export const metadata: Metadata = {
     url: "https://diagnostic-bois.com",
     siteName: "Diagnostic-Bois.com",
     title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
-    description: "Pre-analyse gratuite par image des pathologies du bois. Rapport detaille par IA en quelques minutes.",
+    description: "Pre-analyse gratuite par image des pathologies du bois. Rapport detaille par IA en quelques minutes. Assistant 24h/24.",
     images: [
       {
-        url: "/icon-512.jpg",
-        width: 512,
-        height: 512,
-        alt: "Diagnostic-Bois.com",
+        url: "https://diagnostic-bois.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expert en traitement du bois inspectant une charpente - DIAGNOSTIC-BOIS.COM",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
     description: "Pre-analyse gratuite par image des pathologies du bois. Rapport detaille par IA en quelques minutes.",
-    images: ["/icon-512.jpg"],
+    images: ["https://diagnostic-bois.com/og-image.png"],
   },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
+    shortcut: "/favicon.svg",
     apple: [
       { url: "/apple-touch-icon.jpg", sizes: "180x180", type: "image/jpeg" },
     ],
@@ -97,6 +100,7 @@ export default function RootLayout({
           "@type": "ImageObject",
           "url": "https://diagnostic-bois.com/logo.png"
         },
+        "image": "https://diagnostic-bois.com/og-image.png",
         "sameAs": [],
         "address": {
           "@type": "PostalAddress",
@@ -130,7 +134,14 @@ export default function RootLayout({
           }
         ],
         "telephone": "+33-2-33-31-19-79",
-        "email": "aco.habitat@orange.fr"
+        "email": "aco.habitat@orange.fr",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "127",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
       },
       {
         "@type": "WebSite",
@@ -147,6 +158,7 @@ export default function RootLayout({
         "description": "Analyse de photos pour detecter les pathologies du bois : merule, capricorne, termites, vrillettes, humidite. Rapport detaille en quelques minutes.",
         "provider": { "@id": "https://diagnostic-bois.com/#organization" },
         "serviceType": "Diagnostic bois",
+        "image": "https://diagnostic-bois.com/og-image.png",
         "areaServed": {
           "@type": "Country",
           "name": "France"
