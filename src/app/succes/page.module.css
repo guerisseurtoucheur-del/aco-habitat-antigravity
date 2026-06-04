@@ -1,11 +1,15 @@
 .page { min-height: 100dvh; display: flex; flex-direction: column; background: #F4F7FA; }
 
 .header { background: #0A2540; padding: 16px 0; }
-.headerInner { display: flex; justify-content: center; }
-.logoWrap { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+.headerInner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.logoWrap { display: flex; flex-direction: column; line-height: 1.1; }
 .logoText { color: #fff; font-weight: 800; font-size: 18px; }
 .logoDotCom { color: #10b981; font-weight: 800; }
 .logoSub { font-size: 9px; color: rgba(255,255,255,0.6); font-weight: 500; }
+.headerContact { display: flex; align-items: center; gap: 16px; }
+.headerPhone, .headerEmail { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.8); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+.headerPhone:hover, .headerEmail:hover { color: #fff; }
+@media (max-width: 640px) { .headerEmail { display: none; } }
 
 .main { flex: 1; padding: 40px 0; }
 
