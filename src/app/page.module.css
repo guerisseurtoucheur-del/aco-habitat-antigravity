@@ -139,7 +139,16 @@
 .howSection { padding: 48px 0; }
 .sectionTitle {
   font-size: 24px; font-weight: 800; color: #0A2540;
-  text-align: center; margin-bottom: 32px; letter-spacing: -0.5px;
+  text-align: center; margin-bottom: 12px; letter-spacing: -0.5px;
+}
+.sectionSubtitle {
+  text-align: center;
+  font-size: 15px;
+  color: #64748b;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .steps { display: flex; flex-direction: column; gap: 16px; }
 .stepCard {
@@ -170,6 +179,31 @@
 
 /* CTA BOTTOM */
 .ctaSection { padding: 0 0 48px; }
+
+.urgencyBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #fef3c7, #fde68a);
+  color: #92400e;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.urgencyDot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: urgencyPulse 1.5s ease-in-out infinite;
+}
+@keyframes urgencyPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
 .ctaBox {
   background: linear-gradient(135deg, #0A2540, #12824C);
   border-radius: 20px; padding: 36px 24px; text-align: center; color: #fff;
@@ -211,6 +245,12 @@
   color: rgba(255, 255, 255, 0.6) !important;
   letter-spacing: 0.2px;
   margin-bottom: 6px !important;
+}
+
+.footerDisclaimer {
+  font-size: 10px !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+  margin-top: 8px !important;
 }
 
 .storeRow {
