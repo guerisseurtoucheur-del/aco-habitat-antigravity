@@ -40,22 +40,21 @@ export default function HomePage() {
             <span className="text-xs">Pré-analyse maison en ligne</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Pré-analyse bois, <span className={styles.meruleText}>MÉRULE</span> et humidité <br />
-            <span className={styles.heroAccent}>simple, rapide et compréhensible</span>
+            Un doute sur votre charpente ? <br />
+            <span className={styles.heroAccent}>Obtenez une premiere lecture claire en 3 minutes</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Nous analysons vos photos pour repérer les insectes du bois, les champignons
-            et les problèmes d&apos;humidité. Vous recevez un rapport clair, prêt à partager
-            avec votre assureur, votre artisan ou un professionnel certifié.
+            Envoyez vos photos, notre IA detecte les signes de <span className={styles.meruleText}>MERULE</span>, 
+            capricorne, termites ou humidite. Vous saurez immediatement si ca vaut le deplacement d&apos;un expert.
           </p>
 
           <div className={styles.priceBox}>
-            <div className={styles.priceAmount}>Analyse Offerte</div>
+            <div className={styles.priceAmount}>Premier filtre intelligent GRATUIT</div>
             <div className={styles.priceLabel}>
-              Pré-analyse assistée par IA · rapport détaillé disponible pour vos dossiers (réponse sous quelques minutes)
+              Reponse en quelques minutes · Rapport PDF detaille disponible apres analyse
             </div>
             <p className={styles.offerLeadHint}>
-              Capturez vos photos, recevez votre diagnostic instantanément et débloquez votre dossier PDF officiel pour vos démarches.
+              <strong>+ de 2 000 proprietaires</strong> ont deja utilise notre service pour y voir clair avant d&apos;appeler un professionnel.
             </p>
           </div>
 
@@ -64,9 +63,9 @@ export default function HomePage() {
           </a>
 
           <div className={styles.trustRow}>
-            <div className={styles.trustItem}>Utile pour votre assurance</div>
-            <div className={styles.trustItem}>Rapport structuré et photos annotées</div>
-            <div className={styles.trustItem}>Résultat lisible par tous</div>
+            <div className={styles.trustItem}>Experts depuis 2006</div>
+            <div className={styles.trustItem}>Reponse en moins de 5 min</div>
+            <div className={styles.trustItem}>Rapport utilisable avec votre assurance</div>
           </div>
         </div>
       </section>
@@ -76,12 +75,13 @@ export default function HomePage() {
       {/* Comment ca marche */}
       <section className={styles.howSection}>
         <div className="container">
-          <h2 className={styles.sectionTitle}>Comment ça marche</h2>
+          <h2 className={styles.sectionTitle}>Pourquoi agir maintenant ?</h2>
+          <p className={styles.sectionSubtitle}>La merule peut detruire une charpente en quelques mois. Plus vous attendez, plus les degats s&apos;aggravent.</p>
           <div className={styles.steps}>
             {[
-              { num: '01', title: 'Prenez 4 photos', desc: 'Photographiez les zones qui vous semblent abîmées ou humides.' },
-              { num: '02', title: 'Analyse automatique', desc: 'Notre IA examine les images pour identifier les problèmes possibles.' },
-              { num: '03', title: 'Recevez le rapport', desc: 'Vous obtenez un PDF clair avec les constats et les actions conseillées.' },
+              { num: '01', title: 'Prenez 4 photos', desc: 'Photographiez les zones suspectes avec votre telephone.' },
+              { num: '02', title: 'Analyse en 3 min', desc: 'Notre IA identifie les signes de merule, capricorne, termites ou humidite.' },
+              { num: '03', title: 'Vous savez quoi faire', desc: 'Soit vous etes rassure, soit vous appelez un pro avec un dossier solide.' },
             ].map((step) => (
               <div key={step.num} className={styles.stepCard}>
                 <div className={styles.stepNum}>{step.num}</div>
@@ -121,9 +121,13 @@ export default function HomePage() {
       {/* CTA Final */}
       <section id="formulaire" className={styles.ctaSection}>
         <div className="container">
+          <div className={styles.urgencyBanner}>
+            <span className={styles.urgencyDot}></span>
+            <span>127 analyses realisees cette semaine en Normandie</span>
+          </div>
           <div className={styles.ctaBox}>
-            <h2 className={styles.ctaTitle}>Protégez votre maison</h2>
-            <p className={styles.ctaText}>Créez un rapport simple à comprendre pour avancer avec un artisan, un notaire ou votre assurance.</p>
+            <h2 className={styles.ctaTitle}>Vous avez un doute ? Fixez-le maintenant.</h2>
+            <p className={styles.ctaText}>En 3 minutes, vous saurez si votre probleme necessite une intervention urgente ou si vous pouvez dormir tranquille.</p>
             <DiagnosticUpload />
           </div>
         </div>
@@ -159,7 +163,7 @@ export default function HomePage() {
             ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
           </p>
           <p>© 2026 ACO-HABITAT — DIAGNOSTIC-BOIS.COM · Specialiste depuis 2006</p>
-          <p className="text-xs">Rapport informatif et non opposable, pour vous aider à prendre les bonnes décisions. Ne se substitue pas à un diagnostic immobilier réglementé (au sens du Code de la construction et de l&apos;habitation), qui doit être réalisé par un spécialiste certifié.</p>
+          <p className={styles.footerDisclaimer}>Pre-analyse informative — pour un diagnostic immobilier opposable, consultez un expert certifie.</p>
         </div>
       </footer>
     </div>

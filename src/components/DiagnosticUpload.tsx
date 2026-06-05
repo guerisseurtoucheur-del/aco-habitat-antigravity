@@ -633,8 +633,7 @@ export function DiagnosticUpload() {
                 disabled={isBusy}
               />
               <span className={styles.consentText}>
-                Je comprends que ce rapport est une <strong>pré-analyse IA à valeur informative</strong>, qu&apos;il{" "}
-                <strong>n&apos;est pas un diagnostic immobilier réglementé</strong> et ne se substitue pas à l&apos;intervention d&apos;un spécialiste certifié.
+                Je comprends que cette <strong>pre-analyse me permet d&apos;y voir clair</strong> avant de faire appel a un professionnel certifie si necessaire.
               </span>
             </label>
           </div>
