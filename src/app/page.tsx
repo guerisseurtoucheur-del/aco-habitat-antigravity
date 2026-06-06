@@ -135,19 +135,6 @@ export default function HomePage() {
 
       <footer className={styles.footer}>
         <div className="container">
-          <div className={styles.storeRow}>
-            <span className={styles.storeTitle}>Bientôt disponible sur :</span>
-            <div className={styles.storeBadges}>
-              <div className={styles.storeBadge} aria-label="Application iPhone">
-                <span className={styles.storeIcon}></span>
-                <span>iPhone</span>
-              </div>
-              <div className={styles.storeBadge} aria-label="Application Samsung">
-                <span className={styles.storeIcon}>◉</span>
-                <span>Samsung</span>
-              </div>
-            </div>
-          </div>
           <nav className={styles.legalNav} aria-label="Liens légaux">
             <Link href="/mentions-legales" className={styles.legalLink}>Mentions légales</Link>
             <span className={styles.legalSep} aria-hidden="true">·</span>
