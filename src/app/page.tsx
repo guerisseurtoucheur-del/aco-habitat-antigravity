@@ -40,8 +40,8 @@ export default function HomePage() {
             <span className="text-xs">Pré-analyse maison en ligne</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Un doute sur votre charpente, vos boiseries ou un bois de cave ? <br />
-            <span className={styles.heroAccent}>Obtenez une premiere lecture claire en 3 minutes</span>
+            Charpente, boiseries, bois de cave : ne laissez pas le doute s&apos;installer. <br />
+            <span className={styles.heroAccent}>Diagnostiquez en 3 minutes, agissez avant les degats.</span>
           </h1>
           <p className={styles.heroSubtitle}>
             Envoyez vos photos, notre IA detecte les signes de <span className={styles.meruleText}>MERULE</span>, 
