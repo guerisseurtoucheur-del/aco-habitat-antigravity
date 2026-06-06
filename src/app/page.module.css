@@ -94,6 +94,8 @@
 .meruleText {
   color: #ef4444;
   font-weight: 900;
+  font-size: 1.35em;
+  letter-spacing: 0.5px;
   animation: merulePulse 1.5s ease-in-out infinite;
   text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
