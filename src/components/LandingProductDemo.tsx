@@ -378,10 +378,9 @@ export function LandingProductDemo() {
           </div>
 
           <p className={styles.disclaimer}>
-            <strong>Rappel légal.</strong> Cette démo est une simulation graphique : les
-            photos sont des exemples d&apos;illustration et ne constituent pas une analyse
-            de votre dossier. Elle ne remplace pas une inspection physique ni un
-            diagnostic immobilier réglementé lorsque la loi l&apos;exige.
+            Aperçu illustratif du parcours. Votre analyse réelle est réalisée à partir de
+            <strong> vos propres photos</strong> — un premier repère fiable pour décider sereinement
+            de la suite.
           </p>
 
           <div className={styles.ctaRow}>
