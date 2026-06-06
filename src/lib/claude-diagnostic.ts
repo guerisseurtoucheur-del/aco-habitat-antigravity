@@ -67,15 +67,21 @@ UNE seule pathologie principale par image, sauf si chaque pathologie a ses MARQU
 
 Avant de nommer un insecte, tu DOIS identifier la nature du bois, car elle conditionne les especes possibles. Ne suppose JAMAIS "resineux" par defaut.
 
-FEUILLUS (bois durs) — tres frequents en charpente ancienne, planchers, poutres apparentes, colombages :
-  - CHENE : grain large, rayons medullaires (mailles) bien visibles, teinte brun-miel a gris argente en vieillissant, noeuds rares, aspect dense et noble. Le chene ancien est le biotope PRIVILEGIE de la GROSSE VRILLETTE (Xestobium rufovillosum) et du LYCTUS sur aubier.
+FEUILLUS (bois durs) — TRES frequents en charpente ancienne, planchers, poutres apparentes, colombages, maisons de campagne et residences secondaires (le CHENE domine le bati ancien francais) :
+  - CHENE : grain large, rayons medullaires (MAILLES = larges rayons clairs perpendiculaires aux cernes, signature quasi-exclusive du chene), gros pores visibles, teinte brun-miel a gris argente en vieillissant, aspect dense, lourd et noble. Le chene ancien est le biotope PRIVILEGIE de la GROSSE VRILLETTE (Xestobium rufovillosum) et du LYCTUS sur aubier ; la petite vrillette (Anobium) l'attaque aussi tres souvent.
   - CHATAIGNIER, HETRE, ORME, PEUPLIER : autres feuillus courants.
-  Indices de feuillu : grain dense, rayons ligneux marques, absence de cernes resineux marques, pas de canaux a resine.
+  Indices de feuillu : mailles (rayons medullaires), gros pores, grain dense, surface dure, absence de canaux a resine.
 
 RESINEUX (bois tendres) — charpentes industrielles, fermettes recentes :
-  - SAPIN / EPICEA / PIN / DOUGLAS : cernes annuels nets et contrastes (alternance clair/fonce), noeuds frequents, parfois exsudats de resine. Biotope EXCLUSIF du CAPRICORNE des maisons (Hylotrupes bajulus).
+  - SAPIN / EPICEA / PIN / DOUGLAS : aspect tendre et clair, noeuds tres frequents et ronds, parfois exsudats/coulures de resine ambree. Biotope EXCLUSIF du CAPRICORNE des maisons (Hylotrupes bajulus).
 
-REGLE : le Capricorne (Hylotrupes bajulus) n'attaque QUE les resineux. Si le bois est un feuillu (chene visible : mailles, grain large), le capricorne est EXCLU d'office. Sur chene, oriente vers Xestobium rufovillosum (grosse vrillette, trous 3-4 mm), Anobium punctatum (petite vrillette, trous 1-2 mm) ou Lyctus (aubier). Decris l'essence observee dans la preuve ("bois feuillu type chene", "resineux type sapin") et n'affirme une essence que si le grain est visible ; sinon ecris "essence a confirmer".
+REGLE DE PRUDENCE SUR L'ESSENCE (ne sur-affirme JAMAIS) :
+  - Les CERNES ANNUELS et les NOEUDS ne suffisent PAS a affirmer "resineux" : le chene et les feuillus ont aussi des cernes et des noeuds. Ce sont des indices FAIBLES, pas une preuve.
+  - N'affirme "resineux type sapin/epicea" QUE si tu vois des indices FORTS : aspect tendre tres clair, coulures de resine, noeuds ronds tres nombreux ET absence de mailles.
+  - Si tu vois des mailles, de gros pores, un grain large, un bois lourd/fonce/patine, c'est un FEUILLU type CHENE.
+  - DANS LE DOUTE, ecris "essence a confirmer (feuillu type chene probable en bati ancien)". Ne tranche pas resineux par defaut. Comme la petite vrillette attaque feuillus ET resineux, une essence incertaine ne change PAS le diagnostic d'espece — donc reste prudent plutot que d'inventer une essence.
+
+REGLE : le Capricorne (Hylotrupes bajulus) n'attaque QUE les resineux. Si le bois est un feuillu (chene : mailles, gros pores, grain large), le capricorne est EXCLU d'office. Sur chene/feuillu, oriente vers Xestobium rufovillosum (grosse vrillette, trous 3-4 mm), Anobium punctatum (petite vrillette, trous 1-2 mm) ou Lyctus (aubier). Decris toujours l'essence dans la preuve ("bois feuillu type chene", "resineux type sapin", ou "essence a confirmer") sans jamais la sur-affirmer.
 
 === EVALUATION DE L'ACTIVITE DE L'INFESTATION (ne jamais conclure "ancienne/inactive" a la legere) ===
 
