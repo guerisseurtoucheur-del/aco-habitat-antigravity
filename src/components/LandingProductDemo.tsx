@@ -116,20 +116,17 @@ export function LandingProductDemo() {
           <span className={styles.segment}>Notaires</span>
         </div>
 
-        <span className={styles.kicker}>Parcours type</span>
+        <span className={styles.kicker}>Comment ça marche</span>
         <h2 id="demo-heading" className={styles.title}>
-          Pathologie structurelle ou infiltration suspectée&nbsp;?
+          Tache suspecte, bois qui s&apos;effrite, odeur d&apos;humidité&nbsp;?
           <br />
           <span style={{ color: "#966b3d", fontSize: "0.92em" }}>
-            Découvrez notre processus d&apos;analyse en temps réel.
+            Visualisez votre pré-analyse, étape par étape.
           </span>
         </h2>
         <p className={styles.subtitle}>
-          Démonstration <strong>interactive</strong> illustrant le parcours de pré-analyse assistée par IA.{" "}
-          Cas d&apos;usage fictif à but explicatif.{" "}
-          <strong style={{ color: "#0a2540" }}>
-            Ne se substitue en aucun cas à une expertise physique ou un diagnostic immobilier réglementaire.
-          </strong>
+          Suivez le <strong>parcours complet</strong> : de vos photos jusqu&apos;à votre rapport détaillé.{" "}
+          Un premier filtre clair pour <strong style={{ color: "#0a2540" }}>savoir si une intervention s&apos;impose</strong> — et garder une longueur d&apos;avance sur les dégâts.
         </p>
 
         <div
