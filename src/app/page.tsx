@@ -111,7 +111,13 @@ export default function HomePage() {
               <div key={p.label} className={styles.pathoItem}>
                 <div className={styles.pathoName}>{p.name}</div>
                 <div className={styles.pathoScientific}>{p.label}</div>
-                <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : p.cat === 'Lignivore' ? 'badge-danger' : 'badge-tech'}`}>{p.cat}</span>
+                {p.cat === 'Lignivore' ? (
+                  <span className="badge badge-danger">
+                    Champignon <span className={styles.lignivoreWord}>Lignivore</span>
+                  </span>
+                ) : (
+                  <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : 'badge-success'}`}>{p.cat}</span>
+                )}
               </div>
             ))}
           </div>
