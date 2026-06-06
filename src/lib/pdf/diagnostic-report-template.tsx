@@ -1046,7 +1046,7 @@ export const DiagnosticReportPdf = ({
               Vous avez découvert ce problème lors de travaux, dans une résidence secondaire, ou simplement en
               inspectant votre bien&nbsp;? L&apos;essentiel est d&apos;agir : une fois la pathologie identifiée, le
               traitement curatif doit être réalisé par une entreprise spécialisée. ACO-HABITAT traite le bois
-              (mérule, capricorne, termites, vrillettes, champignons) depuis plus de 30 ans. Devis et conseils sans
+              (mérule, capricorne, termites, vrillettes, champignons) depuis plus de 20 ans. Devis et conseils sans
               engagement — nous intervenons rapidement pour stopper la dégradation et protéger durablement votre bien.
             </Text>
             <View style={styles.treatmentContactRow}>
@@ -1060,7 +1060,7 @@ export const DiagnosticReportPdf = ({
               </View>
               <View>
                 <Text style={styles.treatmentContactSub}>Spécialiste du traitement du bois</Text>
-                <Text style={styles.treatmentContactItem}>ACO-HABITAT · 30 ans d&apos;expérience</Text>
+                <Text style={styles.treatmentContactItem}>ACO-HABITAT · 20 ans d&apos;expérience</Text>
               </View>
             </View>
           </View>

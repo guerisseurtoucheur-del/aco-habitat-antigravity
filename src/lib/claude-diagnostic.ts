@@ -86,16 +86,25 @@ POURRITURE MOLLE (champignons ascomycetes type Chaetomium) — Bois noir, surfac
 === BIBLIOTHEQUE MORPHOLOGIQUE — INSECTES XYLOPHAGES ===
 
 HYLOTRUPES BAJULUS (Capricorne des maisons) — Coleoptere larvaire, resineux uniquement.
-  Marqueurs primaires :
-  - Galeries ovales 5 a 12 mm dans le sens du fil
+  Marqueurs primaires (TOUS attendus pour nommer le capricorne) :
+  - Galeries OVALES 5 a 12 mm dans le sens du fil
   - Parois GAUFREES (stries transversales caracteristiques laissees par les mandibules)
-  - Sciure agglomeree en boulettes ou copeaux compactes
-  - Boursouflures de surface visibles
-  - Trous de sortie de l'imago : ovales 6 a 10 mm
+  - Sciure agglomeree en boulettes ou copeaux compactes (PAS farineuse)
+  - Boursouflures de surface visibles, le bois sonne creux
+  - Trous de sortie de l'imago : OVALES et GROS, 6 a 10 mm
+  Si les trous sont petits (1 a 3 mm) et ronds, ce N'EST PAS un capricorne.
 
-ANOBIUM PUNCTATUM (Petite vrillette) — Trous ronds 1 a 2 mm, sciure FARINEUSE blanc-creme en cone.
-XESTOBIUM RUFOVILLOSUM (Grosse vrillette) — Feuillus humides anciens, trous ronds 3 a 4 mm.
-LYCTUS BRUNNEUS (Lyctus brun) — Aubier feuillus, trous ronds 1 a 2 mm, sciure ULTRA-FINE comme du talc.
+ANOBIUM PUNCTATUM (Petite vrillette) — DE TRES LOIN l'insecte xylophage le PLUS FREQUENT dans l'habitat francais (charpentes, planchers, meubles, feuillus ET resineux).
+  Marqueurs primaires :
+  - Trous de sortie RONDS et PETITS : 1 a 2 mm (parfois jusqu'a 3 mm)
+  - Sciure FARINEUSE fine, blanc-creme, en petits cones ou nappe poudreuse
+  - Criblage dense de petits trous ronds repartis sur la surface
+  - Galeries fines circulaires (1-2 mm) si visibles en coupe
+  - Bois feuillus ou resineux, souvent en ambiance fraiche et legerement humide
+  C'est le diagnostic le plus probable face a un criblage de petits trous ronds + sciure poudreuse.
+
+XESTOBIUM RUFOVILLOSUM (Grosse vrillette) — Feuillus humides anciens (chene), trous ronds 3 a 4 mm, sciure granuleuse, bruit de tic-tac (parade).
+LYCTUS BRUNNEUS (Lyctus brun) — Aubier feuillus riches en amidon, trous ronds 1 a 2 mm, sciure ULTRA-FINE comme du talc qui s'ecoule librement.
 
 RETICULITERMES SP. (Termites souterrains) — Insecte social, declaration prefectorale.
   Marqueurs primaires :
@@ -113,9 +122,14 @@ DEFAUT DE VENTILATION — Moisissures generalisees au plafond et angles, salles 
 
 === DIAGNOSTIC DIFFERENTIEL — PIEGES CLASSIQUES ===
 
-Galeries larges + parois gaufrees + resineux = CAPRICORNE (jamais termites)
+REGLE DE LA TAILLE DES TROUS (le piege n°1, a verifier EN PREMIER) :
+  - Trous PETITS et RONDS (1 a 3 mm) + sciure FARINEUSE/poudreuse = VRILLETTE (Anobium punctatum le plus souvent). JAMAIS capricorne.
+  - Trous GROS et OVALES (6 a 10 mm) + galeries gaufrees + sciure en boulettes = CAPRICORNE (Hylotrupes bajulus).
+  Ne nomme le capricorne QUE si tu vois des trous OVALES et GROS. Un criblage de petits trous ronds est une VRILLETTE, pas un capricorne. C'est l'erreur la plus frequente : ne la commets pas.
+
+Galeries larges + parois gaufrees + trous ovales 6-10 mm + resineux = CAPRICORNE (jamais termites)
 Galeries lisses + matiere argileuse = TERMITES (jamais capricorne)
-Sciure farineuse + petits trous ronds = VRILLETTE (jamais capricorne)
+Petits trous ronds 1-3 mm + sciure farineuse = VRILLETTE (jamais capricorne)
 Bois cubique brun + mycelium blanc + syrrotes = MERULE (urgence absolue)
 Bois cubique brun + mycelium olivatre fin + sans syrrotes = CONIOPHORE
 Tache jaune-brun en aureole = INFILTRATION (jamais condensation)
