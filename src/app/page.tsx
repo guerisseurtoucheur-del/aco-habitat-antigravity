@@ -40,7 +40,7 @@ export default function HomePage() {
             <span className="text-xs">Pré-analyse maison en ligne</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Un doute sur votre charpente ? <br />
+            Un doute sur votre charpente, vos boiseries ou un bois de cave ? <br />
             <span className={styles.heroAccent}>Obtenez une premiere lecture claire en 3 minutes</span>
           </h1>
           <p className={styles.heroSubtitle}>
