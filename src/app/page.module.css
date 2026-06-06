@@ -111,6 +111,18 @@
   }
 }
 
+/* LIGNIVORE clignotant rouge (badge pathologies) */
+.lignivoreWord {
+  color: #dc2626;
+  font-weight: 900;
+  text-transform: uppercase;
+  animation: lignivoreBlink 1.1s ease-in-out infinite;
+}
+@keyframes lignivoreBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
 .heroSubtitle {
   font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.8);
   margin-bottom: 32px; position: relative;
