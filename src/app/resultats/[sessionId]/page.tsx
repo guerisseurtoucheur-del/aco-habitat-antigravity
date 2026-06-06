@@ -601,16 +601,17 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           <path d="M12 15V17M12 7V13M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" />
                         </svg>
                       </div>
-                      <h3 className="mb-2 text-lg font-bold text-slate-900">Plan de sauvetage verrouillé</h3>
+                      <h3 className="mb-2 text-lg font-bold text-slate-900">Votre plan d&apos;action détaillé est prêt</h3>
                       <p className="mb-4 text-sm text-slate-600">
-                        Accédez aux préconisations techniques immédiates pour stopper la propagation et protéger la valeur de votre patrimoine.
+                        Bonne nouvelle : repéré tôt, un problème de bois se traite simplement et à moindre coût.
+                        Débloquez vos préconisations étape par étape pour savoir exactement quoi faire — et avancer l&apos;esprit tranquille.
                       </p>
                       <UnlockButton 
                         sessionId={sessionId} 
-                        price="49"
+                        price="19.00"
                         className="w-full rounded-xl bg-violet-600 py-4 text-sm font-bold text-white shadow-lg shadow-violet-200 hover:bg-violet-700 transition-all transform hover:scale-[1.02]"
                       >
-                        Protéger ma maison & Voir le plan
+                        Voir mon plan d&apos;action (19€)
                       </UnlockButton>
                       <p className="mt-3 text-[10px] text-slate-400">
                         ⭐ 4.9/5 — Plus de 1 200 audits réalisés ce mois-ci
@@ -644,7 +645,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
           </>
         )}
 
-        {/* ── ACTIONS ─────────────────────────────────────────────── */}
+        {/* ── ACTIONS ──────────────────────────────────��──────────── */}
         <section className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm">
           {session?.status === "completed" ? (
             <div className="flex items-center gap-3">

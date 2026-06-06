@@ -306,6 +306,54 @@ const styles = StyleSheet.create({
     lineHeight: 1.5,
   },
 
+  // Treatment CTA box (ACO-HABITAT brand)
+  treatmentBox: {
+    marginTop: 12,
+    marginBottom: 18,
+    padding: 18,
+    backgroundColor: "#0A2540",
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: "#10b981",
+  },
+  treatmentLabel: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "#34d399",
+    textTransform: "uppercase",
+    letterSpacing: 0.4,
+    marginBottom: 6,
+  },
+  treatmentTitle: {
+    fontSize: 13,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 8,
+  },
+  treatmentText: {
+    fontSize: 9,
+    color: "#cbd5e1",
+    lineHeight: 1.5,
+    marginBottom: 12,
+  },
+  treatmentContactRow: {
+    flexDirection: "row",
+    gap: 16,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255,255,255,0.15)",
+  },
+  treatmentContactItem: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  treatmentContactSub: {
+    fontSize: 7,
+    color: "#94a3b8",
+    marginBottom: 2,
+  },
+
   // Insurance usage card
   insuranceBox: {
     marginTop: 10,
@@ -622,7 +670,7 @@ const RICH_FALLBACK_PRECONISATIONS: string[] = [
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle ���� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle �������� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -985,9 +1033,36 @@ export const DiagnosticReportPdf = ({
 
           {/* SECTION: RECOMMENDATIONS */}
           <View style={[styles.nextStepBox, { borderLeftColor: nextStep.borderColor, marginTop: 20 }]} wrap={false}>
-            <Text style={styles.nextStepLabel}>Votre prochaine étape · {nextStep.label}</Text>
+            <Text style={styles.nextStepLabel}>Étape 1 · {nextStep.label}</Text>
             <Text style={styles.nextStepTitle}>{nextStep.title}</Text>
             <Text style={styles.nextStepText}>{nextStep.body}</Text>
+          </View>
+
+          {/* STEP 2: TREATMENT BY ACO-HABITAT */}
+          <View style={styles.treatmentBox} wrap={false}>
+            <Text style={styles.treatmentLabel}>Étape 2 · Le traitement</Text>
+            <Text style={styles.treatmentTitle}>Faites traiter le bois par des spécialistes</Text>
+            <Text style={styles.treatmentText}>
+              Vous avez découvert ce problème lors de travaux, dans une résidence secondaire, ou simplement en
+              inspectant votre bien&nbsp;? L&apos;essentiel est d&apos;agir : une fois la pathologie identifiée, le
+              traitement curatif doit être réalisé par une entreprise spécialisée. ACO-HABITAT traite le bois
+              (mérule, capricorne, termites, vrillettes, champignons) depuis plus de 30 ans. Devis et conseils sans
+              engagement — nous intervenons rapidement pour stopper la dégradation et protéger durablement votre bien.
+            </Text>
+            <View style={styles.treatmentContactRow}>
+              <View>
+                <Text style={styles.treatmentContactSub}>Appelez-nous</Text>
+                <Text style={styles.treatmentContactItem}>02 33 31 19 79</Text>
+              </View>
+              <View>
+                <Text style={styles.treatmentContactSub}>Écrivez-nous</Text>
+                <Text style={styles.treatmentContactItem}>aco.habitat@orange.fr</Text>
+              </View>
+              <View>
+                <Text style={styles.treatmentContactSub}>Spécialiste du traitement du bois</Text>
+                <Text style={styles.treatmentContactItem}>ACO-HABITAT · 30 ans d&apos;expérience</Text>
+              </View>
+            </View>
           </View>
 
           <Text style={styles.h2}>Préconisations et Actions Correctives</Text>
@@ -1031,7 +1106,7 @@ export const DiagnosticReportPdf = ({
             <View style={styles.signatureBox}>
               <Text style={styles.signatureTitle}>DIAGNOSTIC-BOIS</Text>
               <Text style={styles.signatureSub}>Direction technique — Analyse Haute Précision</Text>
-              <Text style={{ fontSize: 9, color: "#10b981", marginBottom: 10, fontWeight: "bold" }}>SENIOR SPECIALIST</Text>
+              <Text style={{ fontSize: 9, color: "#10b981", marginBottom: 10, fontWeight: "bold" }}>SPÉCIALISTE SENIOR</Text>
               <Text style={styles.signatureLine}>Document généré automatiquement</Text>
             </View>
           </View>
@@ -1145,7 +1220,7 @@ export const DiagnosticReportPdf = ({
           <View>
             <Text style={styles.invoiceTitle}>FACTURE</Text>
             <Text style={styles.invoiceNumber}>N° FAC-{createdAt.getFullYear()}-{refId}</Text>
-            <Text style={[styles.invoiceNumber, { marginTop: 2 }]}>Date : {formatParisDateTime(generatedAt).split(" ").slice(0, 4).join(" ")}</Text>
+            <Text style={[styles.invoiceNumber, { marginTop: 2 }]}>Date : {formatParisDateTime(generatedAt)}</Text>
           </View>
         </View>
 
@@ -1163,6 +1238,7 @@ export const DiagnosticReportPdf = ({
             <Text style={styles.invoiceBoxTitle}>Client</Text>
             <Text style={styles.invoiceBoxText}>{clientName}</Text>
             <Text style={styles.invoiceBoxText}>{session.clientEmail || "Email non renseigne"}</Text>
+            <Text style={styles.invoiceBoxText}>{session.clientPhone || "Telephone non renseigne"}</Text>
             <Text style={[styles.invoiceBoxText, { marginTop: 4 }]}>{clientAddress}</Text>
           </View>
         </View>
@@ -1188,8 +1264,8 @@ export const DiagnosticReportPdf = ({
               </Text>
             </View>
             <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "center" }]}>1</Text>
-            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
-            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>49,92 EUR</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>15,83 EUR</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>15,83 EUR</Text>
           </View>
         </View>
 
