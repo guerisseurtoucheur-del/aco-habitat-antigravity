@@ -40,8 +40,8 @@ export default function HomePage() {
             <span className="text-xs">Pré-analyse maison en ligne</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Un doute sur votre charpente ? <br />
-            <span className={styles.heroAccent}>Obtenez une premiere lecture claire en 3 minutes</span>
+            Charpente, boiseries, bois de cave : ne laissez pas le doute s&apos;installer. <br />
+            <span className={styles.heroAccent}>Diagnostiquez en 3 minutes, agissez avant les degats.</span>
           </h1>
           <p className={styles.heroSubtitle}>
             Envoyez vos photos, notre IA detecte les signes de <span className={styles.meruleText}>MERULE</span>, 
@@ -135,19 +135,6 @@ export default function HomePage() {
 
       <footer className={styles.footer}>
         <div className="container">
-          <div className={styles.storeRow}>
-            <span className={styles.storeTitle}>Bientôt disponible sur :</span>
-            <div className={styles.storeBadges}>
-              <div className={styles.storeBadge} aria-label="Application iPhone">
-                <span className={styles.storeIcon}></span>
-                <span>iPhone</span>
-              </div>
-              <div className={styles.storeBadge} aria-label="Application Samsung">
-                <span className={styles.storeIcon}>◉</span>
-                <span>Samsung</span>
-              </div>
-            </div>
-          </div>
           <nav className={styles.legalNav} aria-label="Liens légaux">
             <Link href="/mentions-legales" className={styles.legalLink}>Mentions légales</Link>
             <span className={styles.legalSep} aria-hidden="true">·</span>
