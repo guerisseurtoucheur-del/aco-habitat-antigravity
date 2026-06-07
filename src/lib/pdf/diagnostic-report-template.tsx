@@ -353,6 +353,25 @@ const styles = StyleSheet.create({
     color: "#94a3b8",
     marginBottom: 2,
   },
+  treatmentProductBox: {
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "rgba(16,185,129,0.10)",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "rgba(52,211,153,0.35)",
+  },
+  treatmentProductName: {
+    fontSize: 9.5,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 3,
+  },
+  treatmentProductText: {
+    fontSize: 8,
+    color: "#cbd5e1",
+    lineHeight: 1.45,
+  },
 
   // Insurance usage card
   insuranceBox: {
@@ -1049,6 +1068,15 @@ export const DiagnosticReportPdf = ({
               (mérule, capricorne, termites, vrillettes, champignons) depuis plus de 20 ans. Devis et conseils sans
               engagement — nous intervenons rapidement pour stopper la dégradation et protéger durablement votre bien.
             </Text>
+            <View style={styles.treatmentProductBox}>
+              <Text style={styles.treatmentProductName}>Notre solution : XILIX GEL CURATIF FONGI+</Text>
+              <Text style={styles.treatmentProductText}>
+                Traitement curatif et préventif à triple action (fongicide, insecticide, anti-termites), conforme au
+                référentiel CTB-A+. Efficace contre les insectes à larves xylophages (capricornes, vrillettes, lyctus),
+                les termites et les champignons lignivores. Appliqué par nos équipes depuis plus de 15 ans, après
+                préparation des bois (sondage, bûchage, brossage), avec injection en profondeur sur les fortes sections.
+              </Text>
+            </View>
             <View style={styles.treatmentContactRow}>
               <View>
                 <Text style={styles.treatmentContactSub}>Appelez-nous</Text>
