@@ -372,6 +372,40 @@ const styles = StyleSheet.create({
     color: "#cbd5e1",
     lineHeight: 1.45,
   },
+  treatmentMethodsBox: {
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "rgba(15,23,42,0.45)",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "rgba(148,163,184,0.25)",
+  },
+  treatmentMethodsTitle: {
+    fontSize: 9.5,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 6,
+  },
+  treatmentMethodItem: {
+    marginBottom: 7,
+  },
+  treatmentMethodName: {
+    fontSize: 8.5,
+    fontWeight: "bold",
+    color: "#34d399",
+    marginBottom: 2,
+  },
+  treatmentMethodText: {
+    fontSize: 8,
+    color: "#cbd5e1",
+    lineHeight: 1.45,
+  },
+  treatmentMethodsFooter: {
+    fontSize: 8,
+    color: "#94a3b8",
+    lineHeight: 1.45,
+    marginTop: 3,
+  },
 
   // Insurance usage card
   insuranceBox: {
@@ -1031,6 +1065,34 @@ export const DiagnosticReportPdf = ({
                 qualification qui conditionne la délivrance de notre garantie décennale. Une application non conforme,
                 sans formation, annule toute couverture et peut s&apos;avérer dangereuse. Confier le traitement à nos
                 équipes formées, c&apos;est l&apos;assurance d&apos;un résultat durable et garanti.
+              </Text>
+            </View>
+            <View style={styles.treatmentMethodsBox}>
+              <Text style={styles.treatmentMethodsTitle}>Nos méthodes de traitement du bois</Text>
+              <View style={styles.treatmentMethodItem}>
+                <Text style={styles.treatmentMethodName}>Traitement curatif par injection</Text>
+                <Text style={styles.treatmentMethodText}>
+                  Pour les bois déjà infestés et les pièces de forte section (poutres, solives, pannes,
+                  charpentes), nous procédons au sondage puis au bûchage des parties altérées avant la pose de
+                  chevilles-injecteurs. Le produit curatif est injecté sous pression au cœur du bois afin
+                  d&apos;atteindre les galeries larvaires et d&apos;éradiquer durablement capricornes, vrillettes,
+                  termites et champignons lignivores, là où un traitement de surface seul serait insuffisant.
+                </Text>
+              </View>
+              <View style={styles.treatmentMethodItem}>
+                <Text style={styles.treatmentMethodName}>Traitement préventif par pulvérisation</Text>
+                <Text style={styles.treatmentMethodText}>
+                  Après préparation et dépoussiérage des bois, nous appliquons le produit par pulvérisation
+                  basse pression sur l&apos;ensemble des surfaces. Ce traitement préventif crée une barrière
+                  protectrice qui prémunit durablement la charpente et les boiseries contre toute nouvelle
+                  attaque d&apos;insectes xylophages et de champignons.
+                </Text>
+              </View>
+              <Text style={styles.treatmentMethodsFooter}>
+                Chaque chantier est réalisé par nos équipes formées, dans le strict respect des normes
+                d&apos;application et des règles de sécurité. Spécialistes de la mérule, du capricorne, des
+                vrillettes et des termites, nous établissons un protocole adapté à votre bien et à la pathologie
+                identifiée.
               </Text>
             </View>
             <View style={styles.treatmentContactRow}>
