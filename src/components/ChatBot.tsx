@@ -60,6 +60,17 @@ export default function ChatBot() {
 
   return (
     <>
+      {/* Bulle d'invitation */}
+      {!isOpen && (
+        <button
+          className={styles.inviteBubble}
+          onClick={() => setIsOpen(true)}
+          aria-label="Ouvrir le chat expert"
+        >
+          Une question ?
+        </button>
+      )}
+
       {/* Bouton flottant */}
       <button 
         className={styles.floatingButton}
