@@ -683,13 +683,13 @@ function stripMarkdown(input: string | null | undefined): string {
 const RICH_FALLBACK_PRECONISATIONS: string[] = [
   "Action immédiate (0-24h) : sécuriser la zone, documenter par photographies horodatées, et limiter toute humidité active visible (épongeage, ventilation, coupure d'arrivée d'eau si fuite).",
   "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifié COFRAC pour réaliser un état parasitaire conforme à la norme NF P 03-200 (sondage mécanique, mesure d'humidité par humidimètre, prélèvement éventuel pour analyse mycologique).",
-  "Action 30 jours : commander une étude structurelle par bureau d'études afin d'évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif (CTB-A+) ou de remplacement partiel.",
+  "Action 30 jours : commander une étude structurelle par bureau d'études afin d'évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif ou de remplacement partiel.",
   "Action 3 mois : engager les travaux correctifs préconisés par les spécialistes (traitement xylophages/fongicides, reprise de couverture, traitement de l'humidité structurelle).",
   "Suivi long terme : programmer un contrôle annuel des zones traitées et conserver l'ensemble des rapports et factures pour traçabilité (assurance, transaction, contentieux).",
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle �������� partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -701,47 +701,6 @@ function ensureRichPreconisations(items: string[] | undefined | null): string[] 
 function ensureRichConclusion(value: string | undefined | null): string {
   const cleaned = stripMarkdown(value).trim();
   return cleaned.length >= 80 ? cleaned : RICH_FALLBACK_CONCLUSION;
-}
-
-type NextStepSeverity = "critical" | "moderate" | "low";
-
-type NextStepContent = {
-  severity: NextStepSeverity;
-  label: string;
-  title: string;
-  body: string;
-  borderColor: string;
-};
-
-function computeNextStep(critical: number, moderate: number): NextStepContent {
-  if (critical > 0) {
-    return {
-      severity: "critical",
-      label: "Action requise sous 7 jours",
-      title: "Faites établir un diagnostic immobilier réglementé par un spécialiste certifié COFRAC",
-      body:
-        "L'analyse a détecté une ou plusieurs pathologies de niveau critique. Avant toute prise de décision (achat, vente, travaux, déclaration assurantielle), il est impératif de faire réaliser un état parasitaire conforme à la norme NF P 03-200 par un diagnostiqueur certifié COFRAC, avec sondage mécanique et mesure d'humidité au point. Seule cette prestation réglementée a une valeur opposable.",
-      borderColor: "#dc2626",
-    };
-  }
-  if (moderate > 0) {
-    return {
-      severity: "moderate",
-      label: "Action recommandée sous 30 jours",
-      title: "Consultez un diagnostiqueur certifié pour confirmer l'état du bien",
-      body:
-        "L'analyse a relevé un ou plusieurs désordres modérés à surveiller. Pour sécuriser une transaction immobilière ou planifier un traitement curatif adapté, il est recommandé de faire intervenir un diagnostiqueur certifié COFRAC pour une inspection physique complète. Lui seul est habilité à produire un état parasitaire opposable.",
-      borderColor: "#ea580c",
-    };
-  }
-  return {
-    severity: "low",
-    label: "Suivi périodique conseillé",
-    title: "Programmez une surveillance annuelle de votre bien",
-    body:
-      "L'analyse n'a pas révélé de pathologie majeure sur les images soumises. Pour conserver la fiabilité de cet état des lieux, mettez en place une surveillance annuelle de votre charpente, caves et points sensibles. En cas de doute ou avant toute transaction, faites valider l'absence de désordres par un diagnostiqueur certifié COFRAC.",
-    borderColor: "#0891b2",
-  };
 }
 
 const PARIS_DATETIME_FORMATTER = new Intl.DateTimeFormat("fr-FR", {
@@ -841,8 +800,6 @@ export const DiagnosticReportPdf = ({
     },
     { c: 0, m: 0, l: 0 }
   );
-
-  const nextStep = computeNextStep(counts.c, counts.m);
 
   const renderPhotoWithDetails = (img: any, index: number) => {
     const matching = report.analyses.filter(a => (a as any).image_index === index + 1);
@@ -1050,16 +1007,9 @@ export const DiagnosticReportPdf = ({
           <Text style={[styles.h2, { marginTop: 30 }]}>Documentation Visuelle & Analyses</Text>
           {images.map((img: any, i: number) => renderPhotoWithDetails(img, i))}
 
-          {/* SECTION: RECOMMENDATIONS */}
-          <View style={[styles.nextStepBox, { borderLeftColor: nextStep.borderColor, marginTop: 20 }]} wrap={false}>
-            <Text style={styles.nextStepLabel}>Étape 1 · {nextStep.label}</Text>
-            <Text style={styles.nextStepTitle}>{nextStep.title}</Text>
-            <Text style={styles.nextStepText}>{nextStep.body}</Text>
-          </View>
-
-          {/* STEP 2: TREATMENT BY ACO-HABITAT */}
+          {/* SECTION: TREATMENT BY ACO-HABITAT */}
           <View style={styles.treatmentBox} wrap={false}>
-            <Text style={styles.treatmentLabel}>Étape 2 · Le traitement</Text>
+            <Text style={styles.treatmentLabel}>La prochaine étape · Le traitement</Text>
             <Text style={styles.treatmentTitle}>Faites traiter le bois par des spécialistes</Text>
             <Text style={styles.treatmentText}>
               Vous avez découvert ce problème lors de travaux, dans une résidence secondaire, ou simplement en
@@ -1069,12 +1019,18 @@ export const DiagnosticReportPdf = ({
               engagement — nous intervenons rapidement pour stopper la dégradation et protéger durablement votre bien.
             </Text>
             <View style={styles.treatmentProductBox}>
-              <Text style={styles.treatmentProductName}>Notre solution : XILIX GEL CURATIF FONGI+</Text>
+              <Text style={styles.treatmentProductName}>Notre solution : un gel curatif professionnel</Text>
               <Text style={styles.treatmentProductText}>
-                Traitement curatif et préventif à triple action (fongicide, insecticide, anti-termites), conforme au
-                référentiel CTB-A+. Efficace contre les insectes à larves xylophages (capricornes, vrillettes, lyctus),
-                les termites et les champignons lignivores. Appliqué par nos équipes depuis plus de 15 ans, après
-                préparation des bois (sondage, bûchage, brossage), avec injection en profondeur sur les fortes sections.
+                Nous mettons en œuvre un gel curatif et préventif à triple action (fongicide, insecticide,
+                anti-termites), efficace contre les insectes à larves xylophages (capricornes, vrillettes, lyctus),
+                les termites et les champignons lignivores. Ce produit ne peut pas être appliqué par un particulier :
+                sa mise en œuvre exige le strict respect des normes d&apos;application, le port d&apos;équipements de
+                protection (masque, protection respiratoire, gants) et une maîtrise technique précise du dosage et de
+                la préparation des bois (sondage, bûchage, brossage, injection en profondeur sur les fortes sections).
+                Nos opérateurs suivent des stages de formation obligatoires et certifiants : c&apos;est cette
+                qualification qui conditionne la délivrance de notre garantie décennale. Une application non conforme,
+                sans formation, annule toute couverture et peut s&apos;avérer dangereuse. Confier le traitement à nos
+                équipes formées, c&apos;est l&apos;assurance d&apos;un résultat durable et garanti.
               </Text>
             </View>
             <View style={styles.treatmentContactRow}>

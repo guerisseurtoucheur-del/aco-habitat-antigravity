@@ -136,7 +136,7 @@ export default function TermitesPage() {
           <div className={styles.alertBox + " " + styles.info}>
             <p className={styles.alertTitle}>Garantie decennale</p>
             <p className={styles.alertText}>
-              Les traitements anti-termites realises par des professionnels qualifies et formes beneficient 
+              Les traitements anti-termites realises par des professionnels certifies CTB-A+ beneficient 
               d&apos;une garantie decennale obligatoire.
             </p>
           </div>

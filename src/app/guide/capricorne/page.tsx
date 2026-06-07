@@ -159,7 +159,7 @@ export default function CapricornePage() {
           </p>
           <ul>
             <li>Percage de trous tous les 30-40 cm</li>
-            <li>Injection sous pression d&apos;un produit certifie CTB-P+</li>
+            <li>Injection sous pression d&apos;un produit curatif professionnel</li>
             <li>Pulverisation de surface</li>
           </ul>
 

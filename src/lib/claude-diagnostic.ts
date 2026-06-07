@@ -223,7 +223,7 @@ Maximum 3 annotations par image.
   "preconisations_techniques": [
     "Action immediate (0-24h) : mesures conservatoires precises",
     "Investigation court terme (7 jours) : sondage mecanique au poincon NF P 03-200",
-    "Traitement specialise (30 jours) : intervention par une entreprise specialisee ; pour un insecte xylophage ou un champignon lignivore, traitement curatif au gel curatif professionnel applique selon les normes par des operateurs formes, injection en profondeur si fortes sections, apres preparation des bois (sondage, buchage, brossage)",
+    "Traitement specialise (30 jours) : intervention entreprise certifiee CTB-A+ ; pour un insecte xylophage ou un champignon lignivore, traitement curatif type XILIX GEL CURATIF FONGI+ (application de surface conforme CTB-A+, injection en profondeur si fortes sections) apres preparation des bois (sondage, buchage, brossage)",
     "Travaux structuraux (3 mois) : reprise charpente DTU 31.1",
     "Suivi long terme : controle annuel post-traitement"
   ],
