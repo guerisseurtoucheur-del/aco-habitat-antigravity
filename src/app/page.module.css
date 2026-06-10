@@ -63,6 +63,20 @@
 }
 
 /* HERO */
+.trustStrip {
+  background: #0E3D2A;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.trustStripInner {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 8px 20px; padding: 8px 0;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85);
+  text-align: center;
+}
+.trustStripItem {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.trustStripItem svg { flex-shrink: 0; color: #2ECC71; }
 .hero {
   background: linear-gradient(160deg, #0A2540 0%, #1A3A5F 60%, #0E3D2A 100%);
   padding: 48px 0 56px; color: #fff; text-align: center;
