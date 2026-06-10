@@ -798,6 +798,9 @@ const PageFooter = ({
       <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
         Horodate le {generatedAtLabel} - Empreinte {fingerprintShort}
       </Text>
+      <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
+        ACO-HABITAT - Marque deposee a l'INPI n° 5266768 - Methode et format de rapport proteges (depot e-Soleau INPI) - Reproduction interdite
+      </Text>
     </View>
     <Text
       style={{ fontWeight: "bold", fontSize: 8 }}

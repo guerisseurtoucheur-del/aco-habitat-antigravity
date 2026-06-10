@@ -156,6 +156,9 @@ export default function HomePage() {
             ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
           </p>
           <p>© 2026 ACO-HABITAT — DIAGNOSTIC-BOIS.COM · Specialiste depuis 2006</p>
+          <p className={styles.footerIdentity}>
+            ACO-HABITAT · Marque déposée à l&apos;INPI n° 5266768 · Méthode et format de rapport protégés (dépôt e-Soleau INPI)
+          </p>
           <p className={styles.footerDisclaimer}>Pre-analyse informative — pour un diagnostic immobilier opposable, consultez un expert certifie.</p>
         </div>
       </footer>
