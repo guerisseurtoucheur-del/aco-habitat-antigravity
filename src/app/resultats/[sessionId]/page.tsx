@@ -702,6 +702,10 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                     </span>
                     <span>⭐ 4,9/5 — Plus de 1 200 audits ce mois-ci</span>
                   </div>
+                  <div className="mt-1 flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-500">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-emerald-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                    ACO-HABITAT · Marque déposée à l&apos;INPI · Méthode protégée
+                  </div>
                 </div>
                 <div className="border-t border-slate-100 bg-slate-50 px-6 py-3">
                   <p className="text-[10px] leading-4 text-slate-400">

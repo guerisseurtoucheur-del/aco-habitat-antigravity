@@ -165,6 +165,16 @@ export default function MentionsLegalesPage() {
           de ces marques constitue une contrefaçon engageant la responsabilité de son
           auteur.
         </p>
+        <p>
+          La marque <strong>ACO HABITAT</strong> est une marque française déposée
+          auprès de l&apos;Institut National de la Propriété Industrielle (INPI) sous
+          le numéro national <strong>5266768</strong>. La méthode de pré-analyse ainsi
+          que le format des rapports générés font l&apos;objet d&apos;un dépôt probatoire
+          horodaté <strong>e-Soleau</strong> auprès de l&apos;INPI, garantissant leur
+          antériorité et leur paternité. Toute reproduction ou imitation de la marque,
+          de la méthode ou du format de rapport est strictement interdite et expose son
+          auteur à des poursuites en contrefaçon et concurrence déloyale.
+        </p>
       </section>
 
       <section className={styles.section}>
