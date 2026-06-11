@@ -56,7 +56,7 @@ export default function HomePage() {
       {/* Hero : Message client clair */}
       <section className={styles.hero}>
         <div className="container">
-          <div className={styles.heroBadge}>
+          <div className={`${styles.heroBadge} ${styles.heroBadgeRed}`}>
             <span className="text-xs">Pré-analyse en ligne gratuite</span>
           </div>
           <h1 className={styles.heroTitle}>
