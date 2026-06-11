@@ -69,7 +69,7 @@ export default function HomePage() {
           </p>
 
           <div className={styles.priceBox}>
-            <div className={styles.priceAmount}>Premier filtre intelligent GRATUIT</div>
+            <div className={styles.priceAmount}>Premier filtre intelligent</div>
             <div className={styles.priceLabel}>
               Reponse en quelques minutes · Rapport PDF detaille disponible apres analyse
             </div>
