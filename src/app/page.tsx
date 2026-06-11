@@ -57,7 +57,7 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.heroBadge}>
-            <span className="text-xs">Pré-analyse maison en ligne</span>
+            <span className="text-xs">Pré-analyse en ligne gratuite</span>
           </div>
           <h1 className={styles.heroTitle}>
             Charpente, boiseries, bois de cave : ne laissez pas le doute s&apos;installer. <br />
