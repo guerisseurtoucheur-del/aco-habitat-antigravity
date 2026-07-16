@@ -29,6 +29,15 @@ const entries: Entry[] = [
   // Le traitement du bois
   { path: "/guide/traitement-du-bois", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
 
+  // Reconnaître les pathologies
+  { path: "/guide/reconnaitre-les-pathologies", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
+
+  // FAQ
+  { path: "/guide/faq", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-16" },
+
+  // Qui sommes-nous
+  { path: "/guide/qui-sommes-nous", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-16" },
+
   // Guide - Pathologies
   { path: "/guide/merule", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
   { path: "/guide/capricorne", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
