@@ -168,6 +168,50 @@ export default function GuidePage() {
             </figure>
           </div>
 
+          <h2>Comprendre et traiter</h2>
+          <p>
+            Au-dela des pathologies, retrouvez nos ressources pratiques pour reconnaitre une attaque, comprendre le
+            deroulement d&apos;un traitement et decouvrir notre expertise.
+          </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, margin: "24px 0" }}>
+            {[
+              { title: "Reconnaitre les pathologies", description: "Trous, sciure, galeries, champignon brun : les signes qui doivent vous alerter, en images.", href: "/guide/reconnaitre-les-pathologies", tag: "Prevention", tagColor: "#8b5cf6" },
+              { title: "Comment se deroule un traitement", description: "Diagnostic, buchage, pulverisation, injection, protection : les etapes d'une intervention.", href: "/guide/traitement-du-bois", tag: "Interventions", tagColor: "#059669" },
+              { title: "Notre savoir-faire", description: "20 ans d'expertise terrain depuis 2006, illustres par nos realisations.", href: "/guide/notre-savoir-faire", tag: "A propos", tagColor: "#0ea5e9" },
+              { title: "Questions frequentes", description: "Merule, prix, obligations legales, deroulement : toutes les reponses.", href: "/guide/faq", tag: "FAQ", tagColor: "#64748b" },
+            ].map((guide) => (
+              <Link
+                key={guide.href}
+                href={guide.href}
+                style={{
+                  display: "block",
+                  background: "#f8fafc",
+                  borderRadius: 12,
+                  padding: 20,
+                  textDecoration: "none",
+                  border: "1px solid #e2e8f0",
+                  transition: "all 0.2s",
+                }}
+              >
+                <span style={{
+                  display: "inline-block",
+                  background: guide.tagColor,
+                  color: "#fff",
+                  padding: "3px 10px",
+                  borderRadius: 20,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  marginBottom: 10,
+                }}>
+                  {guide.tag}
+                </span>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", marginBottom: 8 }}>{guide.title}</h3>
+                <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.5, margin: 0 }}>{guide.description}</p>
+              </Link>
+            ))}
+          </div>
+
           <h2>Diagnostic bois par region</h2>
           <p>
             Certaines regions de France sont plus exposees aux pathologies du bois en raison de leur climat. 

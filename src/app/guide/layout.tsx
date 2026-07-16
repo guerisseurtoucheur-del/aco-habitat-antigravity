@@ -39,6 +39,7 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
             <Link href="/guide/termites">Les termites</Link>
             <Link href="/guide/vrillettes">Les vrillettes</Link>
             <Link href="/guide/humidite">Problemes humidite</Link>
+            <Link href="/guide/reconnaitre-les-pathologies">Reconnaitre les signes</Link>
           </div>
           <div className={styles.footerCol}>
             <h4>Diagnostic par region</h4>
@@ -50,6 +51,10 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
           </div>
           <div className={styles.footerCol}>
             <h4>Informations</h4>
+            <Link href="/guide/qui-sommes-nous">Qui sommes-nous</Link>
+            <Link href="/guide/notre-savoir-faire">Notre savoir-faire</Link>
+            <Link href="/guide/traitement-du-bois">Le traitement du bois</Link>
+            <Link href="/guide/faq">FAQ</Link>
             <Link href="/cgv">CGV</Link>
             <Link href="/mentions-legales">Mentions legales</Link>
             <Link href="/confidentialite">Confidentialite</Link>

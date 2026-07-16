@@ -8,6 +8,10 @@ DIAGNOSTIC-BOIS.COM est un service innovant de pre-analyse des pathologies du bo
 
 Democratiser l'acces au diagnostic bois en proposant une pre-analyse gratuite par IA, permettant aux utilisateurs de mieux comprendre leurs problemes avant de faire appel a un professionnel.
 
+### Propriete intellectuelle et marque
+
+ACO HABITAT est une marque francaise deposee aupres de l'INPI (Institut National de la Propriete Industrielle) sous le numero national 5266768. La methode de pre-analyse par intelligence artificielle ainsi que le format des rapports generes sont proteges par un depot probatoire horodate e-Soleau aupres de l'INPI, garantissant leur anteriorite et leur paternite. ACO-HABITAT est expert en diagnostic et traitement du bois depuis 2006.
+
 ### Fonctionnement du service
 
 1. L'utilisateur prend des photos de la zone concernee (1 a 4 photos)

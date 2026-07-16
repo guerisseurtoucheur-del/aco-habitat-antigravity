@@ -218,6 +218,48 @@
 .pathoIcon { font-size: 28px; }
 .pathoName { font-size: 14px; font-weight: 700; color: #0A2540; }
 
+/* NOTRE SAVOIR-FAIRE */
+.savoirSection { padding: 8px 0 48px; }
+.savoirGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  .savoirGrid { grid-template-columns: repeat(4, 1fr); }
+}
+.savoirCard {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(10,37,64,0.1);
+  border: 1px solid #E0E8F0;
+  background: #fff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.savoirImg {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.savoirCard:hover .savoirImg { transform: scale(1.05); }
+.savoirCaption {
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #0A2540;
+  font-weight: 600;
+  text-align: center;
+}
+.savoirCta {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
 /* CTA BOTTOM */
 .ctaSection { padding: 0 0 48px; }
 

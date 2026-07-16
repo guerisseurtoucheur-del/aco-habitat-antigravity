@@ -144,6 +144,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Notre savoir-faire */}
+      <section className={styles.savoirSection}>
+        <div className="container">
+          <h2 className={styles.sectionTitle}>Un vrai savoir-faire derrière l&apos;IA</h2>
+          <p className={styles.sectionSubtitle}>
+            Notre pré-analyse s&apos;appuie sur 20 ans de traitement et de restauration du bois sur le terrain, depuis 2006.
+          </p>
+          <div className={styles.savoirGrid}>
+            {[
+              { src: '/realisations/traitement-maitresse-poutre.png', alt: 'Technicien ACO-HABITAT traitant une maîtresse-poutre en chêne au pinceau', caption: 'Traitement curatif d’une maîtresse-poutre en chêne' },
+              { src: '/realisations/comble-charpente-ancienne.jpeg', alt: 'Charpente de comble ancienne en cours de restauration', caption: 'Restauration d’une charpente de comble ancienne' },
+              { src: '/realisations/plafond-solives-restaure.jpeg', alt: 'Plafond à solives en chêne restaurées', caption: 'Rénovation d’un plafond à solives en chêne' },
+              { src: '/realisations/traitement-plafond-solives.jpeg', alt: 'Traitement d’un plafond à solives sur mur en pierre', caption: 'Protection préventive des bois de plafond' },
+            ].map((img) => (
+              <figure key={img.src} className={styles.savoirCard}>
+                <img src={img.src || "/placeholder.svg"} alt={img.alt} className={styles.savoirImg} loading="lazy" />
+                <figcaption className={styles.savoirCaption}>{img.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className={styles.savoirCta}>
+            <Link href="/guide/notre-savoir-faire" className="btn btn-primary">
+              Découvrir notre savoir-faire
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Final */}
       <section id="formulaire" className={styles.ctaSection}>
         <div className="container">
