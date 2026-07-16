@@ -50,6 +50,7 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
           </div>
           <div className={styles.footerCol}>
             <h4>Informations</h4>
+            <Link href="/guide/notre-savoir-faire">Notre savoir-faire</Link>
             <Link href="/cgv">CGV</Link>
             <Link href="/mentions-legales">Mentions legales</Link>
             <Link href="/confidentialite">Confidentialite</Link>
