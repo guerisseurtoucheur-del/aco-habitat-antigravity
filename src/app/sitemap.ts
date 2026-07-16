@@ -26,6 +26,9 @@ const entries: Entry[] = [
   // Notre savoir-faire
   { path: "/guide/notre-savoir-faire", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
 
+  // Le traitement du bois
+  { path: "/guide/traitement-du-bois", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
+
   // Guide - Pathologies
   { path: "/guide/merule", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
   { path: "/guide/capricorne", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
