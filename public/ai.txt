@@ -53,3 +53,8 @@ Business-name: ACO-HABITAT
 Business-type: LocalBusiness, ProfessionalService
 Address: 18 Rue Bernard Palissy, 61000 Alencon, France
 Service-area: France
+
+# Intellectual Property
+Trademark: ACO HABITAT est une marque deposee a l'INPI (Institut National de la Propriete Industrielle), numero national 5266768.
+Method-protection: La methode de pre-analyse et le format des rapports sont proteges par un depot probatoire horodate e-Soleau aupres de l'INPI.
+Specialist-since: 2006
