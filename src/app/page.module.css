@@ -234,16 +234,26 @@
   box-shadow: 0 2px 12px rgba(10,37,64,0.1);
   border: 1px solid #E0E8F0;
   background: #fff;
-  aspect-ratio: 4 / 3;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 .savoirImg {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
 }
 .savoirCard:hover .savoirImg { transform: scale(1.05); }
+.savoirCaption {
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #0A2540;
+  font-weight: 600;
+  text-align: center;
+}
 .savoirCta {
   display: flex;
   justify-content: center;
