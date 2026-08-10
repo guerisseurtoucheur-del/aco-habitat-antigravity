@@ -6,6 +6,26 @@ const SENDER_NAME = "DIAGNOSTIC-BOIS.COM";
 // Adresse de reception des leads (surchargeable via LEAD_EMAIL_RECIPIENT)
 const LEAD_RECIPIENT = "aco.habitat.contact@gmail.com";
 
+// Departements geres en direct (les autres sont des leads a revendre)
+const MANAGED_DEPARTMENTS = ["61", "72", "53", "27", "28", "14"];
+
+// Analyser l'adresse d'un lead pour determiner sa zone
+function analyzeLeadZone(address?: string) {
+  // Chercher un code postal francais (5 chiffres) dans l'adresse
+  const match = (address || "").match(/\b(\d{5})\b/);
+  const postalCode = match ? match[1] : null;
+  const department = postalCode ? postalCode.slice(0, 2) : null;
+  const isManaged = department ? MANAGED_DEPARTMENTS.includes(department) : false;
+
+  return {
+    postalCode,
+    department,
+    isManaged,
+    // Etiquette pour l'objet du mail (facile a filtrer / automatiser)
+    tag: !department ? "[A-VERIFIER]" : isManaged ? `[ZONE ${department}]` : `[REVENTE ${department}]`,
+  };
+}
+
 // Transporteur Gmail reutilisable
 function getTransporter() {
   return nodemailer.createTransport({
@@ -33,10 +53,13 @@ export async function sendLeadEmail(session: any, reportUrl: string, result?: an
                      analyses.some((a: any) => a.urgence?.toLowerCase() === "moderee") ? "MODÉRÉE" : "FAIBLE";
   const scoreConfiance = result?.score_confiance_general || "N/A";
 
+  // Determiner la zone du lead (departement gere ou lead a revendre)
+  const zone = analyzeLeadZone(session.clientAddress);
+
   const mailOptions: any = {
     from: getFromAddress(),
     to: process.env.LEAD_EMAIL_RECIPIENT || LEAD_RECIPIENT,
-    subject: `Nouveau Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
+    subject: `${zone.tag} Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
         
@@ -53,6 +76,21 @@ export async function sendLeadEmail(session: any, reportUrl: string, result?: an
           </p>
           <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">
             ${nbPathologies} pathologie(s) detectee(s) | Score IA : ${scoreConfiance}
+          </p>
+        </div>
+
+        <!-- Bandeau zone (traiter en direct ou revendre) -->
+        <div style="background: ${zone.isManaged ? "#eff6ff" : zone.department ? "#fef2f2" : "#f8fafc"}; border-left: 4px solid ${zone.isManaged ? "#2563eb" : zone.department ? "#dc2626" : "#94a3b8"}; padding: 16px; margin: 0;">
+          <p style="margin: 0; font-weight: 700; color: ${zone.isManaged ? "#1d4ed8" : zone.department ? "#b91c1c" : "#475569"};">
+            ${zone.isManaged
+              ? `LEAD A TRAITER EN DIRECT - Departement ${zone.department}`
+              : zone.department
+                ? `LEAD A REVENDRE - Departement ${zone.department} (hors zone)`
+                : "ZONE A VERIFIER - Code postal introuvable dans l'adresse"}
+          </p>
+          <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">
+            ${zone.postalCode ? `Code postal : ${zone.postalCode}` : "Aucun code postal detecte"}
+            ${zone.isManaged ? " | Vous couvrez ce secteur" : zone.department ? " | Hors de vos departements (61, 72, 53, 27, 28, 14)" : ""}
           </p>
         </div>
 
