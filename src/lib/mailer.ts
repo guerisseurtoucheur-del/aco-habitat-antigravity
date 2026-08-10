@@ -3,6 +3,9 @@ import nodemailer from "nodemailer";
 // Nom d'expediteur professionnel
 const SENDER_NAME = "DIAGNOSTIC-BOIS.COM";
 
+// Adresse de reception des leads (surchargeable via LEAD_EMAIL_RECIPIENT)
+const LEAD_RECIPIENT = "aco.habitat.contact@gmail.com";
+
 // Transporteur Gmail reutilisable
 function getTransporter() {
   return nodemailer.createTransport({
@@ -32,7 +35,7 @@ export async function sendLeadEmail(session: any, reportUrl: string, result?: an
 
   const mailOptions: any = {
     from: getFromAddress(),
-    to: process.env.LEAD_EMAIL_RECIPIENT || process.env.GMAIL_USER,
+    to: process.env.LEAD_EMAIL_RECIPIENT || LEAD_RECIPIENT,
     subject: `Nouveau Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
