@@ -1,11 +1,30 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 import { getAnalysisSession } from "@/lib/analysis-store";
+import { getStripe, isStripeConfigured } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const getBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
+};
 
 export async function POST(req: Request) {
   try {
+    if (!isStripeConfigured()) {
+      return NextResponse.json(
+        {
+          error:
+            "Paiement Stripe non configuré. Ajoutez STRIPE_SECRET_KEY (sk_test_...) dans .env.local puis redémarrez npm run dev.",
+        },
+        { status: 503 },
+      );
+    }
+
+    const stripe = getStripe();
     const { sessionId } = await req.json();
 
     if (!sessionId) {
@@ -16,6 +35,8 @@ export async function POST(req: Request) {
     if (!sessionData) {
       return NextResponse.json({ error: "Session introuvable" }, { status: 404 });
     }
+
+    const baseUrl = getBaseUrl();
 
     // Créer la session Stripe Checkout
     const checkoutSession = await stripe.checkout.sessions.create({
@@ -34,8 +55,8 @@ export async function POST(req: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/resultats/${sessionId}?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/resultats/${sessionId}?canceled=true`,
+      success_url: `${baseUrl}/resultats/${sessionId}?success=true`,
+      cancel_url: `${baseUrl}/resultats/${sessionId}?canceled=true`,
       metadata: {
         sessionId: sessionId,
       },

@@ -18,20 +18,35 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Trust Bar (Screenshot) */}
+      <div className="bg-[#1a4731] text-white text-xs md:text-sm py-3 border-b border-green-900/50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 opacity-90">
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">⬡</span> ACO-HABITAT · Marque déposée à l'INPI
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">✓</span> Méthode protégée (dépôt e-Soleau)
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">⬡</span> Spécialiste du bois depuis 2006
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Hero : Message client clair */}
       <section className={styles.hero}>
         <div className="container">
-          <div className={styles.heroBadge}>
-            <span className="text-xs">Pré-analyse maison en ligne</span>
+          <div className="inline-block border border-red-500/30 rounded-full px-4 py-1.5 mb-6">
+            <span className="text-xs uppercase tracking-widest text-red-400/90 font-medium">Pré-analyse en ligne gratuite</span>
           </div>
-          <h1 className={styles.heroTitle}>
-            Pré-analyse bois et humidité <br />
-            <span className={styles.heroAccent}>simple, rapide et compréhensible</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+            Charpente, boiseries, bois de cave : ne laissez pas le doute s'installer. <br className="hidden md:block" />
+            <span className="text-[#34d399]">Diagnostiquez en 3 minutes, agissez avant les degats.</span>
           </h1>
-          <p className={styles.heroSubtitle}>
-            Nous analysons vos photos pour repérer les insectes du bois, les champignons
-            et les problèmes d&apos;humidité. Vous recevez un rapport clair, prêt à partager
-            avec votre assureur, votre artisan ou un professionnel certifié.
+          <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
+            Envoyez vos photos, notre IA detecte les signes de <span className="text-[#ef4444] font-bold">MERULE</span>, capricorne, termites ou humidite. Vous saurez immediatement si ca vaut le deplacement d'un expert.
           </p>
 
           <div className={styles.priceBox}>
@@ -86,19 +101,33 @@ export default function HomePage() {
           <h2 className={styles.sectionTitle}>Pathologies que nous détectons</h2>
           <div className={styles.pathoGrid}>
             {[
-              { label: 'Hylotrupes bajulus', cat: 'Xylophage', name: 'Capricorne des maisons' },
-              { label: 'Anobium punctatum', cat: 'Xylophage', name: 'Petite Vrillette' },
-              { label: 'Serpula lacrymans', cat: 'Lignivore', name: 'Mérule Pleureuse' },
-              { label: 'Coniophora puteana', cat: 'Lignivore', name: 'Coniophore des caves' },
+              { label: 'Hylotrupes bajulus', cat: 'Xylophage', name: 'Capricorne des maisons', slug: 'capricorne-des-maisons' },
+              { label: 'Anobium punctatum', cat: 'Xylophage', name: 'Petite Vrillette', slug: 'petite-vrillette' },
+              { label: 'Serpula lacrymans', cat: 'Lignivore', name: 'Mérule Pleureuse', slug: 'merule-pleureuse' },
+              { label: 'Coniophora puteana', cat: 'Lignivore', name: 'Coniophore des caves', slug: 'coniophore-des-caves' },
+              { label: 'Reticulitermes spp.', cat: 'Xylophage', name: 'Termites', slug: 'termites' },
+              { label: 'Xestobium rufovillosum', cat: 'Xylophage', name: 'Grosse Vrillette', slug: 'grosse-vrillette' },
               { label: 'Hygrométrie Ascensionnelle', cat: 'Désordre', name: 'Remontées capillaires' },
               { label: 'Infiltration Pariétale', cat: 'Désordre', name: 'Fuites / Humidité' },
-            ].map((p) => (
-              <div key={p.label} className={styles.pathoItem}>
-                <div className={styles.pathoName}>{p.name}</div>
-                <div className={styles.pathoScientific}>{p.label}</div>
-                <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : p.cat === 'Lignivore' ? 'badge-danger' : 'badge-tech'}`}>{p.cat}</span>
-              </div>
-            ))}
+            ].map((p) => {
+              const content = (
+                <>
+                  <div className={styles.pathoName}>{p.name}</div>
+                  <div className={styles.pathoScientific}>{p.label}</div>
+                  <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : p.cat === 'Lignivore' ? 'badge-danger' : 'badge-tech'}`}>{p.cat}</span>
+                </>
+              );
+
+              return p.slug ? (
+                <Link href={`/pathologie/${p.slug}`} key={p.label} className={`${styles.pathoItem} hover:border-teal-500 transition-colors block`}>
+                  {content}
+                </Link>
+              ) : (
+                <div key={p.label} className={styles.pathoItem}>
+                  {content}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -110,6 +139,23 @@ export default function HomePage() {
             <h2 className={styles.ctaTitle}>Protégez votre maison</h2>
             <p className={styles.ctaText}>Créez un rapport simple à comprendre pour avancer avec un artisan, un notaire ou votre assurance.</p>
             <DiagnosticUpload />
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Cities Linking */}
+      <section className="bg-white py-12 border-t border-slate-200">
+        <div className="container mx-auto px-4">
+          <h2 className="text-xl font-bold text-slate-800 mb-6">Interventions & Diagnostics locaux</h2>
+          <div className="flex flex-wrap gap-3">
+            {['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille', 'Rennes', 'Alencon', 'Caen', 'Rouen'].map(city => (
+              <Link key={city} href={`/diagnostic-bois-${city.toLowerCase()}`} className="text-sm text-slate-600 hover:text-teal-600 bg-slate-50 px-3 py-1.5 rounded-md border border-slate-100 hover:border-teal-200 transition-colors">
+                Diagnostic bois à {city === 'Alencon' ? 'Alençon' : city}
+              </Link>
+            ))}
+            <Link href="/diagnostic-bois-brest" className="text-sm text-slate-500 hover:text-teal-600 px-3 py-1.5">
+              Voir toutes les villes...
+            </Link>
           </div>
         </div>
       </section>

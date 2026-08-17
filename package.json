@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:dev": "prisma dev --detach",
+    "db:push": "prisma db push",
     "build": "prisma generate && (if [ \"$VERCEL\" = \"1\" ]; then prisma db push --force-reset; fi) && next build",
     "start": "next start",
     "lint": "eslint",
@@ -20,7 +22,6 @@
     "@stripe/stripe-js": "^9.5.0",
     "better-sqlite3": "^12.9.0",
     "next": "16.2.4",
-    "nodemailer": "^8.0.7",
     "pg": "^8.21.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -29,7 +30,6 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
