@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DiagnosticUpload } from "@/components/DiagnosticUpload";
 import styles from "./guide.module.css";
 
 export default function GuideLayout({ children }: { children: React.ReactNode }) {
@@ -22,13 +23,25 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
               aco.habitat@orange.fr
             </a>
           </div>
-          <Link href="/#formulaire" className={styles.ctaBtn}>
+          <Link href="#formulaire" className={styles.ctaBtn}>
             Analyser mes photos
           </Link>
         </div>
       </header>
 
       {children}
+
+      <section id="formulaire" className={styles.leadSection}>
+        <div className={styles.leadInner}>
+          <span className={styles.leadBadge}>Pré-analyse gratuite par IA</span>
+          <h2 className={styles.leadTitle}>Un doute sur votre bois ? Obtenez une première analyse</h2>
+          <p className={styles.leadSubtitle}>
+            Chargez vos photos et renseignez vos coordonnées : notre système vous transmet une pré-analyse
+            informative, puis un expert ACO-HABITAT vous recontacte pour un diagnostic approfondi.
+          </p>
+          <DiagnosticUpload />
+        </div>
+      </section>
 
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
@@ -38,8 +51,11 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
             <Link href="/guide/capricorne">Le capricorne</Link>
             <Link href="/guide/termites">Les termites</Link>
             <Link href="/guide/vrillettes">Les vrillettes</Link>
+            <Link href="/guide/lyctus">Le lyctus</Link>
+            <Link href="/guide/pourriture-cubique">Pourriture cubique</Link>
             <Link href="/guide/humidite">Problemes humidite</Link>
             <Link href="/guide/reconnaitre-les-pathologies">Reconnaitre les signes</Link>
+            <Link href="/guide/merule-obligations-legales">Merule : obligations legales</Link>
           </div>
           <div className={styles.footerCol}>
             <h4>Diagnostic par region</h4>

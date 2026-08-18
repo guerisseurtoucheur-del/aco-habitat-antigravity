@@ -59,6 +59,27 @@ export default function GuidePage() {
       tag: "Humidite",
       tagColor: "#3b82f6",
     },
+    {
+      title: "Pourriture cubique et champignons lignivores",
+      description: "Coniophore, lenzite, polypore : reconnaitre la pourriture brune du bois, la differencier de la merule et la traiter.",
+      href: "/guide/pourriture-cubique",
+      tag: "Champignon",
+      tagColor: "#b45309",
+    },
+    {
+      title: "Le Lyctus : l'insecte du chene",
+      description: "L'insecte xylophage qui devore les bois feuillus (chene, frene) : parquets, meubles et boiseries. Identification et traitement.",
+      href: "/guide/lyctus",
+      tag: "Insecte",
+      tagColor: "#a16207",
+    },
+    {
+      title: "Merule : obligations legales et vente",
+      description: "Obligation d'information, zones a risque, vice cache : ce que dit la loi sur la merule lors d'une vente immobiliere.",
+      href: "/guide/merule-obligations-legales",
+      tag: "Reglementation",
+      tagColor: "#dc2626",
+    },
   ];
 
   const regions = [

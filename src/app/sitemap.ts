@@ -44,6 +44,9 @@ const entries: Entry[] = [
   { path: "/guide/termites", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
   { path: "/guide/vrillettes", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
   { path: "/guide/humidite", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
+  { path: "/guide/pourriture-cubique", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
+  { path: "/guide/lyctus", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/merule-obligations-legales", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
 
   // Guide - Régions
   { path: "/guide/diagnostic-bois-normandie", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
