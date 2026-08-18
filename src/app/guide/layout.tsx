@@ -38,8 +38,11 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
             <Link href="/guide/capricorne">Le capricorne</Link>
             <Link href="/guide/termites">Les termites</Link>
             <Link href="/guide/vrillettes">Les vrillettes</Link>
+            <Link href="/guide/lyctus">Le lyctus</Link>
+            <Link href="/guide/pourriture-cubique">Pourriture cubique</Link>
             <Link href="/guide/humidite">Problemes humidite</Link>
             <Link href="/guide/reconnaitre-les-pathologies">Reconnaitre les signes</Link>
+            <Link href="/guide/merule-obligations-legales">Merule : obligations legales</Link>
           </div>
           <div className={styles.footerCol}>
             <h4>Diagnostic par region</h4>
