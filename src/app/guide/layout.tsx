@@ -66,6 +66,16 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
             <Link href="/guide/diagnostic-bois-nouvelle-aquitaine">Nouvelle-Aquitaine</Link>
           </div>
           <div className={styles.footerCol}>
+            <h4>Calvados (14)</h4>
+            <Link href="/guide/diagnostic-bois-calvados">Diagnostic bois Calvados</Link>
+            <Link href="/guide/diagnostic-bois-caen">Caen</Link>
+            <Link href="/guide/diagnostic-bois-falaise">Falaise</Link>
+            <Link href="/guide/diagnostic-bois-conde-en-normandie">Conde-en-Normandie</Link>
+            <Link href="/guide/diagnostic-bois-vire">Vire Normandie</Link>
+            <Link href="/guide/diagnostic-bois-lisieux">Lisieux</Link>
+            <Link href="/guide/diagnostic-bois-bayeux">Bayeux</Link>
+          </div>
+          <div className={styles.footerCol}>
             <h4>Informations</h4>
             <Link href="/guide/qui-sommes-nous">Qui sommes-nous</Link>
             <Link href="/guide/notre-savoir-faire">Notre savoir-faire</Link>

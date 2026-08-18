@@ -99,9 +99,9 @@ export default function NormandiePage() {
           <h2>Zones d&apos;intervention</h2>
           <p>Notre service de pre-analyse couvre toute la Normandie :</p>
           <ul>
-            <li><strong>Calvados (14)</strong> — Caen, Lisieux, Bayeux, Vire, Honfleur</li>
+            <li><Link href="/guide/diagnostic-bois-calvados" style={{ color: "#059669", fontWeight: 700 }}>Calvados (14)</Link> — Caen, Lisieux, Bayeux, Vire, Conde-en-Normandie, Falaise</li>
             <li><strong>Manche (50)</strong> — Cherbourg, Saint-Lo, Granville, Coutances</li>
-            <li><strong>Orne (61)</strong> — Alencon, Flers, Argentan, L&apos;Aigle</li>
+            <li><Link href="/guide/diagnostic-bois-orne" style={{ color: "#059669", fontWeight: 700 }}>Orne (61)</Link> — Alencon, Flers, Argentan, L&apos;Aigle</li>
             <li><strong>Eure (27)</strong> — Evreux, Vernon, Louviers, Bernay</li>
             <li><strong>Seine-Maritime (76)</strong> — Rouen, Le Havre, Dieppe, Fecamp</li>
           </ul>

@@ -60,10 +60,19 @@ const entries: Entry[] = [
 
   // Guide - Départements
   { path: "/guide/diagnostic-bois-orne", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-31" },
+  { path: "/guide/diagnostic-bois-calvados", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
   { path: "/guide/diagnostic-bois-sarthe", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
   { path: "/guide/diagnostic-bois-mayenne", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
   { path: "/guide/diagnostic-bois-eure", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
   { path: "/guide/diagnostic-bois-eure-et-loir", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
+
+  // Guide - Villes du Calvados
+  { path: "/guide/diagnostic-bois-caen", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/diagnostic-bois-falaise", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/diagnostic-bois-conde-en-normandie", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/diagnostic-bois-vire", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/diagnostic-bois-lisieux", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
+  { path: "/guide/diagnostic-bois-bayeux", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
 
   // Pages légales
   { path: "/cgv", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-05-26" },
