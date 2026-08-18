@@ -83,8 +83,8 @@ export function DiagnosticUpload() {
     analyseStatusSchema.enum.queued,
   );
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [clientInfo, setClientInfo] = useState({ name: "", email: "", phone: "", address: "" });
-  const [addressSuggestions, setAddressSuggestions] = useState<{ label: string; context: string }[]>([]);
+  const [clientInfo, setClientInfo] = useState({ name: "", email: "", phone: "", address: "", postalCode: "", city: "" });
+  const [addressSuggestions, setAddressSuggestions] = useState<{ label: string; context: string; postcode: string; city: string }[]>([]);
   const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acknowledgedNonOpposable, setAcknowledgedNonOpposable] = useState(false);
@@ -243,6 +243,8 @@ export function DiagnosticUpload() {
       const suggestions = features.map((f: any) => ({
         label: f.properties.label,
         context: f.properties.context, // department/region
+        postcode: f.properties.postcode ?? "", // code postal
+        city: f.properties.city ?? "", // ville
       }));
       setAddressSuggestions(suggestions);
       setShowAddressSuggestions(true);
@@ -262,8 +264,13 @@ export function DiagnosticUpload() {
     }, 400);
   };
 
-  const handleSelectAddress = (label: string) => {
-    setClientInfo((p) => ({ ...p, address: label }));
+  const handleSelectAddress = (s: { label: string; postcode: string; city: string }) => {
+    setClientInfo((p) => ({
+      ...p,
+      address: s.label,
+      postalCode: s.postcode || p.postalCode,
+      city: s.city || p.city,
+    }));
     setShowAddressSuggestions(false);
   };
 
@@ -282,6 +289,22 @@ export function DiagnosticUpload() {
       setErrorMessage("Veuillez confirmer la nature informative de la pré-analyse.");
       return null;
     }
+    if (!/^\d{5}$/.test(clientInfo.postalCode)) {
+      setErrorMessage("Un code postal valide (5 chiffres) est requis pour localiser le bien.");
+      return null;
+    }
+    if (clientInfo.city.trim().length < 2) {
+      setErrorMessage("La ville du bien est requise.");
+      return null;
+    }
+
+    // Composer l'adresse complète en garantissant la présence du code postal
+    // (indispensable pour la détection automatique du département)
+    let fullAddress = clientInfo.address.trim();
+    if (!fullAddress.includes(clientInfo.postalCode)) {
+      const cityPart = `${clientInfo.postalCode} ${clientInfo.city}`.trim();
+      fullAddress = fullAddress ? `${fullAddress}, ${cityPart}` : cityPart;
+    }
 
     const payload = {
       photo_1, photo_2, photo_3, photo_4,
@@ -290,7 +313,7 @@ export function DiagnosticUpload() {
       clientName: clientInfo.name,
       clientEmail: clientInfo.email,
       clientPhone: clientInfo.phone,
-      clientAddress: clientInfo.address,
+      clientAddress: fullAddress,
     };
 
     const parsed = analyseRequestSchema.safeParse(payload);
@@ -465,7 +488,7 @@ export function DiagnosticUpload() {
             {showAddressSuggestions && addressSuggestions.length > 0 && (
               <ul className={styles.addressDropdown}>
                 {addressSuggestions.map((s, idx) => (
-                  <li key={idx} className={styles.addressOption} onClick={() => handleSelectAddress(s.label)}>
+                  <li key={idx} className={styles.addressOption} onClick={() => handleSelectAddress(s)}>
                     <span style={{ fontWeight: "bold", display: "block", color: "#0f172a" }}>{s.label}</span>
                     <span style={{ fontSize: "11px", color: "#64748b" }}>{s.context}</span>
                   </li>
@@ -473,6 +496,28 @@ export function DiagnosticUpload() {
               </ul>
             )}
           </div>
+          <input
+            id="client-postal-code"
+            type="text"
+            inputMode="numeric"
+            maxLength={5}
+            placeholder="Code postal"
+            className={styles.input}
+            value={clientInfo.postalCode}
+            onChange={(e) =>
+              setClientInfo((p) => ({ ...p, postalCode: e.target.value.replace(/\D/g, "").slice(0, 5) }))
+            }
+            disabled={isBusy}
+          />
+          <input
+            id="client-city"
+            type="text"
+            placeholder="Ville"
+            className={styles.input}
+            value={clientInfo.city}
+            onChange={(e) => setClientInfo((p) => ({ ...p, city: e.target.value }))}
+            disabled={isBusy}
+          />
         </div>
       </div>
 

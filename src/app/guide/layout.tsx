@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DiagnosticUpload } from "@/components/DiagnosticUpload";
 import styles from "./guide.module.css";
 
 export default function GuideLayout({ children }: { children: React.ReactNode }) {
@@ -22,13 +23,25 @@ export default function GuideLayout({ children }: { children: React.ReactNode })
               aco.habitat@orange.fr
             </a>
           </div>
-          <Link href="/#formulaire" className={styles.ctaBtn}>
+          <Link href="#formulaire" className={styles.ctaBtn}>
             Analyser mes photos
           </Link>
         </div>
       </header>
 
       {children}
+
+      <section id="formulaire" className={styles.leadSection}>
+        <div className={styles.leadInner}>
+          <span className={styles.leadBadge}>Pré-analyse gratuite par IA</span>
+          <h2 className={styles.leadTitle}>Un doute sur votre bois ? Obtenez une première analyse</h2>
+          <p className={styles.leadSubtitle}>
+            Chargez vos photos et renseignez vos coordonnées : notre système vous transmet une pré-analyse
+            informative, puis un expert ACO-HABITAT vous recontacte pour un diagnostic approfondi.
+          </p>
+          <DiagnosticUpload />
+        </div>
+      </section>
 
       <footer className={styles.footer}>
         <div className={styles.footerInner}>

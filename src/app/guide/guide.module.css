@@ -495,6 +495,50 @@
   }
 }
 
+/* Lead form section (present sur toutes les pages guide) */
+.leadSection {
+  background: #0A2540;
+  padding: 56px 20px;
+}
+.leadInner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+.leadBadge {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+.leadTitle {
+  color: #f8fafc;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+.leadSubtitle {
+  color: #94a3b8;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto 32px;
+}
+.leadInner :global(#diagnostic-upload) {
+  text-align: left;
+}
+@media (max-width: 768px) {
+  .leadSection { padding: 40px 14px; }
+  .leadTitle { font-size: 22px; }
+}
+
 /* FAQ accordion */
 .faqList {
   display: flex;
