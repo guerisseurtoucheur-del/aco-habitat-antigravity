@@ -144,6 +144,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* L'expert derrière ACO-HABITAT */}
+      <section className={styles.expertSection}>
+        <div className="container">
+          <div className={styles.expertInner}>
+            <figure className={styles.expertPhotoWrap}>
+              <img
+                src="/expert-aco-habitat.jpeg"
+                alt="Expert ACO-HABITAT examinant un échantillon de bois à la loupe dans son bureau"
+                className={styles.expertPhoto}
+                loading="lazy"
+              />
+            </figure>
+            <div className={styles.expertText}>
+              <span className={styles.expertBadge}>Une expertise humaine</span>
+              <h2 className={styles.expertTitle}>Un expert du bois derrière chaque analyse</h2>
+              <p className={styles.expertPara}>
+                Notre IA vous donne une première réponse en quelques minutes, mais c&apos;est bien
+                l&apos;expérience terrain qui fait la différence. Depuis 2006, ACO-HABITAT diagnostique et
+                traite les charpentes, boiseries et bois de cave partout en Normandie et au-delà.
+              </p>
+              <p className={styles.expertPara}>
+                Chaque pré-analyse est le fruit de 20 ans de savoir-faire dans le traitement de la mérule, du
+                capricorne, des vrillettes et des problèmes d&apos;humidité.
+              </p>
+              <a href="#diagnostic-upload" className="btn btn-primary">
+                Faire analyser mes photos
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Notre savoir-faire */}
       <section className={styles.savoirSection}>
         <div className="container">

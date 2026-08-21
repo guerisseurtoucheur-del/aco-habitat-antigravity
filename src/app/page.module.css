@@ -218,6 +218,70 @@
 .pathoIcon { font-size: 28px; }
 .pathoName { font-size: 14px; font-weight: 700; color: #0A2540; }
 
+/* L'EXPERT */
+.expertSection { padding: 8px 0 48px; }
+.expertInner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #E0E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 16px rgba(10,37,64,0.08);
+}
+.expertPhotoWrap {
+  margin: 0;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 320px;
+}
+.expertPhoto {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 6px 24px rgba(10,37,64,0.15);
+}
+.expertText { flex: 1; }
+.expertBadge {
+  display: inline-block;
+  background: rgba(18,130,76,0.1);
+  color: #12824C;
+  border: 1px solid rgba(18,130,76,0.3);
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.expertTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0A2540;
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.expertPara {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #4A5A6D;
+  margin-bottom: 14px;
+}
+.expertText .btn { margin-top: 6px; }
+@media (min-width: 768px) {
+  .expertInner {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 32px;
+  }
+  .expertPhotoWrap { max-width: 300px; }
+}
+
 /* NOTRE SAVOIR-FAIRE */
 .savoirSection { padding: 8px 0 48px; }
 .savoirGrid {
