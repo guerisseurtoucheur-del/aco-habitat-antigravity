@@ -95,10 +95,7 @@ export default function ChatBot() {
           <div className={styles.chatHeader}>
             <div className={styles.headerInfo}>
               <div className={styles.expertAvatar}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
               </div>
               <div>
                 <h3 className={styles.headerTitle}>Expert Bois</h3>
@@ -121,11 +118,7 @@ export default function ChatBot() {
             {messages.length === 0 && (
               <div className={styles.welcomeMessage}>
                 <div className={styles.welcomeIcon}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                    <path d="M2 17l10 5 10-5"></path>
-                    <path d="M2 12l10 5 10-5"></path>
-                  </svg>
+                  <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
                 </div>
                 <h4>Bonjour, je suis votre expert bois</h4>
                 <p>Avec plus de 35 ans d&apos;experience dans le diagnostic des pathologies du bois, je peux vous aider a identifier merule, capricorne, vrillettes ou problemes d&apos;humidite.</p>
@@ -154,10 +147,7 @@ export default function ChatBot() {
               >
                 {message.role === 'assistant' && (
                   <div className={styles.messageAvatar}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+                    <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
                   </div>
                 )}
                 <div className={styles.messageContent}>
@@ -193,10 +183,7 @@ export default function ChatBot() {
             {isLoading && (
               <div className={`${styles.message} ${styles.assistantMessage}`}>
                 <div className={styles.messageAvatar}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
+                  <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
                 </div>
                 <div className={styles.typingIndicator}>
                   <span></span>
