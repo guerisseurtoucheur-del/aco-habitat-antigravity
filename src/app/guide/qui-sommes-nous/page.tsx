@@ -98,6 +98,13 @@ export default function QuiSommesNousPage() {
           </div>
 
           <h2>Notre histoire</h2>
+          <Image
+            src="/expert-aco-habitat.jpeg"
+            alt="Expert ACO-HABITAT examinant un échantillon de bois à la loupe dans son bureau"
+            width={280}
+            height={280}
+            className={styles.imageFloat}
+          />
           <p>
             Depuis <strong>2006</strong>, ACO-HABITAT accompagne les particuliers et les propriétaires de bâtisses
             anciennes dans le <strong>traitement et la restauration de leurs bois</strong>. De la charpente attaquée par
