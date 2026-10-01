@@ -1,0 +1,18 @@
+
+> aco-machine-v2@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.92:3000
+- Environments: .env.local
+✓ Ready in 1763ms
+⚠ Attempted to load /Users/kemalousmani/Desktop/aco-machine-v2/node_modules/next/next-swc-fallback/@next/swc-darwin-x64/next-swc.darwin-x64.node, but it was not installed
+⚠ Attempted to load @next/swc-darwin-x64, but it was not installed
+⚠ Attempted to load @next/swc-wasm-nodejs, but an error occurred: ENOENT: no such file or directory, open '/Users/kemalousmani/Desktop/aco-machine-v2/node_modules/next/wasm/@next/swc-wasm-nodejs/wasm_bg.wasm'
+⚠ Attempted to load @next/swc-wasm-web, but it was not installed
+⨯ Failed to load SWC binary for darwin/x64, see more info here: https://nextjs.org/docs/messages/failed-loading-swc
+⨯ Failed to load next.config.ts, see more info here https://nextjs.org/docs/messages/next-config-error
+Error: Failed to load SWC binary for darwin/x64, see more info here: https://nextjs.org/docs/messages/failed-loading-swc
+    at ignore-listed frames
+[?25h
