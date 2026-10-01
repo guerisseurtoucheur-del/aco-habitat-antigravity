@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio de Méditation Zen</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+        <header>
+            <h1>Votre Espace de Méditation</h1>
+            <p>Enregistrez votre voix en lisant le prompteur</p>
+        </header>
+
+        <main>
+            <div class="controls-glass">
+                <button id="recordBtn" class="btn primary">
+                    <span class="icon">🎙️</span> Commencer l'enregistrement
+                </button>
+                <button id="stopBtn" class="btn danger" disabled>
+                    <span class="icon">⏹️</span> Arrêter
+                </button>
+            </div>
+            
+            <div class="controls-glass sound-selector">
+                <select id="soundSelect" class="zen-select">
+                    <!-- Options injected by JS -->
+                </select>
+                <button id="ambientBtn" class="btn secondary">
+                    <span class="icon">🎵</span> Activer le Son
+                </button>
+            </div>
+
+            <!-- ELEVENLABS INTEGRATION -->
+            <div class="glass-panel elevenlabs-section">
+                <h3>🎙️ Génération Automatique avec votre Voix (ElevenLabs)</h3>
+                
+                <div class="elevenlabs-setup">
+                    <input type="password" id="elevenLabsApiKey" placeholder="Collez votre Clé API ElevenLabs ici" class="zen-input">
+                    <button id="fetchVoicesBtn" class="btn secondary btn-small">Charger mes Voix</button>
+                    <select id="voiceSelect" class="zen-select hidden">
+                        <option value="">Sélectionnez votre voix...</option>
+                    </select>
+                </div>
+
+                <div class="elevenlabs-generator hidden" id="generatorSection">
+                    <textarea id="meditationScript" class="zen-textarea" placeholder="Collez le texte de votre méditation ici (sur vos pathologies, etc.)..."></textarea>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button id="generateAudioBtn" class="btn primary">
+                            <span class="icon">✨</span> Générer l'Audio avec ma Voix
+                        </button>
+                        <button id="cancelGenerationBtn" class="btn danger hidden">
+                            <span class="icon">🛑</span> Arrêter
+                        </button>
+                    </div>
+                    <div id="generationStatus" class="status-text hidden">Génération en cours, merci de patienter...</div>
+                </div>
+            </div>
+
+            <div class="prompter-glass">
+                <div id="prompter" class="prompter-content">
+                    <!-- Text will be injected here by JS -->
+                </div>
+            </div>
+
+            <div class="recording-result glass-panel hidden" id="resultPanel">
+                <h3>Votre Méditation est Prête</h3>
+                <audio id="audioPlayback" controls></audio>
+                <a id="downloadLink" class="btn success" download="Ma_Meditation_15min.webm">
+                    💾 Sauvegarder l'enregistrement
+                </a>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
