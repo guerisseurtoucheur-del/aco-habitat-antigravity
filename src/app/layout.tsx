@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     "Pré-analyse gratuite par image sur les pathologies du bois (mérule, insectes xylophages, humidité). Rapport PDF par IA en quelques minutes. Pour qualification et orientation vers une intervention professionnelle. Document non opposable.",
 };
 
+import ChatBot from "@/components/ChatBot";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ChatBot />
+      </body>
     </html>
   );
 }
