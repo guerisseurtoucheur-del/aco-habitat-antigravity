@@ -23,14 +23,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Messages invalides" }, { status: 400 });
     }
 
+    let formattedMessages = messages.map((m: any) => ({
+      role: m.role === "user" ? "user" : "assistant",
+      content: String(m.content),
+    }));
+
+    // L'API d'Anthropic exige que l'historique commence par un message "user"
+    if (formattedMessages.length > 0 && formattedMessages[0].role === "assistant") {
+      formattedMessages = formattedMessages.slice(1);
+    }
+
     const response = await anthropic.messages.create({
       model: "claude-3-haiku-20240307",
       max_tokens: 400,
       system: SYSTEM_PROMPT,
-      messages: messages.map((m: any) => ({
-        role: m.role === "user" ? "user" : "assistant",
-        content: m.content,
-      })),
+      messages: formattedMessages,
     });
 
     // Extracting text from the Anthropic response block
