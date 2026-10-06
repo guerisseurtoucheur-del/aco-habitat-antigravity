@@ -63,23 +63,26 @@ export default function ChatBot() {
       {/* Bouton pour ouvrir/fermer le chat */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-teal-600 hover:bg-teal-500 text-white rounded-full p-4 shadow-2xl transition-transform hover:scale-110 flex items-center justify-center"
+        className={`rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center overflow-hidden border-4 border-white ${
+          isOpen ? "bg-slate-800 text-white w-14 h-14" : "w-16 h-16 bg-white"
+        }`}
         aria-label="Discuter avec l'assistant"
       >
         {isOpen ? (
           <span className="text-xl font-bold leading-none">✕</span>
         ) : (
-          <span className="text-2xl leading-none">💬</span>
+          <img src="/kemal.jpg" alt="Expert ACO Habitat" className="w-full h-full object-cover" />
         )}
       </button>
 
       {/* Fenêtre de chat */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] max-h-[80vh]">
+        <div className="absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] max-h-[80vh]">
           {/* Header */}
-          <div className="bg-slate-800 text-white p-4 flex items-center justify-between">
+          <div className="bg-slate-800 text-white p-4 flex items-center gap-3 shadow-md relative z-10">
+            <img src="/kemal.jpg" alt="Expert ACO Habitat" className="w-12 h-12 rounded-full border-2 border-slate-600 object-cover" />
             <div>
-              <h3 className="font-bold">Assistant ACO Habitat</h3>
+              <h3 className="font-bold">Kémal Ousmani</h3>
               <p className="text-xs text-teal-400">Expertise Bois & Humidité</p>
             </div>
           </div>
