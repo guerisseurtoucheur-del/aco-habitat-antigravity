@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     }
 
     let formattedMessages = messages.map((m: any) => ({
-      role: m.role === "user" ? "user" : "assistant",
+      role: (m.role === "user" ? "user" : "assistant") as "user" | "assistant",
       content: String(m.content),
     }));
 
