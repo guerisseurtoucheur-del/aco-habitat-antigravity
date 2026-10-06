@@ -102,38 +102,6 @@ export default async function PathologySeoPage({ params }: PathologyPageProps) {
                   {patho.dangers}
                 </p>
               </div>
-
-              {patho.slug === 'merule-pleureuse' && (
-                <div className="pt-8 border-t border-slate-200">
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                    <span className="text-teal-500">🛡️</span> Le traitement de la Mérule par ACO Habitat
-                  </h2>
-                  <p className="text-slate-700 leading-relaxed mb-8">
-                    Face à la mérule, l'intervention d'un professionnel est indispensable. Chez <strong>ACO Habitat</strong>, nous appliquons un protocole de traitement curatif extrêmement rigoureux pour éradiquer le champignon en profondeur (recherche de la source d'humidité, piquage des murs, brûlage au chalumeau et injection de fongicide au cœur de la maçonnerie et des bois).<br /><br />
-                    Découvrez concrètement nos interventions sur le terrain en vidéos :
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="flex flex-col gap-3">
-                      <video 
-                        src="/videos/merule-1.mp4" 
-                        controls 
-                        className="w-full rounded-2xl shadow-lg border border-slate-200 bg-black aspect-video object-contain"
-                        preload="metadata"
-                      />
-                      <p className="text-sm text-slate-600 font-medium text-center">Intervention de traitement - Étape 1</p>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      <video 
-                        src="/videos/merule-2.mp4" 
-                        controls 
-                        className="w-full rounded-2xl shadow-lg border border-slate-200 bg-black aspect-video object-contain"
-                        preload="metadata"
-                      />
-                      <p className="text-sm text-slate-600 font-medium text-center">Intervention de traitement - Étape 2</p>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Right Column (CTA) */}
