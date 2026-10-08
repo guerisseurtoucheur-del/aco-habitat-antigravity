@@ -2,16 +2,6 @@ import { NextResponse } from "next/server";
 import { getAnalysisSession } from "@/lib/analysis-store";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 
-const getBaseUrl = () => {
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL;
-  }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  return "http://localhost:3000";
-};
-
 // Construit l'URL de base du site de maniere fiable (env var > headers > fallback)
 function getBaseUrl(requestHeaders: Headers): string {
   // 1. Variable d'environnement explicite (prioritaire)
@@ -60,7 +50,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Session introuvable" }, { status: 404 });
     }
 
-    const baseUrl = getBaseUrl();
 
     // Créer la session Stripe Checkout
     const checkoutSession = await stripe.checkout.sessions.create({

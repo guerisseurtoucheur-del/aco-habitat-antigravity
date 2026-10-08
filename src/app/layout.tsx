@@ -8,7 +8,6 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-import ChatBot from "@/components/ChatBot";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
