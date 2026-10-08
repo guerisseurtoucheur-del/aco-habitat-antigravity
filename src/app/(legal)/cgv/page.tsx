@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
-  title: "Conditions générales de vente — ACO-HABITAT",
+  title: "Conditions générales de vente — DIAGNOSTIC-BOIS",
   description:
-    "Conditions générales du service de pré-analyse par image ACO-HABITAT : phase gratuite, qualification commerciale, livraison du rapport PDF, médiation.",
+    "Conditions générales du service de pré-analyse par image DIAGNOSTIC-BOIS : phase gratuite, qualification commerciale, livraison du rapport PDF, médiation.",
 };
 
 const Placeholder = ({ children }: { children: React.ReactNode }) => (
@@ -22,7 +22,7 @@ export default function CgvPage() {
 
       <p className={styles.lead}>
         Les présentes conditions générales de vente (ci-après «&nbsp;CGV&nbsp;»)
-        régissent les relations contractuelles entre <strong>ACO-HABITAT</strong>
+        régissent les relations contractuelles entre <strong>DIAGNOSTIC-BOIS</strong>
         {" "}(ci-après «&nbsp;le Prestataire&nbsp;») et toute personne physique majeure,
         consommateur au sens du Code de la consommation, utilisant le service gratuit de
         pré-analyse par image (ci-après «&nbsp;le Client&nbsp;»).
@@ -33,7 +33,7 @@ export default function CgvPage() {
         <p>
           Les présentes CGV ont pour objet de définir les modalités de souscription,
           de réalisation et de livraison du service de pré-analyse par
-          image proposé par ACO-HABITAT dans sa version actuelle gratuite.
+          image proposé par DIAGNOSTIC-BOIS dans sa version actuelle gratuite.
         </p>
       </section>
 
@@ -114,7 +114,7 @@ export default function CgvPage() {
         </ul>
         <p>
           La validation du dossier d&apos;analyse emporte formation du contrat entre le Client
-          et ACO-HABITAT.
+          et DIAGNOSTIC-BOIS.
         </p>
       </section>
 
@@ -122,7 +122,7 @@ export default function CgvPage() {
         <h2 className={styles.sectionTitle}>Article 6 — Paiement</h2>
         <p>
           Dans la phase actuelle du service, <strong>aucun paiement n&apos;est requis</strong>.
-          Aucune donnée de carte bancaire n&apos;est collectée ni traitée par ACO-HABITAT pour la seule pré-analyse gratuite.
+          Aucune donnée de carte bancaire n&apos;est collectée ni traitée par DIAGNOSTIC-BOIS pour la seule pré-analyse gratuite.
         </p>
         <p>
           À titre prévisionnel, si une ou plusieurs prestations payantes sont ultérieurement proposées sur la Plateforme,
@@ -190,7 +190,7 @@ export default function CgvPage() {
           Le rapport délivré est généré par un système d&apos;intelligence
           artificielle à partir des seules photographies fournies par le Client. Sa
           fiabilité dépend directement de la qualité, de la cadrage et de la
-          représentativité des photographies envoyées. ACO-HABITAT ne peut garantir
+          représentativité des photographies envoyées. DIAGNOSTIC-BOIS ne peut garantir
           l&apos;exactitude absolue ni l&apos;exhaustivité des constats du rapport.
         </p>
         <p>
@@ -200,7 +200,7 @@ export default function CgvPage() {
           ultérieure par un spécialiste certifié intervenant sur place.
         </p>
         <p>
-          ACO-HABITAT ne peut être tenu pour responsable :
+          DIAGNOSTIC-BOIS ne peut être tenu pour responsable :
         </p>
         <ul>
           <li>
@@ -222,7 +222,7 @@ export default function CgvPage() {
           </li>
         </ul>
         <p>
-          À titre gratuit, la responsabilité globale d&apos;ACO-HABITAT au titre des présentes est,
+          À titre gratuit, la responsabilité globale d&apos;DIAGNOSTIC-BOIS au titre des présentes est,
           sauf faute lourde ou dol, limitée à{" "}
           <strong>cent euros (100&nbsp;€)</strong> par dossier pour les seuls préjudices directs prouvés,
           dans les conditions du droit français.
@@ -244,7 +244,7 @@ export default function CgvPage() {
             <a href="tel:+33233311979">02 33 31 19 79</a>
           </li>
           <li>
-            par courrier&nbsp;: ACO-HABITAT — 18 rue Bernard Palissy, 61000
+            par courrier&nbsp;: DIAGNOSTIC-BOIS — 18 rue Bernard Palissy, 61000
             Alençon, France
           </li>
         </ul>
@@ -257,11 +257,11 @@ export default function CgvPage() {
         <p>
           Conformément aux articles L.611-1 et suivants du Code de la consommation,
           le Client a le droit, en cas de litige n&apos;ayant pu être résolu de manière
-          amiable directement avec ACO-HABITAT, de recourir gratuitement à un
+          amiable directement avec DIAGNOSTIC-BOIS, de recourir gratuitement à un
           médiateur de la consommation.
         </p>
         <p>
-          Le médiateur de la consommation désigné par ACO-HABITAT est&nbsp;:
+          Le médiateur de la consommation désigné par DIAGNOSTIC-BOIS est&nbsp;:
         </p>
         <table className={styles.dataTable}>
           <tbody>
@@ -305,7 +305,7 @@ export default function CgvPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Article 13 — Force majeure</h2>
         <p>
-          ACO-HABITAT ne pourra être tenu pour responsable de l&apos;inexécution ou
+          DIAGNOSTIC-BOIS ne pourra être tenu pour responsable de l&apos;inexécution ou
           de la mauvaise exécution de l&apos;une de ses obligations résultant des
           présentes CGV en cas de force majeure au sens de l&apos;article 1218 du
           Code civil, et notamment en cas de catastrophe naturelle, conflit armé,
@@ -331,7 +331,7 @@ export default function CgvPage() {
           Article 15 — Modification des CGV
         </h2>
         <p>
-          ACO-HABITAT se réserve le droit de modifier les présentes CGV à tout moment.
+          DIAGNOSTIC-BOIS se réserve le droit de modifier les présentes CGV à tout moment.
           Les CGV applicables à une demande de pré-analyse sont celles en vigueur au jour de cette demande.
           Les nouvelles CGV s&apos;appliquent aux demandes postérieures à leur publication sur le site.
         </p>

@@ -26,10 +26,10 @@ type PhotoSlot = {
 };
 
 const initialSlots: PhotoSlot[] = [
-  { key: "photo_1", label: "Contexte global", hint: "Vue d'ensemble de la zone", file: null, previewUrl: null },
-  { key: "photo_2", label: "Détail de la zone", hint: "Gros plan sur l'anomalie", file: null, previewUrl: null },
-  { key: "photo_3", label: "Structure porteuse", hint: "Charpente, solives, murs", file: null, previewUrl: null },
-  { key: "photo_4", label: "Indices annexes", hint: "Traces, taches, dégâts", file: null, previewUrl: null },
+  { key: "photo_1", label: "Vue d'ensemble", hint: "Photo large de la zone", file: null, previewUrl: null },
+  { key: "photo_2", label: "Zone touchée", hint: "Gros plan sur le problème", file: null, previewUrl: null },
+  { key: "photo_3", label: "Dégâts visibles", hint: "Traces, champignons, trous", file: null, previewUrl: null },
+  { key: "photo_4", label: "Autre photo", hint: "Optionnel", file: null, previewUrl: null },
 ];
 
 const STEPS = ["Upload", "Validation", "Analyse", "Rapport"] as const;
@@ -39,6 +39,14 @@ const IconCamera = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
     <circle cx="12" cy="13" r="4" />
+  </svg>
+);
+
+const IconGallery = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <polyline points="21 15 16 10 5 21" />
   </svg>
 );
 
@@ -75,13 +83,14 @@ export function DiagnosticUpload() {
     analyseStatusSchema.enum.queued,
   );
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [clientInfo, setClientInfo] = useState({ name: "", email: "", phone: "", address: "" });
-  const [addressSuggestions, setAddressSuggestions] = useState<{ label: string; context: string }[]>([]);
+  const [clientInfo, setClientInfo] = useState({ name: "", email: "", phone: "", address: "", postalCode: "", city: "" });
+  const [addressSuggestions, setAddressSuggestions] = useState<{ label: string; context: string; postcode: string; city: string }[]>([]);
   const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acknowledgedNonOpposable, setAcknowledgedNonOpposable] = useState(false);
   const [draggingSlot, setDraggingSlot] = useState<number | null>(null);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const cameraInputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const pollingIntervalRef = useRef<number | null>(null);
   const redirectTimeoutRef = useRef<number | null>(null);
   const addressTimeoutRef = useRef<number | null>(null);
@@ -234,6 +243,8 @@ export function DiagnosticUpload() {
       const suggestions = features.map((f: any) => ({
         label: f.properties.label,
         context: f.properties.context, // department/region
+        postcode: f.properties.postcode ?? "", // code postal
+        city: f.properties.city ?? "", // ville
       }));
       setAddressSuggestions(suggestions);
       setShowAddressSuggestions(true);
@@ -253,8 +264,13 @@ export function DiagnosticUpload() {
     }, 400);
   };
 
-  const handleSelectAddress = (label: string) => {
-    setClientInfo((p) => ({ ...p, address: label }));
+  const handleSelectAddress = (s: { label: string; postcode: string; city: string }) => {
+    setClientInfo((p) => ({
+      ...p,
+      address: s.label,
+      postalCode: s.postcode || p.postalCode,
+      city: s.city || p.city,
+    }));
     setShowAddressSuggestions(false);
   };
 
@@ -273,6 +289,22 @@ export function DiagnosticUpload() {
       setErrorMessage("Veuillez confirmer la nature informative de la pré-analyse.");
       return null;
     }
+    if (!/^\d{5}$/.test(clientInfo.postalCode)) {
+      setErrorMessage("Un code postal valide (5 chiffres) est requis pour localiser le bien.");
+      return null;
+    }
+    if (clientInfo.city.trim().length < 2) {
+      setErrorMessage("La ville du bien est requise.");
+      return null;
+    }
+
+    // Composer l'adresse complète en garantissant la présence du code postal
+    // (indispensable pour la détection automatique du département)
+    let fullAddress = clientInfo.address.trim();
+    if (!fullAddress.includes(clientInfo.postalCode)) {
+      const cityPart = `${clientInfo.postalCode} ${clientInfo.city}`.trim();
+      fullAddress = fullAddress ? `${fullAddress}, ${cityPart}` : cityPart;
+    }
 
     const payload = {
       photo_1, photo_2, photo_3, photo_4,
@@ -281,7 +313,7 @@ export function DiagnosticUpload() {
       clientName: clientInfo.name,
       clientEmail: clientInfo.email,
       clientPhone: clientInfo.phone,
-      clientAddress: clientInfo.address,
+      clientAddress: fullAddress,
     };
 
     const parsed = analyseRequestSchema.safeParse(payload);
@@ -456,7 +488,7 @@ export function DiagnosticUpload() {
             {showAddressSuggestions && addressSuggestions.length > 0 && (
               <ul className={styles.addressDropdown}>
                 {addressSuggestions.map((s, idx) => (
-                  <li key={idx} className={styles.addressOption} onClick={() => handleSelectAddress(s.label)}>
+                  <li key={idx} className={styles.addressOption} onClick={() => handleSelectAddress(s)}>
                     <span style={{ fontWeight: "bold", display: "block", color: "#0f172a" }}>{s.label}</span>
                     <span style={{ fontSize: "11px", color: "#64748b" }}>{s.context}</span>
                   </li>
@@ -464,6 +496,28 @@ export function DiagnosticUpload() {
               </ul>
             )}
           </div>
+          <input
+            id="client-postal-code"
+            type="text"
+            inputMode="numeric"
+            maxLength={5}
+            placeholder="Code postal"
+            className={styles.input}
+            value={clientInfo.postalCode}
+            onChange={(e) =>
+              setClientInfo((p) => ({ ...p, postalCode: e.target.value.replace(/\D/g, "").slice(0, 5) }))
+            }
+            disabled={isBusy}
+          />
+          <input
+            id="client-city"
+            type="text"
+            placeholder="Ville"
+            className={styles.input}
+            value={clientInfo.city}
+            onChange={(e) => setClientInfo((p) => ({ ...p, city: e.target.value }))}
+            disabled={isBusy}
+          />
         </div>
       </div>
 
@@ -521,11 +575,8 @@ export function DiagnosticUpload() {
                   </div>
                 </div>
               ) : (
-                /* Empty state */
+                /* Empty state with camera and gallery buttons */
                 <div className={styles.slotEmpty}>
-                  <div className={styles.slotIcon}>
-                    <IconCamera />
-                  </div>
                   <span className={styles.slotNumber}>Vue {index + 1}</span>
                   <span className={styles.slotLabel}>{slot.label}</span>
                   <span className={styles.slotHint}>{slot.hint}</span>
@@ -545,7 +596,7 @@ export function DiagnosticUpload() {
                 accept="image/*"
                 className={styles.hiddenInput}
                 onChange={(e) => handleFileSelected(index, e)}
-                aria-label={`Sélectionner photo ${index + 1}`}
+                aria-label={`Prendre photo ${index + 1} avec appareil`}
               />
             </div>
           );
@@ -599,8 +650,7 @@ export function DiagnosticUpload() {
                 disabled={isBusy}
               />
               <span className={styles.consentText}>
-                Je comprends que ce rapport est une <strong>pré-analyse IA à valeur informative</strong>, qu&apos;il{" "}
-                <strong>n&apos;est pas un diagnostic immobilier réglementé</strong> et ne se substitue pas à l&apos;intervention d&apos;un spécialiste certifié.
+                Je comprends que cette <strong>pre-analyse me permet d&apos;y voir clair</strong> avant de faire appel a un professionnel certifie si necessaire.
               </span>
             </label>
           </div>

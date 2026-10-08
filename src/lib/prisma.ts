@@ -20,6 +20,9 @@ function cleanConnectionString(url: string): string {
 
 const rawConnectionString =
   process.env.SUPABASE_POSTGRES_PRISMA_URL ||
+  process.env.POSTGRES_PRISMA_URL ||
+  process.env.SUPABASE_POSTGRES_URL ||
+  process.env.POSTGRES_URL ||
   process.env.DATABASE_URL ||
   "postgresql://postgres:postgres@localhost:5432/postgres";
 

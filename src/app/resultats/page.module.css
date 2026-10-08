@@ -2,7 +2,10 @@
 
 .header { background: #0A2540; padding: 14px 0; border-bottom: 3px solid #12824C; }
 .headerInner { display: flex; align-items: center; justify-content: space-between; }
+.logoWrap { display: flex; flex-direction: column; line-height: 1.1; }
 .logoText { color: #fff; font-weight: 800; font-size: 18px; }
+.logoDotCom { color: #10b981; font-weight: 800; }
+.logoSub { font-size: 9px; color: rgba(255,255,255,0.6); font-weight: 500; }
 .statusBadge { 
   background: rgba(18,130,76,0.2); color: #2ECC71; 
   padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;

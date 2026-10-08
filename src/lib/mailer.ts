@@ -145,6 +145,187 @@ export async function sendLeadEmail(session: any, reportUrlFromCaller?: string) 
     `,
   };
 
+  // Ajouter le PDF en piece jointe si disponible
+  if (pdfBuffer) {
+    const ref = session.id ? session.id.slice(0, 12).toUpperCase() : "DIAG";
+    mailOptions.attachments = [
+      {
+        filename: `Rapport_DIAGNOSTIC-BOIS_${ref}.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      },
+    ];
+  }
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`[mailer] Email envoye pour le lead ${session.clientName}`);
+  } catch (error) {
+    console.error("[mailer] Erreur envoi email :", error);
+  }
+}
+
+// Envoyer le rapport PDF au client apres paiement
+export async function sendReportToClient(session: any, reportUrl: string, pdfBuffer?: Buffer) {
+  const transporter = getTransporter();
+
+  const clientEmail = session.clientEmail;
+  if (!clientEmail) {
+    console.error("[mailer] Pas d'email client pour envoyer le rapport");
+    return;
+  }
+
+  const clientName = session.clientName || "cher client";
+  const ref = session.id ? session.id.slice(0, 8).toUpperCase() : "DIAG";
+
+  const mailOptions: any = {
+    from: getFromAddress(),
+    to: clientEmail,
+    subject: `Votre rapport de diagnostic bois est disponible - Ref. ${ref}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f5;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                
+                <!-- Header avec logo - Bulletproof -->
+                <tr>
+                  <td style="background-color: #0f172a; padding: 32px 40px; text-align: center;">
+                    <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">DIAGNOSTIC-BOIS.COM</h1>
+                    <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 13px; font-weight: 400;">Expert en pathologies du bois depuis 2006</p>
+                  </td>
+                </tr>
+
+                <!-- Badge de confirmation - Bulletproof -->
+                <tr>
+                  <td style="padding: 32px 40px 0 40px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td style="background-color: #10b981; border-radius: 8px; padding: 16px 24px; text-align: center;">
+                          <p style="margin: 0; color: #ffffff; font-size: 14px; font-weight: 600;">
+                            Paiement confirme - Votre rapport est pret !
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Message principal -->
+                <tr>
+                  <td style="padding: 32px 40px;">
+                    <p style="color: #0f172a; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                      Bonjour ${clientName},
+                    </p>
+                    <p style="color: #475569; font-size: 15px; line-height: 1.7; margin: 0 0 16px 0;">
+                      Nous vous remercions pour votre confiance. Votre paiement a bien ete enregistre et votre <strong>rapport de diagnostic complet</strong> est maintenant disponible.
+                    </p>
+                    <p style="color: #475569; font-size: 15px; line-height: 1.7; margin: 0;">
+                      Vous trouverez votre rapport detaille <strong>en piece jointe</strong> de cet email. Ce document contient l'analyse complete de vos photos avec les pathologies identifiees et nos recommandations.
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Reference -->
+                <tr>
+                  <td style="padding: 0 40px 24px 40px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <tr>
+                        <td style="padding: 16px 20px;">
+                          <p style="margin: 0; color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Reference de votre dossier</p>
+                          <p style="margin: 4px 0 0 0; color: #0f172a; font-size: 16px; font-weight: 600; font-family: monospace;">${ref}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Bouton CTA - Bulletproof pour Gmail -->
+                <tr>
+                  <td style="padding: 0 40px 32px 40px; text-align: center;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+                      <tr>
+                        <td style="background-color: #0f172a; border-radius: 8px;">
+                          <a href="${reportUrl}" target="_blank" style="display: inline-block; padding: 16px 40px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            CONSULTER MON RAPPORT EN LIGNE
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    <p style="margin: 12px 0 0 0; font-size: 12px; color: #94a3b8;">
+                      ou copiez ce lien : <a href="${reportUrl}" style="color: #0066ff;">${reportUrl}</a>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Separateur -->
+                <tr>
+                  <td style="padding: 0 40px;">
+                    <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 0;">
+                  </td>
+                </tr>
+
+                <!-- Contact -->
+                <tr>
+                  <td style="padding: 32px 40px;">
+                    <p style="margin: 0 0 12px 0; color: #0f172a; font-size: 15px; font-weight: 600;">
+                      Une question ? Besoin d'un devis de traitement ?
+                    </p>
+                    <p style="margin: 0; color: #475569; font-size: 14px; line-height: 1.6;">
+                      Notre equipe d'experts est a votre disposition pour vous accompagner.<br/>
+                      <strong>Appelez-nous :</strong> <a href="tel:+33233311979" style="color: #10b981; text-decoration: none; font-weight: 600;">02 33 31 19 79</a><br/>
+                      <strong>Email :</strong> <a href="mailto:aco.habitat@orange.fr" style="color: #10b981; text-decoration: none;">aco.habitat@orange.fr</a>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td style="background-color: #f8fafc; padding: 24px 40px; border-top: 1px solid #e2e8f0;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td style="text-align: center;">
+                          <p style="margin: 0 0 4px 0; color: #0f172a; font-size: 13px; font-weight: 600;">ACO-HABITAT</p>
+                          <p style="margin: 0; color: #64748b; font-size: 12px; line-height: 1.5;">
+                            18 Rue Bernard Palissy, 61000 Alencon<br/>
+                            SIRET : 344 616 412 00062
+                          </p>
+                          <p style="margin: 16px 0 0 0;">
+                            <a href="https://diagnostic-bois.com" style="color: #10b981; font-size: 12px; text-decoration: none; font-weight: 500;">www.diagnostic-bois.com</a>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `,
+  };
+
+  // Ajouter le PDF en piece jointe
+  if (pdfBuffer) {
+    mailOptions.attachments = [
+      {
+        filename: `Rapport_DIAGNOSTIC-BOIS_${ref}.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      },
+    ];
+  }
+
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -157,6 +338,6 @@ export async function sendLeadEmail(session: any, reportUrlFromCaller?: string) 
     await transporter.sendMail(mailOptions);
     console.log(`[mailer] Email envoyé avec succès à ${recipientEmail} (${statusTag}) pour le lead ${session.clientName}`);
   } catch (error) {
-    console.error("[mailer] Erreur lors de l'envoi de l'email :", error);
+    console.error("[mailer] Erreur envoi rapport client :", error);
   }
 }

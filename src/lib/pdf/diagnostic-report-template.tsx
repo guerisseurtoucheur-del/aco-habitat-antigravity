@@ -134,29 +134,62 @@ const styles = StyleSheet.create({
   },
 
   // Annotations
-  box: { position: "absolute", borderWidth: 2, borderRadius: 2 },
+  box: { position: "absolute", borderWidth: 3, borderRadius: 4 },
   boxTag: {
     position: "absolute",
-    top: -16,
+    top: -18,
     left: -2,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    fontSize: 7,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    fontSize: 8,
     fontWeight: "bold",
     color: "#ffffff",
-    borderRadius: 2,
+    borderRadius: 3,
   },
   dot: {
     position: "absolute",
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 3,
     borderColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -10,
-    marginLeft: -10,
+    marginTop: -14,
+    marginLeft: -14,
+  },
+  dotNumber: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  annotationLegend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 8,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    backgroundColor: "#f8fafc",
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  legendItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  legendDot: {
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  legendText: {
+    fontSize: 7,
+    color: "#475569",
+    maxWidth: 150,
   },
 
   // Table
@@ -273,6 +306,107 @@ const styles = StyleSheet.create({
     lineHeight: 1.5,
   },
 
+  // Treatment CTA box (ACO-HABITAT brand)
+  treatmentBox: {
+    marginTop: 12,
+    marginBottom: 18,
+    padding: 18,
+    backgroundColor: "#0A2540",
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: "#10b981",
+  },
+  treatmentLabel: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "#34d399",
+    textTransform: "uppercase",
+    letterSpacing: 0.4,
+    marginBottom: 6,
+  },
+  treatmentTitle: {
+    fontSize: 13,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 8,
+  },
+  treatmentText: {
+    fontSize: 9,
+    color: "#cbd5e1",
+    lineHeight: 1.5,
+    marginBottom: 12,
+  },
+  treatmentContactRow: {
+    flexDirection: "row",
+    gap: 16,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255,255,255,0.15)",
+  },
+  treatmentContactItem: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  treatmentContactSub: {
+    fontSize: 7,
+    color: "#94a3b8",
+    marginBottom: 2,
+  },
+  treatmentProductBox: {
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "rgba(16,185,129,0.10)",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "rgba(52,211,153,0.35)",
+  },
+  treatmentProductName: {
+    fontSize: 9.5,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 3,
+  },
+  treatmentProductText: {
+    fontSize: 8,
+    color: "#cbd5e1",
+    lineHeight: 1.45,
+  },
+  treatmentMethodsBox: {
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "rgba(15,23,42,0.45)",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "rgba(148,163,184,0.25)",
+  },
+  treatmentMethodsTitle: {
+    fontSize: 9.5,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 6,
+  },
+  treatmentMethodItem: {
+    marginBottom: 7,
+  },
+  treatmentMethodName: {
+    fontSize: 8.5,
+    fontWeight: "bold",
+    color: "#34d399",
+    marginBottom: 2,
+  },
+  treatmentMethodText: {
+    fontSize: 8,
+    color: "#cbd5e1",
+    lineHeight: 1.45,
+  },
+  treatmentMethodsFooter: {
+    fontSize: 8,
+    color: "#94a3b8",
+    lineHeight: 1.45,
+    marginTop: 3,
+  },
+
   // Insurance usage card
   insuranceBox: {
     marginTop: 10,
@@ -359,6 +493,172 @@ const styles = StyleSheet.create({
     color: "#94a3b8",
     textAlign: "center",
   },
+
+  // Invoice Page Styles
+  invoicePage: {
+    padding: 50,
+    fontFamily: "Helvetica",
+    color: "#1e293b",
+    backgroundColor: "#ffffff",
+  },
+  invoiceHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 40,
+    paddingBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: "#0f172a",
+  },
+  invoiceBrand: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#0f172a",
+    letterSpacing: 1,
+  },
+  invoiceBrandSub: {
+    fontSize: 8,
+    color: "#64748b",
+    marginTop: 4,
+  },
+  invoiceTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#0f172a",
+    textAlign: "right",
+  },
+  invoiceNumber: {
+    fontSize: 10,
+    color: "#64748b",
+    textAlign: "right",
+    marginTop: 4,
+  },
+  invoiceSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 30,
+  },
+  invoiceBox: {
+    width: "48%",
+  },
+  invoiceBoxTitle: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "#64748b",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: 8,
+    paddingBottom: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e2e8f0",
+  },
+  invoiceBoxText: {
+    fontSize: 10,
+    color: "#0f172a",
+    lineHeight: 1.6,
+  },
+  invoiceTable: {
+    marginTop: 20,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: "#e2e8f0",
+    borderRadius: 6,
+    overflow: "hidden",
+  },
+  invoiceTableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#0f172a",
+    padding: 12,
+  },
+  invoiceTableHeaderText: {
+    color: "#ffffff",
+    fontSize: 9,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  invoiceTableRow: {
+    flexDirection: "row",
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f1f5f9",
+    backgroundColor: "#ffffff",
+  },
+  invoiceTableCell: {
+    fontSize: 10,
+    color: "#1e293b",
+  },
+  invoiceTotalSection: {
+    alignItems: "flex-end",
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceTotalRow: {
+    flexDirection: "row",
+    marginBottom: 6,
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalLabel: {
+    fontSize: 10,
+    color: "#64748b",
+  },
+  invoiceTotalValue: {
+    fontSize: 10,
+    color: "#0f172a",
+    fontWeight: "bold",
+  },
+  invoiceTotalFinal: {
+    flexDirection: "row",
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 2,
+    borderTopColor: "#0f172a",
+    width: 200,
+    justifyContent: "space-between",
+  },
+  invoiceTotalFinalLabel: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#0f172a",
+  },
+  invoiceTotalFinalValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+  },
+  invoicePaidBadge: {
+    marginTop: 20,
+    alignSelf: "flex-end",
+    backgroundColor: "#ecfdf5",
+    borderWidth: 2,
+    borderColor: "#10b981",
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  invoicePaidText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#10b981",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+  },
+  invoiceFooter: {
+    position: "absolute",
+    bottom: 40,
+    left: 50,
+    right: 50,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#e2e8f0",
+  },
+  invoiceFooterText: {
+    fontSize: 7,
+    color: "#94a3b8",
+    textAlign: "center",
+    lineHeight: 1.5,
+  },
 });
 
 const FRENCH_PARTICLES = new Set([
@@ -417,13 +717,13 @@ function stripMarkdown(input: string | null | undefined): string {
 const RICH_FALLBACK_PRECONISATIONS: string[] = [
   "Action immédiate (0-24h) : sécuriser la zone, documenter par photographies horodatées, et limiter toute humidité active visible (épongeage, ventilation, coupure d'arrivée d'eau si fuite).",
   "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifié COFRAC pour réaliser un état parasitaire conforme à la norme NF P 03-200 (sondage mécanique, mesure d'humidité par humidimètre, prélèvement éventuel pour analyse mycologique).",
-  "Action 30 jours : commander une étude structurelle par bureau d'études afin d'évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif (CTB-A+) ou de remplacement partiel.",
+  "Action 30 jours : commander une étude structurelle par bureau d'études afin d'évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif ou de remplacement partiel.",
   "Action 3 mois : engager les travaux correctifs préconisés par les spécialistes (traitement xylophages/fongicides, reprise de couverture, traitement de l'humidité structurelle).",
   "Suivi long terme : programmer un contrôle annuel des zones traitées et conserver l'ensemble des rapports et factures pour traçabilité (assurance, transaction, contentieux).",
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. ACO-HABITAT décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. DIAGNOSTIC-BOIS décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
 
 function ensureRichPreconisations(items: string[] | undefined | null): string[] {
   const cleaned = (items ?? [])
@@ -435,47 +735,6 @@ function ensureRichPreconisations(items: string[] | undefined | null): string[] 
 function ensureRichConclusion(value: string | undefined | null): string {
   const cleaned = stripMarkdown(value).trim();
   return cleaned.length >= 80 ? cleaned : RICH_FALLBACK_CONCLUSION;
-}
-
-type NextStepSeverity = "critical" | "moderate" | "low";
-
-type NextStepContent = {
-  severity: NextStepSeverity;
-  label: string;
-  title: string;
-  body: string;
-  borderColor: string;
-};
-
-function computeNextStep(critical: number, moderate: number): NextStepContent {
-  if (critical > 0) {
-    return {
-      severity: "critical",
-      label: "Action requise sous 7 jours",
-      title: "Faites établir un diagnostic immobilier réglementé par un spécialiste certifié COFRAC",
-      body:
-        "L'analyse a détecté une ou plusieurs pathologies de niveau critique. Avant toute prise de décision (achat, vente, travaux, déclaration assurantielle), il est impératif de faire réaliser un état parasitaire conforme à la norme NF P 03-200 par un diagnostiqueur certifié COFRAC, avec sondage mécanique et mesure d'humidité au point. Seule cette prestation réglementée a une valeur opposable.",
-      borderColor: "#dc2626",
-    };
-  }
-  if (moderate > 0) {
-    return {
-      severity: "moderate",
-      label: "Action recommandée sous 30 jours",
-      title: "Consultez un diagnostiqueur certifié pour confirmer l'état du bien",
-      body:
-        "L'analyse a relevé un ou plusieurs désordres modérés à surveiller. Pour sécuriser une transaction immobilière ou planifier un traitement curatif adapté, il est recommandé de faire intervenir un diagnostiqueur certifié COFRAC pour une inspection physique complète. Lui seul est habilité à produire un état parasitaire opposable.",
-      borderColor: "#ea580c",
-    };
-  }
-  return {
-    severity: "low",
-    label: "Suivi périodique conseillé",
-    title: "Programmez une surveillance annuelle de votre bien",
-    body:
-      "L'analyse n'a pas révélé de pathologie majeure sur les images soumises. Pour conserver la fiabilité de cet état des lieux, mettez en place une surveillance annuelle de votre charpente, caves et points sensibles. En cas de doute ou avant toute transaction, faites valider l'absence de désordres par un diagnostiqueur certifié COFRAC.",
-    borderColor: "#0891b2",
-  };
 }
 
 const PARIS_DATETIME_FORMATTER = new Intl.DateTimeFormat("fr-FR", {
@@ -514,11 +773,11 @@ function computeReportFingerprint(
 const PageHeader = ({ refId }: { refId: string }) => (
   <View fixed style={styles.header}>
     <View>
-      <Text style={styles.headerBrand}>ACO<Text style={{ color: "#10b981" }}>-HABITAT</Text></Text>
-      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 2 }}>DIRECTION TECHNIQUE — PRÉ-ANALYSE PAR IMAGE</Text>
+      <Text style={styles.headerBrand}>DIAGNOSTIC-BOIS<Text style={{ color: "#10b981" }}>.COM</Text></Text>
+      <Text style={{ color: "#94a3b8", fontSize: 7, marginTop: 1 }}>par ACO-HABITAT</Text>
     </View>
     <View style={{ alignItems: "flex-end" }}>
-      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRÉ-ANALYSE</Text>
+      <Text style={{ color: "#64748b", fontSize: 8, fontWeight: "bold" }}>FICHE TECHNIQUE DE PRE-ANALYSE</Text>
       <Text style={{ color: "#0f172a", fontSize: 10, fontWeight: "bold" }}>REF #{refId}</Text>
     </View>
   </View>
@@ -534,10 +793,13 @@ const PageFooter = ({
   <View fixed style={styles.footer}>
     <View style={{ flex: 1 }}>
       <Text style={{ fontSize: 7 }}>
-        Rapport d&apos;aide à la pré-analyse Haute Précision — ACO-HABITAT — Document non opposable
+        Rapport Haute Precision DIAGNOSTIC-BOIS.COM — Emis par ACO-HABITAT (SIRET 344 616 412 00062) — Document non opposable
       </Text>
       <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
-        Horodaté le {generatedAtLabel} - Empreinte {fingerprintShort}
+        Horodate le {generatedAtLabel} - Empreinte {fingerprintShort}
+      </Text>
+      <Text style={{ fontSize: 6, color: "#94a3b8", marginTop: 1 }}>
+        ACO-HABITAT - Marque deposee a l'INPI n° 5266768 - Methode et format de rapport proteges (depot e-Soleau INPI) - Reproduction interdite
       </Text>
     </View>
     <Text
@@ -576,37 +838,75 @@ export const DiagnosticReportPdf = ({
     { c: 0, m: 0, l: 0 }
   );
 
-  const nextStep = computeNextStep(counts.c, counts.m);
-
   const renderPhotoWithDetails = (img: any, index: number) => {
     const matching = report.analyses.filter(a => (a as any).image_index === index + 1);
     const base64Clean = img.base64.replace(/\s/g, '');
     
+    // Collecter toutes les annotations avec leur numero
+    let annotationIndex = 0;
+    const allAnnotations: Array<{ num: number; label: string; couleur: string; x: number; y: number; width?: number; height?: number; urgence: string }> = [];
+    matching.forEach(a => {
+      (a.annotations || []).forEach(ann => {
+        annotationIndex++;
+        allAnnotations.push({
+          num: annotationIndex,
+          label: ann.label,
+          couleur: ann.couleur,
+          x: ann.position_relative.x,
+          y: ann.position_relative.y,
+          width: ann.width,
+          height: ann.height,
+          urgence: a.urgence,
+        });
+      });
+    });
+    
     return (
       <View style={styles.evidenceBox} key={index} wrap={false}>
-        {/* L'image en grand */}
+        {/* L'image en grand avec annotations numerotees */}
         <View style={styles.imageContainer}>
           <Image src={Buffer.from(base64Clean, 'base64')} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          {matching.flatMap(a => (a.annotations || []).map((ann, ai) => {
+          {allAnnotations.map((ann) => {
             const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
             if (ann.width && ann.height) {
+              // Rectangle avec bordure coloree
               return (
-                <View key={ai} style={[styles.box, { 
-                  top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
+                <View key={ann.num} style={[styles.box, { 
+                  top: `${ann.y}%`, left: `${ann.x}%`, width: `${ann.width}%`, height: `${ann.height}%`, borderColor: color 
                 }]}>
-                  <View style={[styles.boxTag, { backgroundColor: color }]}><Text>{ann.label}</Text></View>
+                  <View style={[styles.boxTag, { backgroundColor: color }]}>
+                    <Text style={styles.dotNumber}>{ann.num}. {ann.label}</Text>
+                  </View>
                 </View>
               );
             }
+            // Cercle numerote
             return (
-              <View key={ai} style={[styles.dot, { top: `${ann.position_relative.y}%`, left: `${ann.position_relative.x}%`, backgroundColor: color }]}>
-                <Text style={{ fontSize: 9, color: "#fff", fontWeight: "bold" }}>!</Text>
+              <View key={ann.num} style={[styles.dot, { top: `${ann.y}%`, left: `${ann.x}%`, backgroundColor: color }]}>
+                <Text style={styles.dotNumber}>{ann.num}</Text>
               </View>
             );
-          }))}
+          })}
         </View>
 
-        {/* Le bloc de texte descriptif dessous pour combler le vide */}
+        {/* Legende des annotations sous l'image */}
+        {allAnnotations.length > 0 && (
+          <View style={styles.annotationLegend}>
+            {allAnnotations.map((ann) => {
+              const color = ann.couleur === "ROUGE" ? "#ef4444" : ann.couleur === "ORANGE" ? "#f59e0b" : "#3b82f6";
+              return (
+                <View key={ann.num} style={styles.legendItem}>
+                  <View style={[styles.legendDot, { backgroundColor: color }]}>
+                    <Text style={{ fontSize: 8, color: "#fff", fontWeight: "bold" }}>{ann.num}</Text>
+                  </View>
+                  <Text style={styles.legendText}>{ann.label} ({ann.urgence})</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {/* Le bloc de texte descriptif dessous */}
         <View style={styles.evidenceMeta}>
           <Text style={{ fontSize: 12, fontWeight: "bold", color: "#0f172a", marginBottom: 6 }}>
             PIÈCE JUSTIFICATIVE #{index + 1}
@@ -648,11 +948,11 @@ export const DiagnosticReportPdf = ({
   };
 
   return (
-    <Document title={`Rapport ACO-HABITAT ${refId}`}>
+    <Document title={`Rapport DIAGNOSTIC-BOIS ${refId}`}>
       {/* PAGE 1: COVER */}
       <Page size="A4" style={styles.page}>
         <View style={styles.cover}>
-          <View style={styles.coverBadge}><Text style={styles.coverBadgeText}>RAPPORT D&apos;INSPECTION PAR IMAGE — ACO-HABITAT</Text></View>
+          <View style={styles.coverBadge}><Text style={styles.coverBadgeText}>RAPPORT D&apos;INSPECTION PAR IMAGE — DIAGNOSTIC-BOIS</Text></View>
           <Text style={styles.h1}>PRÉ-ANALYSE TECHNIQUE</Text>
           <View style={styles.coverLine} />
           <Text style={{ color: "#0f172a", fontSize: 16, letterSpacing: 1, fontWeight: "bold" }}>PATHOLOGIES DES BOIS ET HUMIDITÉ</Text>
@@ -744,11 +1044,74 @@ export const DiagnosticReportPdf = ({
           <Text style={[styles.h2, { marginTop: 30 }]}>Documentation Visuelle & Analyses</Text>
           {images.map((img: any, i: number) => renderPhotoWithDetails(img, i))}
 
-          {/* SECTION: RECOMMENDATIONS */}
-          <View style={[styles.nextStepBox, { borderLeftColor: nextStep.borderColor, marginTop: 20 }]} wrap={false}>
-            <Text style={styles.nextStepLabel}>Votre prochaine étape · {nextStep.label}</Text>
-            <Text style={styles.nextStepTitle}>{nextStep.title}</Text>
-            <Text style={styles.nextStepText}>{nextStep.body}</Text>
+          {/* SECTION: TREATMENT BY ACO-HABITAT */}
+          <View style={styles.treatmentBox} wrap={false}>
+            <Text style={styles.treatmentLabel}>La prochaine étape · Le traitement</Text>
+            <Text style={styles.treatmentTitle}>Faites traiter le bois par des spécialistes</Text>
+            <Text style={styles.treatmentText}>
+              Vous avez découvert ce problème lors de travaux, dans une résidence secondaire, ou simplement en
+              inspectant votre bien&nbsp;? L&apos;essentiel est d&apos;agir : une fois la pathologie identifiée, le
+              traitement curatif doit être réalisé par une entreprise spécialisée. ACO-HABITAT traite le bois
+              (mérule, capricorne, termites, vrillettes, champignons) depuis plus de 20 ans. Devis et conseils sans
+              engagement — nous intervenons rapidement pour stopper la dégradation et protéger durablement votre bien.
+            </Text>
+            <View style={styles.treatmentProductBox}>
+              <Text style={styles.treatmentProductName}>Notre solution : un gel curatif professionnel</Text>
+              <Text style={styles.treatmentProductText}>
+                Nous mettons en œuvre un gel curatif et préventif à triple action (fongicide, insecticide,
+                anti-termites), efficace contre les insectes à larves xylophages (capricornes, vrillettes, lyctus),
+                les termites et les champignons lignivores. Ce produit ne peut pas être appliqué par un particulier :
+                sa mise en œuvre exige le strict respect des normes d&apos;application, le port d&apos;équipements de
+                protection (masque, protection respiratoire, gants) et une maîtrise technique précise du dosage et de
+                la préparation des bois (sondage, bûchage, brossage, injection en profondeur sur les fortes sections).
+                Nos opérateurs suivent des stages de formation obligatoires et certifiants : c&apos;est cette
+                qualification qui conditionne la délivrance de notre garantie décennale. Une application non conforme,
+                sans formation, annule toute couverture et peut s&apos;avérer dangereuse. Confier le traitement à nos
+                équipes formées, c&apos;est l&apos;assurance d&apos;un résultat durable et garanti.
+              </Text>
+            </View>
+            <View style={styles.treatmentMethodsBox}>
+              <Text style={styles.treatmentMethodsTitle}>Nos méthodes de traitement du bois</Text>
+              <View style={styles.treatmentMethodItem}>
+                <Text style={styles.treatmentMethodName}>Traitement curatif par injection</Text>
+                <Text style={styles.treatmentMethodText}>
+                  Pour les bois déjà infestés et les pièces de forte section (poutres, solives, pannes,
+                  charpentes), nous procédons au sondage puis au bûchage des parties altérées avant la pose de
+                  chevilles-injecteurs. Le produit curatif est injecté sous pression au cœur du bois afin
+                  d&apos;atteindre les galeries larvaires et d&apos;éradiquer durablement capricornes, vrillettes,
+                  termites et champignons lignivores, là où un traitement de surface seul serait insuffisant.
+                </Text>
+              </View>
+              <View style={styles.treatmentMethodItem}>
+                <Text style={styles.treatmentMethodName}>Traitement préventif par pulvérisation</Text>
+                <Text style={styles.treatmentMethodText}>
+                  Après préparation et dépoussiérage des bois, nous appliquons le produit par pulvérisation
+                  basse pression sur l&apos;ensemble des surfaces. Ce traitement préventif crée une barrière
+                  protectrice qui prémunit durablement la charpente et les boiseries contre toute nouvelle
+                  attaque d&apos;insectes xylophages et de champignons.
+                </Text>
+              </View>
+              <Text style={styles.treatmentMethodsFooter}>
+                Chaque chantier est réalisé par nos équipes formées, dans le strict respect des normes
+                d&apos;application et des règles de sécurité. Spécialistes de la mérule, du capricorne, des
+                vrillettes et des termites, nous établissons un protocole adapté à votre bien et à la pathologie
+                identifiée.
+              </Text>
+            </View>
+            <View style={styles.treatmentContactRow}>
+              <View>
+                <Text style={styles.treatmentContactSub}>Appelez-nous</Text>
+                <Text style={styles.treatmentContactItem}>02 33 31 19 79</Text>
+              </View>
+              <View>
+                <Text style={styles.treatmentContactSub}>Écrivez-nous</Text>
+                <Text style={styles.treatmentContactItem}>aco.habitat@orange.fr</Text>
+              </View>
+              <View>
+                <Text style={styles.treatmentContactSub}>Spécialiste du traitement du bois</Text>
+                <Text style={styles.treatmentContactItem}>ACO-HABITAT · 20 ans d&apos;expérience</Text>
+              </View>
+            </View>
           </View>
 
           <Text style={styles.h2}>Préconisations et Actions Correctives</Text>
@@ -777,7 +1140,7 @@ export const DiagnosticReportPdf = ({
               Il <Text style={{ fontWeight: "bold" }}>ne se substitue pas</Text> à un état parasitaire, un diagnostic termites réglementé (article L.133-1 du CCH) ou tout autre diagnostic immobilier réglementé, qui doivent être réalisés par un spécialiste certifié COFRAC, assuré en responsabilité civile professionnelle, après inspection physique du bien.
             </Text>
             <Text style={[styles.disclaimerText, { marginTop: 6 }]}>
-              ACO-HABITAT décline toute responsabilité quant à l&apos;usage de ce document dans le cadre d&apos;une transaction immobilière, d&apos;un litige ou d&apos;une décision technique. Une vérification terrain par un spécialiste qualifié est <Text style={{ fontWeight: "bold" }}>impérative</Text> avant toute action corrective.
+              DIAGNOSTIC-BOIS décline toute responsabilité quant à l&apos;usage de ce document dans le cadre d&apos;une transaction immobilière, d&apos;un litige ou d&apos;une décision technique. Une vérification terrain par un spécialiste qualifié est <Text style={{ fontWeight: "bold" }}>impérative</Text> avant toute action corrective.
             </Text>
           </View>
 
@@ -790,9 +1153,9 @@ export const DiagnosticReportPdf = ({
               <Text style={styles.signatureLine}>Signature numérique ou manuscrite</Text>
             </View>
             <View style={styles.signatureBox}>
-              <Text style={styles.signatureTitle}>ACO-HABITAT</Text>
+              <Text style={styles.signatureTitle}>DIAGNOSTIC-BOIS</Text>
               <Text style={styles.signatureSub}>Direction technique — Analyse Haute Précision</Text>
-              <Text style={{ fontSize: 9, color: "#10b981", marginBottom: 10, fontWeight: "bold" }}>SENIOR SPECIALIST</Text>
+              <Text style={{ fontSize: 9, color: "#10b981", marginBottom: 10, fontWeight: "bold" }}>SPÉCIALISTE SENIOR</Text>
               <Text style={styles.signatureLine}>Document généré automatiquement</Text>
             </View>
           </View>
@@ -892,6 +1255,104 @@ export const DiagnosticReportPdf = ({
           </View>
         </View>
       </Page>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          PAGE FACTURE — Confirmation de paiement
+          ══════════════════════════════════════════════════════════════════════ */}
+      <Page size="A4" style={styles.invoicePage}>
+        {/* En-tête facture */}
+        <View style={styles.invoiceHeader}>
+          <View>
+            <Text style={styles.invoiceBrand}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBrandSub}>Expertise bois et humidite</Text>
+          </View>
+          <View>
+            <Text style={styles.invoiceTitle}>FACTURE</Text>
+            <Text style={styles.invoiceNumber}>N° FAC-{createdAt.getFullYear()}-{refId}</Text>
+            <Text style={[styles.invoiceNumber, { marginTop: 2 }]}>Date : {formatParisDateTime(generatedAt)}</Text>
+          </View>
+        </View>
+
+        {/* Emetteur / Client */}
+        <View style={styles.invoiceSection}>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Emetteur</Text>
+            <Text style={styles.invoiceBoxText}>ACO-HABITAT</Text>
+            <Text style={styles.invoiceBoxText}>18 Rue Bernard Palissy</Text>
+            <Text style={styles.invoiceBoxText}>61000 Alencon</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 8, fontSize: 8, color: "#64748b" }]}>SIRET : 344 616 412 00062</Text>
+            <Text style={[styles.invoiceBoxText, { fontSize: 8, color: "#64748b" }]}>TVA Intracom. : FR65 344 616 412</Text>
+          </View>
+          <View style={styles.invoiceBox}>
+            <Text style={styles.invoiceBoxTitle}>Client</Text>
+            <Text style={styles.invoiceBoxText}>{clientName}</Text>
+            <Text style={styles.invoiceBoxText}>{session.clientEmail || "Email non renseigne"}</Text>
+            <Text style={styles.invoiceBoxText}>{session.clientPhone || "Telephone non renseigne"}</Text>
+            <Text style={[styles.invoiceBoxText, { marginTop: 4 }]}>{clientAddress}</Text>
+          </View>
+        </View>
+
+        {/* Tableau de facturation */}
+        <View style={styles.invoiceTable}>
+          <View style={styles.invoiceTableHeader}>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 3 }]}>Designation</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "center" }]}>Qte</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>P.U. HT</Text>
+            <Text style={[styles.invoiceTableHeaderText, { flex: 1, textAlign: "right" }]}>Total HT</Text>
+          </View>
+          <View style={styles.invoiceTableRow}>
+            <View style={{ flex: 3 }}>
+              <Text style={[styles.invoiceTableCell, { fontWeight: "bold" }]}>
+                Rapport d&apos;analyse technique Haute Precision
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b", marginTop: 2 }]}>
+                Reference dossier : {refId}
+              </Text>
+              <Text style={[styles.invoiceTableCell, { fontSize: 8, color: "#64748b" }]}>
+                Pre-analyse IA multi-images — Document PDF complet
+              </Text>
+            </View>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "center" }]}>1</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>15,83 EUR</Text>
+            <Text style={[styles.invoiceTableCell, { flex: 1, textAlign: "right" }]}>15,83 EUR</Text>
+          </View>
+        </View>
+
+        {/* Totaux */}
+        <View style={styles.invoiceTotalSection}>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>Montant HT</Text>
+            <Text style={styles.invoiceTotalValue}>15,83 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalRow}>
+            <Text style={styles.invoiceTotalLabel}>TVA (20%)</Text>
+            <Text style={styles.invoiceTotalValue}>3,17 EUR</Text>
+          </View>
+          <View style={styles.invoiceTotalFinal}>
+            <Text style={styles.invoiceTotalFinalLabel}>TOTAL TTC</Text>
+            <Text style={styles.invoiceTotalFinalValue}>19,00 EUR</Text>
+          </View>
+
+          {/* Badge Acquitte */}
+          <View style={styles.invoicePaidBadge}>
+            <Text style={styles.invoicePaidText}>ACQUITTEE</Text>
+          </View>
+        </View>
+
+        {/* Mentions legales pied de page */}
+        <View style={styles.invoiceFooter}>
+          <Text style={styles.invoiceFooterText}>
+            ACO-HABITAT — 18 Rue Bernard Palissy, 61000 Alencon — SIRET 344 616 412 00062 — TVA FR65 344 616 412
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Paiement recu par carte bancaire. En cas de retard de paiement, une penalite de 3 fois le taux d&apos;interet legal sera appliquee, ainsi qu&apos;une indemnite forfaitaire de 40 EUR pour frais de recouvrement (art. L.441-6 et D.441-5 du Code de commerce).
+          </Text>
+          <Text style={[styles.invoiceFooterText, { marginTop: 4 }]}>
+            Document genere automatiquement — DIAGNOSTIC-BOIS.COM
+          </Text>
+        </View>
+      </Page>
+
     </Document>
   );
 };

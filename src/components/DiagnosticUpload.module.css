@@ -1,6 +1,6 @@
 /* ============================================
    DiagnosticUpload — Fellow-grade Premium UI
-   ACO-HABITAT · Design System v2
+   DIAGNOSTIC-BOIS · Design System v3
    ============================================ */
 
 /* ── Wrapper ─────────────────────────────── */
@@ -8,13 +8,19 @@
   background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid rgba(0, 51, 102, 0.12);
   border-radius: 20px;
-  padding: 32px 28px;
+  padding: 24px 16px;
   box-shadow:
     0 1px 3px rgba(0, 51, 102, 0.06),
     0 8px 32px rgba(0, 51, 102, 0.08),
     0 0 0 1px rgba(255,255,255,0.8) inset;
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .wrapper {
+    padding: 32px 28px;
+  }
 }
 
 .wrapper::before {
@@ -196,8 +202,14 @@
 
 .formGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
+}
+
+@media (min-width: 480px) {
+  .formGrid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* ── Address dropdown ────────────────────────────── */
@@ -242,12 +254,21 @@
   background: #f8fafc;
   border: 1.5px solid #e2e8f0;
   border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 12px 14px;
+  font-size: 16px; /* 16px prevents iOS zoom on focus */
   color: #0f172a;
   font-family: inherit;
   transition: all 0.2s ease;
   outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (min-width: 640px) {
+  .input {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
 }
 
 .input::placeholder {
@@ -276,13 +297,20 @@
   letter-spacing: 0.08em;
   color: #94a3b8;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .slots {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .slots {
+    gap: 14px;
+  }
 }
 
 /* ── Single Slot ─────────────────────────── */
@@ -296,6 +324,12 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 51, 102, 0.04);
+}
+
+@media (min-width: 640px) {
+  .slot {
+    aspect-ratio: 4/3;
+  }
 }
 
 .slot:hover {
@@ -341,6 +375,14 @@
   transition: all 0.25s ease;
 }
 
+@media (min-width: 640px) {
+  .slotIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+}
+
 .slot:hover .slotIcon {
   background: rgba(0, 102, 255, 0.15);
   transform: scale(1.08);
@@ -358,15 +400,21 @@
 }
 
 .slotNumber {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: #0066ff;
   text-transform: uppercase;
 }
 
+@media (min-width: 640px) {
+  .slotNumber {
+    font-size: 9px;
+  }
+}
+
 .slotLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #0f172a;
   text-align: center;
@@ -557,9 +605,9 @@
 /* ── CTA Button ──────────────────────────── */
 .submitBtn {
   width: 100%;
-  padding: 15px 24px;
+  padding: 16px 24px;
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.01em;
   color: #fff;
@@ -572,6 +620,15 @@
     0 1px 2px rgba(0, 51, 102, 0.12);
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .submitBtn {
+    padding: 15px 24px;
+    font-size: 14px;
+  }
 }
 
 .submitBtn::after {

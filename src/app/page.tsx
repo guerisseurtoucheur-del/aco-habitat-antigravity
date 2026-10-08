@@ -25,9 +25,24 @@ export default function HomePage() {
       {/* Header Institutionnel */}
       <header className={styles.header}>
         <div className="container">
-          <div className={styles.logo}>
-            <img src="/logo.png" alt="ACO-HABITAT Logo" className={styles.logoImg} />
-            <span className={styles.logoText}>ACO-HABITAT</span>
+          <div className={styles.headerInner}>
+            <div className={styles.logo}>
+              <img src="/logo.png" alt="DIAGNOSTIC-BOIS Logo" className={styles.logoImg} />
+              <div className={styles.logoTextWrap}>
+                <span className={styles.logoText}>DIAGNOSTIC-BOIS<span className={styles.logoDotCom}>.COM</span></span>
+                <span className={styles.logoSub}>par ACO-HABITAT</span>
+              </div>
+            </div>
+            <div className={styles.headerContact}>
+              <a href="tel:+33233311979" className={styles.headerPhone}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                02 33 31 19 79
+              </a>
+              <a href="mailto:aco.habitat@orange.fr" className={styles.headerEmail}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                aco.habitat@orange.fr
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -64,12 +79,12 @@ export default function HomePage() {
           </p>
 
           <div className={styles.priceBox}>
-            <div className={styles.priceAmount}>Analyse Offerte</div>
+            <div className={styles.priceAmount}>Premier filtre intelligent</div>
             <div className={styles.priceLabel}>
-              Pré-analyse assistée par IA · rapport détaillé disponible pour vos dossiers (réponse sous quelques minutes)
+              Reponse en quelques minutes · Rapport PDF detaille disponible apres analyse
             </div>
             <p className={styles.offerLeadHint}>
-              Capturez vos photos, recevez votre diagnostic instantanément et débloquez votre dossier PDF officiel pour vos démarches.
+              <strong>+ de 2 000 proprietaires</strong> ont deja utilise notre service pour y voir clair avant d&apos;appeler un professionnel.
             </p>
           </div>
 
@@ -78,9 +93,9 @@ export default function HomePage() {
           </a>
 
           <div className={styles.trustRow}>
-            <div className={styles.trustItem}>Utile pour votre assurance</div>
-            <div className={styles.trustItem}>Rapport structuré et photos annotées</div>
-            <div className={styles.trustItem}>Résultat lisible par tous</div>
+            <div className={styles.trustItem}>Experts depuis 2006</div>
+            <div className={styles.trustItem}>Reponse en moins de 5 min</div>
+            <div className={styles.trustItem}>Rapport utilisable avec votre assurance</div>
           </div>
         </div>
       </section>
@@ -95,12 +110,13 @@ export default function HomePage() {
       {/* Comment ca marche */}
       <section className={styles.howSection}>
         <div className="container">
-          <h2 className={styles.sectionTitle}>Comment ça marche</h2>
+          <h2 className={styles.sectionTitle}>Pourquoi agir maintenant ?</h2>
+          <p className={styles.sectionSubtitle}>La merule peut detruire une charpente en quelques mois. Plus vous attendez, plus les degats s&apos;aggravent.</p>
           <div className={styles.steps}>
             {[
-              { num: '01', title: 'Prenez 4 photos', desc: 'Photographiez les zones qui vous semblent abîmées ou humides.' },
-              { num: '02', title: 'Analyse automatique', desc: 'Notre IA examine les images pour identifier les problèmes possibles.' },
-              { num: '03', title: 'Recevez le rapport', desc: 'Vous obtenez un PDF clair avec les constats et les actions conseillées.' },
+              { num: '01', title: 'Prenez 4 photos', desc: 'Photographiez les zones suspectes avec votre telephone.' },
+              { num: '02', title: 'Analyse en 3 min', desc: 'Notre IA identifie les signes de merule, capricorne, termites ou humidite.' },
+              { num: '03', title: 'Vous savez quoi faire', desc: 'Soit vous etes rassure, soit vous appelez un pro avec un dossier solide.' },
             ].map((step) => (
               <div key={step.num} className={styles.stepCard}>
                 <div className={styles.stepNum}>{step.num}</div>
@@ -203,12 +219,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className={styles.ctaSection}>
+      {/* L'expert derrière ACO-HABITAT */}
+      <section className={styles.expertSection}>
         <div className="container">
+          <div className={styles.expertInner}>
+            <figure className={styles.expertPhotoWrap}>
+              <img
+                src="/expert-aco-habitat.jpeg"
+                alt="Expert ACO-HABITAT examinant un échantillon de bois à la loupe dans son bureau"
+                className={styles.expertPhoto}
+                loading="lazy"
+              />
+            </figure>
+            <div className={styles.expertText}>
+              <span className={styles.expertBadge}>Une expertise humaine</span>
+              <h2 className={styles.expertTitle}>Un expert du bois derrière chaque analyse</h2>
+              <p className={styles.expertPara}>
+                Notre IA vous donne une première réponse en quelques minutes, mais c&apos;est bien
+                l&apos;expérience terrain qui fait la différence. Depuis 2006, ACO-HABITAT diagnostique et
+                traite les charpentes, boiseries et bois de cave partout en Normandie et au-delà.
+              </p>
+              <p className={styles.expertPara}>
+                Chaque pré-analyse est le fruit de 20 ans de savoir-faire dans le traitement de la mérule, du
+                capricorne, des vrillettes et des problèmes d&apos;humidité.
+              </p>
+              <a href="#diagnostic-upload" className="btn btn-primary">
+                Faire analyser mes photos
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Notre savoir-faire */}
+      <section className={styles.savoirSection}>
+        <div className="container">
+          <h2 className={styles.sectionTitle}>Un vrai savoir-faire derrière l&apos;IA</h2>
+          <p className={styles.sectionSubtitle}>
+            Notre pré-analyse s&apos;appuie sur 20 ans de traitement et de restauration du bois sur le terrain, depuis 2006.
+          </p>
+          <div className={styles.savoirGrid}>
+            {[
+              { src: '/realisations/traitement-maitresse-poutre.png', alt: 'Technicien ACO-HABITAT traitant une maîtresse-poutre en chêne au pinceau', caption: 'Traitement curatif d’une maîtresse-poutre en chêne' },
+              { src: '/realisations/comble-charpente-ancienne.jpeg', alt: 'Charpente de comble ancienne en cours de restauration', caption: 'Restauration d’une charpente de comble ancienne' },
+              { src: '/realisations/plafond-solives-restaure.jpeg', alt: 'Plafond à solives en chêne restaurées', caption: 'Rénovation d’un plafond à solives en chêne' },
+              { src: '/realisations/traitement-plafond-solives.jpeg', alt: 'Traitement d’un plafond à solives sur mur en pierre', caption: 'Protection préventive des bois de plafond' },
+            ].map((img) => (
+              <figure key={img.src} className={styles.savoirCard}>
+                <img src={img.src || "/placeholder.svg"} alt={img.alt} className={styles.savoirImg} loading="lazy" />
+                <figcaption className={styles.savoirCaption}>{img.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className={styles.savoirCta}>
+            <Link href="/guide/notre-savoir-faire" className="btn btn-primary">
+              Découvrir notre savoir-faire
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section id="formulaire" className={styles.ctaSection}>
+        <div className="container">
+          <div className={styles.urgencyBanner}>
+            <span className={styles.urgencyDot}></span>
+            <span>127 analyses realisees cette semaine en Normandie</span>
+          </div>
           <div className={styles.ctaBox}>
-            <h2 className={styles.ctaTitle}>Protégez votre maison</h2>
-            <p className={styles.ctaText}>Créez un rapport simple à comprendre pour avancer avec un artisan, un notaire ou votre assurance.</p>
+            <h2 className={styles.ctaTitle}>Vous avez un doute ? Fixez-le maintenant.</h2>
+            <p className={styles.ctaText}>En 3 minutes, vous saurez si votre probleme necessite une intervention urgente ou si vous pouvez dormir tranquille.</p>
             <DiagnosticUpload />
           </div>
         </div>
@@ -219,19 +299,6 @@ export default function HomePage() {
 
       <footer className={styles.footer}>
         <div className="container">
-          <div className={styles.storeRow}>
-            <span className={styles.storeTitle}>Bientôt disponible sur :</span>
-            <div className={styles.storeBadges}>
-              <div className={styles.storeBadge} aria-label="Application iPhone">
-                <span className={styles.storeIcon}></span>
-                <span>iPhone</span>
-              </div>
-              <div className={styles.storeBadge} aria-label="Application Samsung">
-                <span className={styles.storeIcon}>◉</span>
-                <span>Samsung</span>
-              </div>
-            </div>
-          </div>
           <nav className={styles.legalNav} aria-label="Liens légaux">
             <Link href="/mentions-legales" className={styles.legalLink}>Mentions légales</Link>
             <span className={styles.legalSep} aria-hidden="true">·</span>
@@ -240,12 +307,17 @@ export default function HomePage() {
             <Link href="/confidentialite" className={styles.legalLink}>Confidentialité</Link>
             <span className={styles.legalSep} aria-hidden="true">·</span>
             <Link href="/cookies" className={styles.legalLink}>Cookies</Link>
+            <span className={styles.legalSep} aria-hidden="true">·</span>
+            <Link href="/guide" className={styles.legalLink}>Ressources</Link>
           </nav>
           <p className={styles.footerIdentity}>
             ACO-HABITAT — 18 rue Bernard Palissy, 61000 Alençon · SIRET : 344 616 412 00062 · TVA : FR65 344 616 412
           </p>
-          <p>© 2026 ACO-HABITAT — Service de pré-analyse par image · Spécialiste depuis 2006</p>
-          <p className="text-xs">Rapport informatif et non opposable, pour vous aider à prendre les bonnes décisions. Ne se substitue pas à un diagnostic immobilier réglementé (au sens du Code de la construction et de l&apos;habitation), qui doit être réalisé par un spécialiste certifié.</p>
+          <p>© 2026 ACO-HABITAT — DIAGNOSTIC-BOIS.COM · Specialiste depuis 2006</p>
+          <p className={styles.footerIdentity}>
+            ACO-HABITAT · Marque déposée à l&apos;INPI n° 5266768 · Méthode et format de rapport protégés (dépôt e-Soleau INPI)
+          </p>
+          <p className={styles.footerDisclaimer}>Pre-analyse informative — pour un diagnostic immobilier opposable, consultez un expert certifie.</p>
         </div>
       </footer>
     </div>

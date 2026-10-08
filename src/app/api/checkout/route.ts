@@ -12,6 +12,28 @@ const getBaseUrl = () => {
   return "http://localhost:3000";
 };
 
+// Construit l'URL de base du site de maniere fiable (env var > headers > fallback)
+function getBaseUrl(requestHeaders: Headers): string {
+  // 1. Variable d'environnement explicite (prioritaire)
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
+  }
+  // 2. Header x-forwarded-host (Vercel injecte ca)
+  const forwardedHost = requestHeaders.get("x-forwarded-host");
+  const forwardedProto = requestHeaders.get("x-forwarded-proto") || "https";
+  if (forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`;
+  }
+  // 3. Header host standard
+  const host = requestHeaders.get("host");
+  if (host) {
+    const proto = host.includes("localhost") ? "http" : "https";
+    return `${proto}://${host}`;
+  }
+  // 4. Fallback local
+  return "http://localhost:3000";
+}
+
 export async function POST(req: Request) {
   try {
     if (!isStripeConfigured()) {
@@ -26,6 +48,8 @@ export async function POST(req: Request) {
 
     const stripe = getStripe();
     const { sessionId } = await req.json();
+    const requestHeaders = await headers();
+    const baseUrl = getBaseUrl(requestHeaders);
 
     if (!sessionId) {
       return NextResponse.json({ error: "Session ID requis" }, { status: 400 });
@@ -46,7 +70,7 @@ export async function POST(req: Request) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Rapport d'expertise ACO-HABITAT`,
+              name: `Rapport d'expertise DIAGNOSTIC-BOIS`,
               description: `Audit complet et rapport PDF pour le dossier ${sessionId.slice(0, 8).toUpperCase()}`,
             },
             unit_amount: 1900, // 19.00 € en centimes

@@ -212,7 +212,7 @@ function urgenceStyle(urgence: string | undefined) {
 function PageFooter({ reference }: { reference: string }) {
   return (
     <View fixed style={styles.footer}>
-      <Text>ACO-HABITAT — Pré-analyse pathologique IA — Document non opposable sans validation par un spécialiste</Text>
+      <Text>DIAGNOSTIC-BOIS — Pré-analyse pathologique IA — Document non opposable sans validation par un spécialiste</Text>
       <Text style={styles.footerPage} render={({ pageNumber, totalPages }) => `Dossier ${reference} — Page ${pageNumber}/${totalPages}`} />
     </View>
   );

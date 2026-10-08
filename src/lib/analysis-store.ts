@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@prisma/client";
 import {
@@ -7,6 +8,8 @@ import {
 } from "@/types/diagnostic";
 import { runClaudeDiagnostic } from "@/lib/claude-diagnostic";
 import { sendLeadEmail } from "@/lib/mailer";
+import { generateDiagnosticPdfBuffer } from "@/lib/pdf/diagnostic-report-template";
+import { diagnosticReportSchema } from "@/types/diagnostic";
 
 export type SessionRecord = {
   sessionId: string;
@@ -65,16 +68,16 @@ export async function createAnalysisSession(
     },
   });
 
-  // 2. Lancer l'analyse en arrière-plan
-  // Note: On utilise un IIFE async pour ne pas bloquer le retour de la réponse
-  void (async () => {
+  // 2. Lancer l'analyse en arriere-plan via after() pour garantir
+  // l'execution post-reponse meme en serverless (Vercel).
+  after(async () => {
     try {
+      console.info(`[analyse] Starting Claude analysis for session ${sessionId}`);
       await prisma.diagnosticSession.update({
         where: { id: sessionId },
         data: { status: "processing" },
       });
 
-      // Récupérer les images (elles sont déjà dans le scope de la fonction parente)
       const result = await runClaudeDiagnostic(images);
 
       await prisma.diagnosticSession.update({
@@ -84,25 +87,65 @@ export async function createAnalysisSession(
           result: result as Prisma.InputJsonValue,
         },
       });
+      console.info(`[analyse] Claude analysis completed for session ${sessionId}`);
 
-      // Envoyer l'email au propriétaire du site
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+      // Envoyer l'email au proprietaire du site avec le PDF en piece jointe
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://diagnostic-bois.com");
       const reportUrl = `${baseUrl}/resultats/${sessionId}`;
-      await sendLeadEmail(session, reportUrl);
+      
+      // Generer le PDF pour l'attacher a l'email
+      let pdfBuffer: Buffer | undefined;
+      try {
+        const parsed = diagnosticReportSchema.safeParse(result);
+        if (parsed.success) {
+          // Recuperer la session complete avec images pour le PDF
+          const fullSession = await prisma.diagnosticSession.findUnique({
+            where: { id: sessionId },
+            include: { images: true },
+          });
+          if (fullSession) {
+            pdfBuffer = await generateDiagnosticPdfBuffer(fullSession, parsed.data);
+            console.info(`[analyse] PDF generated for session ${sessionId}, size: ${pdfBuffer.length} bytes`);
+          }
+        }
+      } catch (pdfError) {
+        console.error(`[analyse] PDF generation failed for ${sessionId}:`, pdfError);
+        // Continue sans le PDF, on envoie quand meme l'email
+      }
+      
+      try {
+        await sendLeadEmail(session, reportUrl, result, pdfBuffer);
+      } catch (mailError) {
+        const mailMessage =
+          mailError instanceof Error ? mailError.message : "Erreur mail inconnue.";
+        console.error(`[analyse] Email send failed for ${sessionId}:`, mailMessage);
+      }
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Erreur inconnue lors de l'analyse.";
-      console.error(`[analyse] Claude diagnostic failed for session ${sessionId}:`, message);
-      
-      await prisma.diagnosticSession.update({
-        where: { id: sessionId },
-        data: {
-          status: "failed",
-          error: message,
-        },
-      });
+      const stack = error instanceof Error ? error.stack : undefined;
+      console.error(
+        `[analyse] Claude diagnostic failed for session ${sessionId}:`,
+        message,
+        stack,
+      );
+
+      try {
+        await prisma.diagnosticSession.update({
+          where: { id: sessionId },
+          data: {
+            status: "failed",
+            error: message,
+          },
+        });
+      } catch (dbError) {
+        console.error(
+          `[analyse] Failed to mark session ${sessionId} as failed:`,
+          dbError instanceof Error ? dbError.message : dbError,
+        );
+      }
     }
-  })();
+  });
 
   return {
     sessionId: session.id,

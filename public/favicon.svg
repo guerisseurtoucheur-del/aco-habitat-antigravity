@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e"/>
+      <stop offset="100%" style="stop-color:#0d9488"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  
+  <!-- Subtle shine -->
+  <rect width="512" height="256" rx="96" fill="url(#shine)"/>
+  
+  <!-- House icon -->
+  <g fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Roof -->
+    <path d="M100 240 L256 100 L412 240"/>
+    <!-- House body -->
+    <path d="M140 240 L140 400 L372 400 L372 240"/>
+    <!-- Door -->
+    <rect x="220" y="300" width="72" height="100" rx="4" fill="#ffffff" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- Magnifying glass -->
+  <g transform="translate(280, 180)">
+    <circle cx="60" cy="60" r="50" fill="none" stroke="#ffffff" stroke-width="20"/>
+    <line x1="95" y1="95" x2="140" y2="140" stroke="#ffffff" stroke-width="24" stroke-linecap="round"/>
+    <!-- Wood grain lines inside magnifier -->
+    <path d="M30 45 Q60 40, 90 50" stroke="#ffffff" stroke-width="6" stroke-opacity="0.6" fill="none"/>
+    <path d="M25 65 Q55 60, 95 70" stroke="#ffffff" stroke-width="6" stroke-opacity="0.6" fill="none"/>
+    <path d="M30 85 Q60 80, 90 85" stroke="#ffffff" stroke-width="6" stroke-opacity="0.6" fill="none"/>
+  </g>
+</svg>

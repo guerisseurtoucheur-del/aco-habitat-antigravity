@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { generateText } from "ai";
 import { diagnosticReportSchema, type DiagnosticReport } from "@/types/diagnostic";
 
 type ImageInput = {
@@ -6,30 +6,21 @@ type ImageInput = {
   base64: string;
 };
 
-type ClaudeBase64MediaType = "image/jpeg" | "image/png" | "image/gif" | "image/webp";
-
-function toClaudeBase64MediaType(mediaType: string): ClaudeBase64MediaType {
-  if (
-    mediaType === "image/jpeg" ||
-    mediaType === "image/png" ||
-    mediaType === "image/gif" ||
-    mediaType === "image/webp"
-  ) {
-    return mediaType;
-  }
-  return "image/jpeg";
-}
-
-const MODEL_CANDIDATES = ["claude-3-5-sonnet-20241022", "claude-3-5-sonnet-20240620"] as const;
-let cachedDiscoveredModel: string | null = null;
+// Vercel AI Gateway model identifiers, prioritized: Sonnet 4.5 -> Opus 4.1 -> Sonnet 4 -> Sonnet 3.5
+const MODEL_CANDIDATES = [
+  "anthropic/claude-sonnet-4.5",
+  "anthropic/claude-opus-4-1",
+  "anthropic/claude-sonnet-4",
+  "anthropic/claude-3-5-sonnet-latest",
+] as const;
 
 function buildFallbackReport(imageCount: number, reason: string): DiagnosticReport {
   const analyzedCount = Math.max(1, imageCount);
   return {
     diagnostic_global:
-      `Pré-analyse provisoire (${reason}). ` +
-      `Nos serveurs d'analyse haute précision sont actuellement en cours de calibration. ` +
-      `Une vérification visuelle de vos ${analyzedCount} photo(s) a été effectuée.`,
+      `Pre-analyse provisoire (${reason}). ` +
+      `Nos serveurs d'analyse haute precision sont actuellement en cours de calibration. ` +
+      `Une verification visuelle de vos ${analyzedCount} photo(s) a ete effectuee.`,
     analyses: [
       {
         image_index: 1,
@@ -37,7 +28,7 @@ function buildFallbackReport(imageCount: number, reason: string): DiagnosticRepo
         pathologie: "Analyse en attente",
         confiance: "45%",
         urgence: "Modérée",
-        preuve: "Les serveurs d'analyse ACO-HABITAT effectuent une mise à jour de sécurité.",
+        preuve: "Les serveurs d'analyse DIAGNOSTIC-BOIS effectuent une mise a jour de securite.",
         annotations: [
           {
             label: "Verification manuelle recommandee",
@@ -49,106 +40,201 @@ function buildFallbackReport(imageCount: number, reason: string): DiagnosticRepo
     ],
     score_confiance_general: "45%",
     preconisations_techniques: [
-      "Action immédiate (0-24h) : documenter les zones suspectes par photographies horodatées et limiter toute humidité active visible (épongeage, ventilation, coupure d'arrivée d'eau si fuite).",
-      "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifié COFRAC pour réaliser un état parasitaire conforme à la norme NF P 03-200, incluant sondage mécanique des bois et mesure d'humidité par humidimètre.",
-      "Action 30 jours : planifier une étude structurelle complète par un bureau d'études pour évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif (CTB-A+).",
-      "Mesure conservatoire : ne pas modifier ni nettoyer les zones d'intérêt avant la contre-visite, conserver les photographies originales pour traçabilité (assurance, transaction, contentieux).",
-      "Suivi : relancer l'analyse IA complète une fois les serveurs disponibles afin d'obtenir un rapport détaillé.",
+      "Action immediate (0-24h) : documenter les zones suspectes par photographies horodatees et limiter toute humidite active visible (epongeage, ventilation, coupure d'arrivee d'eau si fuite).",
+      "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifie COFRAC pour realiser un etat parasitaire conforme a la norme NF P 03-200.",
+      "Action 30 jours : planifier une etude structurelle complete par un bureau d'etudes pour evaluer la capacite residuelle des elements porteurs.",
+      "Mesure conservatoire : ne pas modifier ni nettoyer les zones d'interet avant la contre-visite.",
+      "Suivi : relancer l'analyse IA complete une fois les serveurs disponibles afin d'obtenir un rapport detaille.",
     ],
     conclusion_juridique:
-      "Rapport provisoire généré en mode dégradé. Ce document a une valeur strictement indicative et ne constitue ni un état parasitaire ni un diagnostic immobilier réglementé au sens du Code de la construction et de l'habitation. Une analyse complète, suivie d'une vérification terrain par un spécialiste certifié, est requise avant toute prise de décision technique, juridique ou financière.",
+      "Rapport provisoire genere en mode degrade. Ce document a une valeur strictement indicative et ne constitue ni un etat parasitaire ni un diagnostic immobilier reglemente au sens du Code de la construction et de l'habitation. Une analyse complete, suivie d'une verification terrain par un specialiste certifie, est requise avant toute prise de decision technique, juridique ou financiere.",
   };
 }
 
 const SYSTEM_PROMPT = `
-Tu es le Directeur Technique Senior de Pré-analyse ACO-HABITAT. 38 ans d'expérience terrain. Spécialiste en entomologie du bois, mycologie des champignons lignivores et pathologies hygrométriques.
+Tu es Directeur Scientifique de Pre-analyse DIAGNOSTIC-BOIS. 35 ans d'experience terrain et laboratoire, double formation INRAE / FCBA Bordeaux. Tu es la reference francaise sur trois disciplines :
 
-=== REGLE D'OR : PARCIMONIE ABSOLUE (Rasoir d'Ockham) ===
-Tu identifies UNE SEULE pathologie principale par image : la thèse la plus simple qui explique TOUS les indices visuels.
-INTERDICTION FORMELLE de cumuler plusieurs pathologies sur une même image SAUF si chacune possede ses propres marqueurs visuels INDEPENDANTS et DISTINCTS clairement visibles.
-Exemple : si tu vois des galeries larges gaufrées dans du résineux, c'est Hylotrupes bajulus (Capricorne). Tu ne rajoutes PAS termites, merule ou coniophore sans preuve visuelle SPECIFIQUE et SEPAREE de chacun.
-UN FAUX POSITIF EST 10 FOIS PLUS GRAVE QU'UN FAUX NEGATIF. Une famille ne doit pas demolir sa maison sur une erreur.
+1) MYCOLOGIE des champignons lignivores des bois d'oeuvre
+2) ENTOMOLOGIE des insectes xylophages a larves et a imagos
+3) HYGROMETRIE et physique du batiment (transferts hydriques, condensation, capillarite)
 
-=== MARQUEURS VISUELS OBLIGATOIRES (tu ne nommes RIEN sans les voir) ===
-HYLOTRUPES BAJULUS (Capricorne) : galeries 5-15 mm, parois GAUFREES (stries transversales), sciure en copeaux agglomerés, bois résineux uniquement, boursouflures de surface.
-ANOBIUM PUNCTATUM (Petite Vrillette) : trous ronds 1-2 mm, sciure farineuse blanc-crème en cone.
-RETICULITERMES SP. (Termites) : galeries comblees de matiere ARGILEUSE brun-grise (JAMAIS de sciure libre). Terre dans les galeries = signature absolue.
-SERPULA LACRYMANS (Merule) : mycelium blanc cotonneux OU feuillet orange-brun OU bois cubique brun (fissures en cubes). DEUX de ces trois marqueurs requis minimum.
-CONIOPHORA PUTEANA (Coniophore) : filaments brun-olivatre visibles, bois brun fissures longitudinales, humidite importante.
-INFILTRATION : tache d'humidite avec AUREOLE concentrique jaune-brun (sels mineraux).
-REMONTEE CAPILLAIRE : lisere horizontal 0-120 cm, efflorescences salines blanches en bas de mur.
+Ta methode imite un protocole de laboratoire : observation macroscopique, identification morphologique, diagnostic differentiel, calibration de confiance, conclusion technique. Tu n'inventes JAMAIS. Tu n'extrapoles JAMAIS au-dela des indices visibles.
 
-=== DIAGNOSTIC DIFFERENTIEL — CONFUSIONS INTERDITES ===
-Galeries larges + parois gaufrees + resineux = CAPRICORNE (pas termites : les termites ont parois lisses boueuses)
-Galeries lisses + matiere argileuse = TERMITES (pas capricorne)
-Sciure farineuse + petits trous ronds = VRILLETTE (pas capricorne)
-Bois cubique brun + mycelium blanc = MERULE (pas simple vieillissement)
-Noeud de bois, vieillissement naturel, trace d'outil = PAS une pathologie
-Ombre, reflet, condensation de surface = PAS de l'humidite structurelle
-Poussiere, toile d'araignee = PAS du mycelium
+=== IDENTITE DE MARQUE (information officielle) ===
+ACO-HABITAT est une marque deposee a l'INPI sous le numero national 5266768. La methode de pre-analyse et le format de rapport sont proteges par un depot probatoire horodate e-Soleau aupres de l'INPI. Emploie la formulation "marque deposee a l'INPI" (jamais "enregistree" ni le symbole (R)). N'integre cette mention que si le format de rapport le prevoit explicitement ; n'invente aucune autre information juridique.
 
-=== CALIBRATION DE CONFIANCE ===
-80-100% : marqueurs PRIMAIRES clairement visibles (galeries gaufrees identifiees, mycelium visible, trous mesurables)
-50-79% : indices compatibles mais pas totalement distincts (angle, luminosite, resolution insuffisante). Qualifie avec "suspicion de..." ou "indice compatible avec..."
-Moins de 50% : mentionne la necessite de verification terrain mais NE POSE PAS de conclusion. N'annote PAS en ROUGE.
+=== REGLE D'OR : PARCIMONIE DIAGNOSTIQUE (Rasoir d'Ockham clinique) ===
+UNE seule pathologie principale par image, sauf si chaque pathologie a ses MARQUEURS PRIMAIRES INDEPENDANTS et SIMULTANEMENT visibles. Un faux positif vaut 10 faux negatifs : une famille ne demolit pas sa maison sur ton hypothese.
 
-=== REGLES METIER ===
-- Francais clinique et autoritaire. Zero approximation.
-- Binome nomenclatural OBLIGATOIRE : Nom latin (Nom commun).
-- INTERDIT : "diagnostic" pour notre service -> "pre-analyse", "constat technique".
-- INTERDIT : "expert" -> "specialiste".
-- INTERDIT : markdown (asterisques, tirets bas, backticks, HTML). Texte brut uniquement.
-- Le champ "preuve" cite les indices visuels PRECIS observes (morphologie, couleur, taille, localisation). Si tu ne peux pas le remplir precisement, tu NE NOMMES PAS la pathologie.
+=== IDENTIFICATION PREALABLE DE L'ESSENCE DU BOIS (etape OBLIGATOIRE avant tout diagnostic insecte) ===
 
-=== ANNOTATIONS ===
-ROUGE = Pathologie CONFIRMEE visuellement (marqueurs primaires observes).
-ORANGE = Suspicion a confirmer sur place.
+Avant de nommer un insecte, tu DOIS identifier la nature du bois, car elle conditionne les especes possibles. Ne suppose JAMAIS "resineux" par defaut.
+
+FEUILLUS (bois durs) — TRES frequents en charpente ancienne, planchers, poutres apparentes, colombages, maisons de campagne et residences secondaires (le CHENE domine le bati ancien francais) :
+  - CHENE : grain large, rayons medullaires (MAILLES = larges rayons clairs perpendiculaires aux cernes, signature quasi-exclusive du chene), gros pores visibles, teinte brun-miel a gris argente en vieillissant, aspect dense, lourd et noble. Le chene ancien est le biotope PRIVILEGIE de la GROSSE VRILLETTE (Xestobium rufovillosum) et du LYCTUS sur aubier ; la petite vrillette (Anobium) l'attaque aussi tres souvent.
+  - CHATAIGNIER, HETRE, ORME, PEUPLIER : autres feuillus courants.
+  Indices de feuillu : mailles (rayons medullaires), gros pores, grain dense, surface dure, absence de canaux a resine.
+
+RESINEUX (bois tendres) — charpentes industrielles, fermettes recentes :
+  - SAPIN / EPICEA / PIN / DOUGLAS : aspect tendre et clair, noeuds tres frequents et ronds, parfois exsudats/coulures de resine ambree. Biotope EXCLUSIF du CAPRICORNE des maisons (Hylotrupes bajulus).
+
+REGLE DE PRUDENCE SUR L'ESSENCE (ne sur-affirme JAMAIS) :
+  - Les CERNES ANNUELS et les NOEUDS ne suffisent PAS a affirmer "resineux" : le chene et les feuillus ont aussi des cernes et des noeuds. Ce sont des indices FAIBLES, pas une preuve.
+  - N'affirme "resineux type sapin/epicea" QUE si tu vois des indices FORTS : aspect tendre tres clair, coulures de resine, noeuds ronds tres nombreux ET absence de mailles.
+  - Si tu vois des mailles, de gros pores, un grain large, un bois lourd/fonce/patine, c'est un FEUILLU type CHENE.
+  - DANS LE DOUTE, ecris "essence a confirmer (feuillu type chene probable en bati ancien)". Ne tranche pas resineux par defaut. Comme la petite vrillette attaque feuillus ET resineux, une essence incertaine ne change PAS le diagnostic d'espece — donc reste prudent plutot que d'inventer une essence.
+
+REGLE : le Capricorne (Hylotrupes bajulus) n'attaque QUE les resineux. Si le bois est un feuillu (chene : mailles, gros pores, grain large), le capricorne est EXCLU d'office. Sur chene/feuillu, oriente vers Xestobium rufovillosum (grosse vrillette, trous 3-4 mm), Anobium punctatum (petite vrillette, trous 1-2 mm) ou Lyctus (aubier). Decris toujours l'essence dans la preuve ("bois feuillu type chene", "resineux type sapin", ou "essence a confirmer") sans jamais la sur-affirmer.
+
+=== EVALUATION DE L'ACTIVITE DE L'INFESTATION (ne jamais conclure "ancienne/inactive" a la legere) ===
+
+Le signe n°1 d'une infestation ACTIVE est la SCIURE FRAICHE (vermoulure claire, couleur bois neuf, poudreuse) tombee AU SOL, sur les surfaces horizontales sous la piece, les toiles d'araignee ou les rebords. Cette sciure n'est PAS forcement visible sur la poutre elle-meme : elle tombe par gravite en contrebas.
+
+REGLES STRICTES :
+  - L'absence de sciure SUR la photo de la poutre ne prouve PAS que l'infestation est ancienne ou stabilisee. Ne conclus JAMAIS "infestation ancienne stabilisee" sur ce seul critere.
+  - Si le commanditaire signale ou si une photo montre de la sciure fraiche claire au sol : infestation ACTIVE confirmee, urgence relevee a CRITIQUE, traitement curatif prioritaire.
+  - Trous clairs/nets a bords vifs et sciure claire = activite RECENTE. Trous sombres, encrasses, patines = possible ancienne activite, mais a CONFIRMER au sondage.
+  - Par defaut, en cas de doute, considere l'infestation comme POTENTIELLEMENT ACTIVE et recommande la verification de la presence de sciure fraiche au sol + sondage. La prudence protege le client.
+
+=== BIBLIOTHEQUE MORPHOLOGIQUE — CHAMPIGNONS LIGNIVORES ===
+
+SERPULA LACRYMANS (Merule pleureuse) — Pathogene majeur, declaration mairie obligatoire (loi 8 juillet 1999, L.133-7-1 CCH).
+  Marqueurs primaires :
+  - Mycelium aerien blanc cotonneux puis grisatre, virant jaune-mauve aux bords
+  - Syrrotes (cordons mycelliens) gris-argent jusqu'a 10 mm de diametre, capables de traverser maconnerie
+  - Carpophore en forme de crepe orange-rouille a marge blanche
+  - Pourriture cubique brune profonde (fissures longitudinales ET transversales formant cubes 1-5 cm)
+  - Bois delesteur, friable a la pression, son mat
+  Conditions : 22 a 26 degres, 30 a 40 pourcent humidite du bois, obscurite, air confine.
+  Diagnostic differentiel : ne pas confondre avec Coniophora puteana (couleur olive, pas de syrrotes epais).
+
+CONIOPHORA PUTEANA (Coniophore des caves) — Pourriture cubique brune.
+  Marqueurs : filaments brun-olivatre a noir, mycelium fin en eventail, pas de carpophore typique visible, pourriture cubique mais cubes plus petits que merule. Bois plus humide (50 pourcent et plus).
+
+PORIA / FIBROPORIA VAILLANTII (Polypore des caves) — Pourriture cubique blanche.
+LENTINUS LEPIDEUS (Lentin des poutres) — Pourriture cubique brune sur resineux exterieurs.
+PHELLINUS / DAEDALEA (Pourritures fibreuses blanches) — Bois blanchi, fibres separees longitudinalement.
+POURRITURE MOLLE (champignons ascomycetes type Chaetomium) — Bois noir, surface savonneuse, immersion prolongee.
+
+=== BIBLIOTHEQUE MORPHOLOGIQUE — INSECTES XYLOPHAGES ===
+
+HYLOTRUPES BAJULUS (Capricorne des maisons) — Coleoptere larvaire, resineux uniquement.
+  Marqueurs primaires (TOUS attendus pour nommer le capricorne) :
+  - Galeries OVALES 5 a 12 mm dans le sens du fil
+  - Parois GAUFREES (stries transversales caracteristiques laissees par les mandibules)
+  - Sciure agglomeree en boulettes ou copeaux compactes (PAS farineuse)
+  - Boursouflures de surface visibles, le bois sonne creux
+  - Trous de sortie de l'imago : OVALES et GROS, 6 a 10 mm
+  Si les trous sont petits (1 a 3 mm) et ronds, ce N'EST PAS un capricorne.
+
+ANOBIUM PUNCTATUM (Petite vrillette) — DE TRES LOIN l'insecte xylophage le PLUS FREQUENT dans l'habitat francais (charpentes, planchers, meubles, feuillus ET resineux).
+  Marqueurs primaires :
+  - Trous de sortie RONDS et PETITS : 1 a 2 mm (parfois jusqu'a 3 mm)
+  - Sciure FARINEUSE fine, blanc-creme, en petits cones ou nappe poudreuse
+  - Criblage dense de petits trous ronds repartis sur la surface
+  - Galeries fines circulaires (1-2 mm) si visibles en coupe
+  - Bois feuillus ou resineux, souvent en ambiance fraiche et legerement humide
+  C'est le diagnostic le plus probable face a un criblage de petits trous ronds + sciure poudreuse.
+
+XESTOBIUM RUFOVILLOSUM (Grosse vrillette) — Feuillus humides anciens (chene), trous ronds 3 a 4 mm, sciure granuleuse, bruit de tic-tac (parade).
+LYCTUS BRUNNEUS (Lyctus brun) — Aubier feuillus riches en amidon, trous ronds 1 a 2 mm, sciure ULTRA-FINE comme du talc qui s'ecoule librement.
+
+RETICULITERMES SP. (Termites souterrains) — Insecte social, declaration prefectorale.
+  Marqueurs primaires :
+  - Galeries comblees de matiere ARGILEUSE / TERREUSE brun-grise (jamais de sciure libre)
+  - Cordonnets de cheminement en terre sur maconnerie
+  - Bois evide en lamelles paralleles au fil
+  - Aucun trou de sortie visible
+
+=== BIBLIOTHEQUE MORPHOLOGIQUE — PATHOLOGIES HYGROMETRIQUES ===
+
+REMONTEE CAPILLAIRE — Lisere horizontal net 0 a 120 cm du sol, efflorescences salines blanches, decollement d'enduit.
+INFILTRATION — Tache localisee, AUREOLE concentrique jaune-brun, point haut, propagation gravitaire.
+CONDENSATION DE SURFACE — Moisissures noires en zones froides (angles, ponts thermiques).
+DEFAUT DE VENTILATION — Moisissures generalisees au plafond et angles, salles d'eau et cuisines.
+
+=== DIAGNOSTIC DIFFERENTIEL — PIEGES CLASSIQUES ===
+
+REGLE DE LA TAILLE DES TROUS (le piege n°1, a verifier EN PREMIER) :
+  - Trous PETITS et RONDS (1 a 3 mm) + sciure FARINEUSE/poudreuse = VRILLETTE (Anobium punctatum le plus souvent). JAMAIS capricorne.
+  - Trous GROS et OVALES (6 a 10 mm) + galeries gaufrees + sciure en boulettes = CAPRICORNE (Hylotrupes bajulus).
+  Ne nomme le capricorne QUE si tu vois des trous OVALES et GROS. Un criblage de petits trous ronds est une VRILLETTE, pas un capricorne. C'est l'erreur la plus frequente : ne la commets pas.
+
+Galeries larges + parois gaufrees + trous ovales 6-10 mm + resineux = CAPRICORNE (jamais termites)
+Galeries lisses + matiere argileuse = TERMITES (jamais capricorne)
+Petits trous ronds 1-3 mm + sciure farineuse = VRILLETTE (jamais capricorne)
+Bois cubique brun + mycelium blanc + syrrotes = MERULE (urgence absolue)
+Bois cubique brun + mycelium olivatre fin + sans syrrotes = CONIOPHORE
+Tache jaune-brun en aureole = INFILTRATION (jamais condensation)
+Lisere horizontal bas de mur + sels = REMONTEE CAPILLAIRE
+Moisissure noire en angle = CONDENSATION (jamais merule)
+
+=== SOLUTION DE TRAITEMENT ACO-HABITAT : LE GEL CURATIF PROFESSIONNEL ===
+
+ACO-HABITAT met en oeuvre depuis plus de 15 ans un gel curatif professionnel de reference pour le traitement curatif et preventif des bois en oeuvre. Quand une pathologie de bois (insecte xylophage ou champignon lignivore) est identifiee ou suspectee, tu DOIS mentionner cette solution dans les preconisations de traitement curatif, de facon factuelle et professionnelle. Ne cite JAMAIS de nom de marque commerciale : parle uniquement de "gel curatif" ou "gel curatif professionnel".
+
+Caracteristiques a connaitre et a citer quand c'est pertinent :
+  - Triple action : FONGICIDE + INSECTICIDE + ANTI-TERMITES, en curatif ET preventif.
+  - Gel incolore, n'altere pas l'aspect du bois, compatible avec les finitions.
+  - Efficace contre : les champignons lignivores (pourriture cubique et fibreuse), les insectes a larves xylophages (capricornes des maisons, lyctus, vrillettes) et les termites.
+  - Mise en oeuvre : application de surface (pulverisation basse pression ou badigeonnage), precedee du protocole obligatoire sondage, buchage, brossage, depoussierage. Injection en profondeur complementaire requise pour les fortes sections et les encastrements dans la maconnerie. Les bois ne presentant plus de resistance doivent etre demontes et remplaces.
+
+POINT CAPITAL — APPLICATION RESERVEE A DES PROFESSIONNELS FORMES (a expliquer clairement au client) :
+  Ce gel curatif NE PEUT PAS etre applique par un particulier seul. Sa mise en oeuvre exige le strict respect des normes d'application, le port d'equipements de protection (masque, protection respiratoire, gants) et une maitrise technique precise du dosage et de la preparation des bois. Les operateurs d'ACO-HABITAT suivent des stages de formation obligatoires et certifiants : c'est cette qualification qui conditionne la delivrance de la garantie decennale. Une application non conforme, sans formation ni equipement adapte, annule toute couverture et peut etre dangereuse. Insiste sur le fait que confier le traitement a des equipes formees est la seule maniere d'obtenir un resultat durable et garanti.
+
+REGLE D'USAGE : presente toujours ce traitement comme une SOLUTION CURATIVE concrete proposee par ACO-HABITAT, JAMAIS comme une obligation reglementaire. Adapte la mention : pour un insecte xylophage ou un champignon lignivore confirme/suspecte, indique qu'un traitement curatif (gel curatif professionnel, applique selon les normes par des operateurs formes, avec injection si fortes sections) permet d'eradiquer durablement l'infestation apres preparation des bois. N'invente aucun chiffre de prix.
+
+=== CALIBRATION DE CONFIANCE (echelle laboratoire) ===
+
+90 a 100 pourcent : marqueurs primaires multiples. Identification d'espece nominale.
+70 a 89 pourcent : marqueurs primaires partiels mais signature claire.
+50 a 69 pourcent : indices compatibles, qualifie en SUSPICION.
+Moins de 50 pourcent : NE NOMME PAS L'ESPECE.
+
+=== REGLES METIER STRICTES ===
+
+- Francais clinique, nomenclature binomiale OBLIGATOIRE : Latin (Nom commun).
+- Citation systematique des normes : NF P 03-200, DTU 31.1 / 31.2, L.133-1 a L.133-9 CCH, loi 8 juillet 1999.
+- INTERDIT : "diagnostic" pour notre service - dire "pre-analyse" ou "constat technique".
+- INTERDIT : markdown, asterisques, backticks, HTML. Texte brut UNIQUEMENT.
+
+=== ANNOTATIONS GRAPHIQUES ===
+
+ROUGE = Pathologie CONFIRMEE (>= 70 pourcent).
+ORANGE = Suspicion legitime (50 a 69 pourcent).
 BLEU = Source d'humidite identifiee.
-MAXIMUM 3 annotations par image. Annote UNIQUEMENT ce que tu identifies avec confiance >= 50%.
+Maximum 3 annotations par image.
 
-=== NORMES (a citer si pertinent) ===
-NF P 03-200 (etat parasitaire) - DTU 31.1/31.2 (charpentes) - CTB-A+ (traitement curatif) - Loi 8 juillet 1999 (merule, declaration mairie) - L.133-6 CCH (capricorne, zones delimitees)
+=== FORMAT JSON STRICT — REPONDS EXCLUSIVEMENT EN JSON VALIDE ===
 
-=== FORMAT JSON STRICT ===
-Reponds EXCLUSIVEMENT en JSON valide. Zero texte avant ou apres.
 {
-  "diagnostic_global": "Synthese 200-350 mots. Pathologie PRINCIPALE identifiee avec binome, preuves visuelles precises, cause racine, criticite structurelle, strategie d'intervention. Texte brut.",
+  "diagnostic_global": "Synthese 250-400 mots niveau laboratoire. Identification nominale de la pathologie principale (binome), preuves visuelles METROLOGIQUES, cause racine, criticite structurelle, propagation probable, strategie d'intervention. Texte brut.",
   "analyses": [
     {
       "image_index": 1,
       "zone": "Designation anatomique precise",
-      "pathologie": "Pathologie principale uniquement avec binome nomenclatural",
+      "pathologie": "Pathologie principale UNIQUEMENT, binome nomenclatural obligatoire",
       "confiance": "0-100%",
-      "urgence": "Faible/Moderee/Critique",
-      "preuve": "Indices visuels precis OBSERVES : morphologie, couleurs, dimensions estimees, localisation exacte",
+      "urgence": "Faible / Moderee / Critique",
+      "preuve": "Indices visuels OBSERVES : essence du bois identifiee (feuillu type chene / resineux type sapin / a confirmer), morphologie et dimensions des trous, couleur, localisation, et ETAT D'ACTIVITE (sciure fraiche au sol = actif ; ne jamais conclure inactif sur la seule absence de sciure sur la poutre)",
       "annotations": [
-        {
-          "label": "Label court et precis (ex: Galeries gaufrees Capricorne 8mm)",
-          "couleur": "ROUGE/ORANGE/BLEU",
-          "position_relative": { "x": 0, "y": 0 },
-          "width": 30,
-          "height": 20
-        }
+        { "label": "Label court precis", "couleur": "ROUGE/ORANGE/BLEU", "position_relative": { "x": 0, "y": 0 }, "width": 30, "height": 20 }
       ]
     }
   ],
   "score_confiance_general": "0-100%",
   "preconisations_techniques": [
-    "Action immediate (0-24h) : mesures conservatoires",
-    "Action court terme (7 jours) : investigations COFRAC",
-    "Action 30 jours : traitement curatif CTB-A+ ou consolidation DTU 31.1",
-    "Action 3 mois : travaux correctifs",
-    "Suivi long terme : controles periodiques et tracabilite"
+    "Action immediate (0-24h) : mesures conservatoires precises",
+    "Investigation court terme (7 jours) : sondage mecanique au poincon NF P 03-200",
+    "Traitement specialise (30 jours) : intervention par une entreprise specialisee ; pour un insecte xylophage ou un champignon lignivore, traitement curatif au gel curatif professionnel applique selon les normes par des operateurs formes, injection en profondeur si fortes sections, apres preparation des bois (sondage, buchage, brossage)",
+    "Travaux structuraux (3 mois) : reprise charpente DTU 31.1",
+    "Suivi long terme : controle annuel post-traitement"
   ],
-  "conclusion_juridique": "100-180 mots. Caractere non opposable. Verification terrain obligatoire par specialiste certifie COFRAC."
+  "conclusion_juridique": "120-200 mots. Caractere strictement indicatif et non opposable. Necessite verification terrain par specialiste COFRAC. Reference aux textes : NF P 03-200, L.133-1 a L.133-9 CCH, loi 8 juillet 1999, DTU 31.1/31.2."
 }
 
-RAPPEL : un vrai specialiste de 38 ans ne dit JAMAIS ce qu'il ne voit pas. Sa valeur est dans sa precision et sa discipline, pas dans l'exhaustivite de ses hypotheses. Mieux vaut un seul constat juste que cinq hypotheses fausses.
+RAPPEL FINAL : un specialiste de 35 ans ne nomme JAMAIS ce qu'il ne voit pas. Il identifie D'ABORD l'essence du bois (chene/feuillu vs sapin/resineux) car elle exclut ou autorise certaines especes — le capricorne est IMPOSSIBLE sur du chene. Il ne conclut JAMAIS "infestation ancienne" sur la seule absence de sciure sur la poutre : la sciure fraiche tombe au SOL et signe une activite en cours. Dans le doute, infestation consideree comme active. Mieux vaut UN constat juste et calibre que CINQ hypotheses fausses.
 `.trim();
-
-
-
-
 
 function extractJsonObject(raw: string): string {
   const firstBrace = raw.indexOf("{");
@@ -169,15 +255,15 @@ function stripMarkdownText(value: unknown): unknown {
 }
 
 const RICH_FALLBACK_PRECONISATIONS = [
-  "Action immédiate (0-24h) : sécuriser la zone, documenter par photographies horodatées, et limiter toute humidité active visible (épongeage, ventilation, coupure d'arrivée d'eau si fuite).",
-  "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifié COFRAC pour réaliser un état parasitaire conforme à la norme NF P 03-200 (sondage mécanique, mesure d'humidité par humidimètre, prélèvement éventuel pour analyse mycologique).",
-  "Action 30 jours : commander une étude structurelle par bureau d'études afin d'évaluer la capacité résiduelle des éléments porteurs et définir un plan de traitement curatif (CTB-A+) ou de remplacement partiel.",
-  "Action 3 mois : engager les travaux correctifs préconisés par les spécialistes du traitement (xylophages/fongicides, reprise de couverture, traitement de l'humidité structurelle).",
-  "Suivi long terme : programmer un contrôle annuel des zones traitées et conserver l'ensemble des rapports et factures pour traçabilité (assurance, transaction, contentieux).",
+  "Action immediate (0-24h) : securiser la zone, documenter par photographies horodatees, et limiter toute humidite active visible.",
+  "Action court terme (7 jours) : faire intervenir un diagnostiqueur certifie COFRAC pour realiser un etat parasitaire conforme a la norme NF P 03-200.",
+  "Action 30 jours : commander une etude structurelle par bureau d'etudes afin d'evaluer la capacite residuelle des elements porteurs.",
+  "Action 3 mois : engager les travaux correctifs preconises par les specialistes du traitement.",
+  "Suivi long terme : programmer un controle annuel des zones traitees et conserver l'ensemble des rapports et factures.",
 ];
 
 const RICH_FALLBACK_CONCLUSION =
-  "Ce document constitue un rapport d'aide à la pré-analyse généré par intelligence artificielle à partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas à un état parasitaire, à un diagnostic termites réglementé au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni à toute autre prestation réglementée, qui doivent être réalisés par un spécialiste certifié COFRAC après inspection physique du bien. Une vérification terrain par un spécialiste qualifié est impérative avant toute prise de décision technique, juridique ou financière. ACO-HABITAT décline toute responsabilité quant à l'usage de ce document dans le cadre d'une transaction immobilière ou d'un litige.";
+  "Ce document constitue un rapport d'aide a la pre-analyse genere par intelligence artificielle a partir des photographies fournies. Il a une valeur strictement indicative. Il ne se substitue pas a un etat parasitaire, a un diagnostic termites reglemente au sens de l'article L.133-1 du Code de la construction et de l'habitation, ni a toute autre prestation reglementee, qui doivent etre realises par un specialiste certifie COFRAC apres inspection physique du bien.";
 
 function isInsufficient(value: unknown, minLength: number): boolean {
   if (typeof value !== "string") return true;
@@ -191,7 +277,6 @@ function normalizeReportPayload(rawPayload: unknown): unknown {
 
   const payload = rawPayload as Record<string, unknown>;
 
-  // Strip markdown defensively from top-level text fields
   if (typeof payload.diagnostic_global === "string") {
     payload.diagnostic_global = stripMarkdownText(payload.diagnostic_global);
   }
@@ -199,12 +284,10 @@ function normalizeReportPayload(rawPayload: unknown): unknown {
     payload.conclusion_juridique = stripMarkdownText(payload.conclusion_juridique);
   }
 
-  // Default global score
   if (!payload.score_confiance_general && payload.analyses) {
     payload.score_confiance_general = "85%";
   }
 
-  // Rich fallback if Claude returned nothing or a one-liner
   const preconisationsRaw = Array.isArray(payload.preconisations_techniques)
     ? (payload.preconisations_techniques as unknown[]).map((item) =>
         typeof item === "string" ? (stripMarkdownText(item) as string) : item,
@@ -220,26 +303,23 @@ function normalizeReportPayload(rawPayload: unknown): unknown {
     payload.conclusion_juridique = RICH_FALLBACK_CONCLUSION;
   }
 
-  // Normalize analyses
   const analyses = Array.isArray(payload.analyses) ? payload.analyses : [];
-  const normalizedAnalyses = analyses.map((item) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const normalizedAnalyses = analyses.map((item: any) => {
     if (!item || typeof item !== "object") {
       return item;
     }
-    const entry = item as Record<string, any>;
+    const entry = item as Record<string, unknown>;
 
     if (typeof entry.image_index === "string") {
       entry.image_index = parseInt(entry.image_index, 10) || 1;
     }
-
     if (typeof entry.urgence === "string") {
       entry.urgence = entry.urgence.replace("Moderee", "Modérée");
     }
-
     if (typeof entry.confiance === "number") {
       entry.confiance = `${entry.confiance}%`;
     }
-
     if (typeof entry.zone === "string") entry.zone = stripMarkdownText(entry.zone);
     if (typeof entry.pathologie === "string") entry.pathologie = stripMarkdownText(entry.pathologie);
     if (typeof entry.preuve === "string") entry.preuve = stripMarkdownText(entry.preuve);
@@ -257,122 +337,65 @@ function normalizeReportPayload(rawPayload: unknown): unknown {
   };
 }
 
-async function discoverModel(anthropic: Anthropic): Promise<string | null> {
-  if (cachedDiscoveredModel) {
-    return cachedDiscoveredModel;
-  }
-
-  try {
-    const models = await anthropic.models.list();
-    const ids = models.data.map((item) => item.id);
-    const discovered =
-      ids.find((id) => id === "claude-3-5-sonnet-20241022") ??
-      ids.find((id) => id.includes("claude-3-5-sonnet")) ??
-      ids.find((id) => id.includes("sonnet")) ??
-      null;
-
-    if (discovered) {
-      cachedDiscoveredModel = discovered;
-      console.info("[analyse] Claude discovered model:", discovered);
-    }
-
-    return discovered;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.warn("[analyse] Unable to list Claude models:", message);
-    return null;
-  }
-}
-
 export async function runClaudeDiagnostic(images: ImageInput[]): Promise<DiagnosticReport> {
   try {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      console.warn("[analyse] ANTHROPIC_API_KEY manquante, utilisation du mode secours.");
-      return buildFallbackReport(images.length, "cle API manquante");
-    }
+    console.info(`[analyse] Starting AI Gateway diagnostic on ${images.length} image(s)`);
 
-    const anthropic = new Anthropic({ apiKey });
-    const discoveredModel = await discoverModel(anthropic);
-    const modelsToTry = [
-      ...(discoveredModel ? [discoveredModel] : []),
-      ...MODEL_CANDIDATES,
-    ].filter((value, index, array) => array.indexOf(value) === index);
-
-    if (discoveredModel && !discoveredModel.includes("claude-3-5-sonnet")) {
-      console.warn(
-        `[analyse] Claude 3.5 Sonnet indisponible pour cette clé, fallback: ${discoveredModel}`,
-      );
-    }
-
-    const contentBlocks: Anthropic.Messages.MessageParam["content"] = [
+    // Build multi-modal user content: text + N images as data URLs
+    const userContent: Array<
+      | { type: "text"; text: string }
+      | { type: "image"; image: URL | string }
+    > = [
       {
         type: "text",
         text: `Analyse ce dossier technique compose de ${images.length} image(s) et retourne uniquement le JSON demande.`,
       },
       ...images.map((image) => ({
         type: "image" as const,
-        source: {
-          type: "base64" as const,
-          media_type: toClaudeBase64MediaType(image.mediaType),
-          data: image.base64,
-        },
+        image: `data:${image.mediaType};base64,${image.base64}` as string,
       })),
     ];
 
-    let response: Anthropic.Messages.Message | null = null;
+    let response: { text: string } | null = null;
     let lastError: unknown = null;
 
-    for (const model of modelsToTry) {
+    for (const model of MODEL_CANDIDATES) {
       try {
-        response = await anthropic.messages.create({
+        response = await generateText({
           model,
-          max_tokens: 8000,
-          temperature: 0.1,
           system: SYSTEM_PROMPT,
-          messages: [
-            {
-              role: "user",
-              content: contentBlocks,
-            },
-          ],
-        });
-        console.info("[analyse] Claude model used:", model);
+          messages: [{ role: "user", content: userContent }],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any);
+        console.info(`[analyse] AI Gateway model used: ${model}`);
         break;
       } catch (error) {
         lastError = error;
         const message = error instanceof Error ? error.message : String(error);
-        if (!message.includes("not_found_error")) {
-          throw error;
-        }
+        console.warn(`[analyse] Model ${model} failed: ${message}`);
+        // Continue trying next model on routing/availability errors
       }
     }
 
     if (!response) {
       throw lastError instanceof Error
         ? lastError
-        : new Error("Aucun modele Claude disponible.");
+        : new Error("Aucun modele AI Gateway disponible.");
     }
 
-    const textOutput = response.content
-      .filter((block) => block.type === "text")
-      .map((block) => block.text)
-      .join("\n")
-      .trim();
-
+    const textOutput = (response.text ?? "").trim();
     const jsonString = extractJsonObject(textOutput);
 
-    // Repair truncated JSON: attempt to close unclosed brackets
     let parsedJson: unknown;
     try {
       parsedJson = JSON.parse(jsonString);
     } catch {
       console.warn("[analyse] JSON parse failed, attempting repair...");
-      // Try closing open arrays and objects
       let repaired = jsonString;
-      const openBrackets = (repaired.match(/\[/g) || []).length - (repaired.match(/\]/g) || []).length;
-      const openBraces = (repaired.match(/\{/g) || []).length - (repaired.match(/\}/g) || []).length;
-      // Remove any trailing comma before closing
+      const openBrackets =
+        (repaired.match(/\[/g) || []).length - (repaired.match(/\]/g) || []).length;
+      const openBraces =
+        (repaired.match(/\{/g) || []).length - (repaired.match(/\}/g) || []).length;
       repaired = repaired.replace(/,\s*$/, "");
       for (let i = 0; i < openBrackets; i++) repaired += "]";
       for (let i = 0; i < openBraces; i++) repaired += "}";
@@ -383,9 +406,8 @@ export async function runClaudeDiagnostic(images: ImageInput[]): Promise<Diagnos
     return diagnosticReportSchema.parse(normalizedPayload);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error(`[analyse] IA Diagnostic failed:`, message);
-    
-    // User friendly fallback
+    const stack = error instanceof Error ? error.stack : undefined;
+    console.error(`[analyse] IA Diagnostic failed:`, message, stack);
     return buildFallbackReport(images.length, "Maintenance de l'algorithme d'analyse");
   }
 }

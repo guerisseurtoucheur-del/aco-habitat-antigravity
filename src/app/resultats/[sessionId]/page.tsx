@@ -4,6 +4,7 @@ export const revalidate = 0;
 import Link from "next/link";
 import { getAnalysisSession } from "@/lib/analysis-store";
 import { UnlockButton } from "@/components/UnlockButton";
+import { DownloadPdfButton } from "@/components/DownloadPdfButton";
 
 type ResultPageProps = {
   params: Promise<{ sessionId: string }>;
@@ -23,6 +24,142 @@ function formatDate(date: Date): string {
 
 function formatRef(sessionId: string): string {
   return `ACO-${sessionId.slice(0, 8).toUpperCase()}`;
+}
+
+// Mode teaser : on cache l'espece precise (Serpula lacrymans, Hylotrupes bajulus...)
+// et on n'affiche que la famille generique pour faire peur sans tout reveler.
+// Le client doit payer 19 euros pour acceder au binome nomenclatural complet.
+function redactPathologyForTeaser(pathologie: string): string {
+  const lower = pathologie.toLowerCase();
+  // Champignons lignivores
+  if (
+    lower.includes("serpula") ||
+    lower.includes("merul") ||
+    lower.includes("mérul") ||
+    lower.includes("coniophora") ||
+    lower.includes("coniophore") ||
+    lower.includes("poria") ||
+    lower.includes("fibroporia") ||
+    lower.includes("polypore") ||
+    lower.includes("lentinus") ||
+    lower.includes("lentin") ||
+    lower.includes("phellinus") ||
+    lower.includes("daedalea") ||
+    lower.includes("chaetomium") ||
+    lower.includes("champignon") ||
+    lower.includes("pourriture") ||
+    lower.includes("mycelium") ||
+    lower.includes("lignivore")
+  ) {
+    return "Champignon lignivore identifie - espece masquee";
+  }
+  // Insectes xylophages
+  if (
+    lower.includes("hylotrupes") ||
+    lower.includes("capricorne") ||
+    lower.includes("anobium") ||
+    lower.includes("vrillette") ||
+    lower.includes("xestobium") ||
+    lower.includes("lyctus") ||
+    lower.includes("reticulitermes") ||
+    lower.includes("termite") ||
+    lower.includes("kalotermes") ||
+    lower.includes("sirex") ||
+    lower.includes("urocerus") ||
+    lower.includes("cerambyc") ||
+    lower.includes("xylophage") ||
+    lower.includes("hesperophanes")
+  ) {
+    return "Insecte xylophage identifie - espece masquee";
+  }
+  // Pathologies hygrometriques
+  if (
+    lower.includes("capillair") ||
+    lower.includes("infiltration") ||
+    lower.includes("condensation") ||
+    lower.includes("ventilation") ||
+    lower.includes("pont thermique") ||
+    lower.includes("humidite") ||
+    lower.includes("humidité") ||
+    lower.includes("moisissure")
+  ) {
+    return "Pathologie hygrometrique identifiee - origine masquee";
+  }
+  // Cas par defaut : aucune pathologie reelle nommee
+  if (
+    lower.includes("attente") ||
+    lower.includes("aucune") ||
+    lower.length < 8
+  ) {
+    return pathologie;
+  }
+  return "Pathologie identifiee - details masques";
+}
+
+// Liste exhaustive des noms latins binomiaux et noms communs a masquer dans tout texte libre.
+// On remplace par un placeholder generique pour conserver le sens sans reveler l'identification.
+const SPECIES_REDACTION_RULES: Array<{ pattern: RegExp; replacement: string }> = [
+  // ── Champignons lignivores : noms latins binomiaux ─────────────
+  { pattern: /\bSerpula\s+lacrymans\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bConiophora\s+puteana\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bPoria\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bFibroporia\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bAntrodia\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bGloeophyllum\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bDaedalea\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bLentinus\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bPhellinus\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bChaetomium\s+\w+\b/gi, replacement: "[espece champignon masquee]" },
+  // ── Champignons : noms communs francais ────────────────────────
+  { pattern: /\bm[ée]rule(?:\s+pleureuse)?\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bconiophore(?:\s+des\s+caves)?\b/gi, replacement: "[espece champignon masquee]" },
+  { pattern: /\bpolypore(?:\s+\w+)?\b/gi, replacement: "[espece champignon masquee]" },
+  // ── Insectes xylophages : noms latins binomiaux ────────────────
+  { pattern: /\bHylotrupes\s+bajulus\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bAnobium\s+punctatum\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bXestobium\s+rufovillosum\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bLyctus\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bReticulitermes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bKalotermes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bSirex\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bUrocerus\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bHesperophanes\s+\w+\b/gi, replacement: "[espece insecte masquee]" },
+  // ── Insectes : noms communs francais ───────────────────────────
+  { pattern: /\bcapricorne(?:\s+des\s+maisons)?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\bvrillette(?:\s+\w+)?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\btermites?\b/gi, replacement: "[espece insecte masquee]" },
+  { pattern: /\blyctus?\b/gi, replacement: "[espece insecte masquee]" },
+  // ── References techniques precises a masquer (DTU, NF, articles) ─
+  { pattern: /\bDTU\s*\d+[-.\d]*\b/gi, replacement: "[reference technique masquee]" },
+  { pattern: /\bNF\s*[A-Z]\s*\d+[-.\d]*\b/gi, replacement: "[reference technique masquee]" },
+  { pattern: /\bprotocole\s+NF\s*[A-Z]?\s*\d+[-.\d]*\b/gi, replacement: "[protocole masque]" },
+  { pattern: /\barticle\s+L?\.?\s*\d+[-.\d]*(?:\s+du\s+code\s+\w+)?/gi, replacement: "[reference juridique masquee]" },
+  { pattern: /\bloi\s+du\s+\d+\s+\w+\s+\d{4}\b/gi, replacement: "[reference juridique masquee]" },
+  // ── Pourcentages de confiance precis ───────────────────────────
+  { pattern: /\b(?:de\s+)?\d{2,3}\s*(?:pour\s*cent|pourcent|%)\b/gi, replacement: "[niveau masque]" },
+];
+
+// Masque les noms d'especes et references techniques dans n'importe quel texte libre.
+// Utilise pour le diagnostic global, la conclusion juridique, l'observation visuelle, etc.
+function redactTextForTeaser(text: string): string {
+  if (!text) return "";
+  let redacted = text;
+  for (const rule of SPECIES_REDACTION_RULES) {
+    redacted = redacted.replace(rule.pattern, rule.replacement);
+  }
+  return redacted;
+}
+
+// Tronque le diagnostic global pour ne garder que les 2 premieres phrases
+// (juste assez pour faire peur, pas assez pour le client se passe du paiement).
+// Applique aussi le masquage des especes pour eviter toute fuite.
+function truncateForTeaser(text: string, sentences: number = 2): string {
+  if (!text) return "";
+  const redacted = redactTextForTeaser(text);
+  const sentenceRegex = /[^.!?]+[.!?]+/g;
+  const matches = redacted.match(sentenceRegex);
+  if (!matches || matches.length <= sentences) return redacted;
+  return matches.slice(0, sentences).join(" ").trim() + " […]";
 }
 
 export default async function DiagnosticDashboardPage({ params, searchParams }: ResultPageProps) {
@@ -57,7 +194,28 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
   };
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-8 print:bg-white print:p-0">
+    <main className="min-h-screen bg-slate-100 print:bg-white print:p-0">
+      {/* Header de navigation avec contact */}
+      <nav className="bg-slate-900 px-4 py-3 print:hidden">
+        <div className="mx-auto max-w-5xl flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-sm font-bold text-white">DIAGNOSTIC-BOIS</span>
+            <span className="text-emerald-400 font-bold">.COM</span>
+          </Link>
+          <div className="flex items-center gap-4">
+            <a href="tel:+33233311979" className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              02 33 31 19 79
+            </a>
+            <a href="mailto:aco.habitat@orange.fr" className="hidden sm:flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              aco.habitat@orange.fr
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div className="px-4 py-8">
       <div className="mx-auto max-w-5xl space-y-5">
 
         {/* ── EN-TÊTE RAPPORT ─────────────────────────────────────── */}
@@ -71,7 +229,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
               </div>
-              <span className="text-sm font-bold uppercase tracking-widest text-white">ACO-HABITAT</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-white">DIAGNOSTIC-BOIS</span>
               <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-emerald-400 border border-slate-700">
                 Senior Specialist
               </span>
@@ -231,6 +389,10 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                       <p className="text-sm font-medium text-red-700">
                         Attention : L&apos;analyse a détecté au moins une pathologie à évolution rapide.
                       </p>
+                      <p className="mt-1 flex items-center gap-1.5 text-[11px] font-semibold text-red-600/80">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                        ACO-HABITAT · Marque déposée à l&apos;INPI · Méthode protégée
+                      </p>
                     </div>
                   </div>
                   <UnlockButton 
@@ -251,7 +413,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   <div className="h-5 w-1 rounded-full bg-emerald-500" />
                   <h2 className="text-base font-bold text-slate-900">Synthèse de l&apos;analyse</h2>
                 </div>
-                <p className="text-sm leading-7 text-slate-600">{report.diagnostic_global}</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  {isActuallyPaid ? report.diagnostic_global : truncateForTeaser(report.diagnostic_global, 2)}
+                </p>
                 {!isActuallyPaid && (
                   <div className="mt-4 rounded-xl bg-amber-50 border border-amber-100 p-4">
                     <p className="text-xs font-semibold text-amber-800 flex items-center gap-2">
@@ -277,7 +441,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                         <div className="min-w-0">
                           <p className="text-xs font-bold leading-snug">{analysis.urgence}</p>
                           <p className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{analysis.zone}</p>
-                          <p className="mt-0.5 text-[10px] text-slate-500">{analysis.pathologie}</p>
+                          <p className="mt-0.5 text-[10px] text-slate-500">
+                            {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
+                          </p>
                           <p className="mt-0.5 text-[10px] text-slate-400">Confiance {analysis.confiance}</p>
                         </div>
                       </div>
@@ -324,7 +490,9 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                     {report.analyses.map((analysis, idx) => (
                       <tr key={`${analysis.zone}-${idx}`} className="hover:bg-slate-50">
                         <td className="px-4 py-3 font-medium text-slate-900">{analysis.zone}</td>
-                        <td className="px-4 py-3 text-slate-700">{analysis.pathologie}</td>
+                        <td className="px-4 py-3 text-slate-700">
+                          {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
+                        </td>
                         <td className="px-4 py-3 text-slate-700">{analysis.confiance}</td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${urgenceColor(analysis.urgence)}`}>
@@ -333,7 +501,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           </span>
                         </td>
                         <td className={`px-4 py-3 text-xs leading-5 text-slate-500 ${!isActuallyPaid ? "blur-[3px] select-none pointer-events-none" : ""}`}>
-                          {analysis.preuve}
+                          {isActuallyPaid ? analysis.preuve : redactTextForTeaser(analysis.preuve)}
                         </td>
                       </tr>
                     ))}
@@ -404,7 +572,8 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           <div className="mt-1 space-y-0.5">
                             {matchingAnalyses.map((analysis, aIdx) => (
                               <p key={aIdx} className="text-xs text-slate-500">
-                                <span className="font-semibold text-slate-700">{aIdx + 1}.</span> {analysis.pathologie}
+                                <span className="font-semibold text-slate-700">{aIdx + 1}.</span>{" "}
+                                {isActuallyPaid ? analysis.pathologie : redactPathologyForTeaser(analysis.pathologie)}
                               </p>
                             ))}
                             {matchingAnalyses.length === 0 && (
@@ -436,16 +605,17 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                           <path d="M12 15V17M12 7V13M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" />
                         </svg>
                       </div>
-                      <h3 className="mb-2 text-lg font-bold text-slate-900">Plan de sauvetage verrouillé</h3>
+                      <h3 className="mb-2 text-lg font-bold text-slate-900">Votre plan d&apos;action détaillé est prêt</h3>
                       <p className="mb-4 text-sm text-slate-600">
-                        Accédez aux préconisations techniques immédiates pour stopper la propagation et protéger la valeur de votre patrimoine.
+                        Bonne nouvelle : repéré tôt, un problème de bois se traite simplement et à moindre coût.
+                        Débloquez vos préconisations étape par étape pour savoir exactement quoi faire — et avancer l&apos;esprit tranquille.
                       </p>
                       <UnlockButton 
                         sessionId={sessionId} 
                         price="19"
                         className="w-full rounded-xl bg-violet-600 py-4 text-sm font-bold text-white shadow-lg shadow-violet-200 hover:bg-violet-700 transition-all transform hover:scale-[1.02]"
                       >
-                        Protéger ma maison & Voir le plan
+                        Voir mon plan d&apos;action (19€)
                       </UnlockButton>
                       <p className="mt-3 text-[10px] text-slate-400">
                         ⭐ 4.9/5 — Plus de 1 200 audits réalisés ce mois-ci
@@ -466,34 +636,114 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
               </div>
             </section>
 
-            {/* ── CONCLUSION JURIDIQUE ────────────────────────────── */}
-            <section className="rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 shadow-sm">
-              <div className="mb-3 flex items-center gap-2">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 flex-shrink-0 text-amber-600">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
-                </svg>
-                <h2 className="text-sm font-bold text-amber-800">Cadre réglementaire et limites du rapport</h2>
-              </div>
-              <p className="text-xs leading-6 text-amber-900">{report.conclusion_juridique}</p>
-            </section>
+            {/* ── BLOC CONVERSION (non payé) ───────────────────────── */}
+            {!isActuallyPaid ? (
+              <section className="overflow-hidden rounded-2xl border border-emerald-200 bg-white shadow-sm">
+                <div className="bg-emerald-600 px-6 py-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-100">
+                    Analyse Haute Précision
+                  </p>
+                  <h2 className="mt-1 text-xl font-bold text-white text-balance">
+                    Passez de « j&apos;ai un doute » à « je sais exactement quoi faire »
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-emerald-50">
+                    Votre pré-analyse a détecté des éléments à ne pas négliger. Le rapport complet vous donne
+                    le diagnostic précis et un plan d&apos;action clair — pour agir tôt, au bon endroit, et au
+                    meilleur coût.
+                  </p>
+                </div>
+
+                <div className="grid gap-px bg-slate-100 sm:grid-cols-2">
+                  {[
+                    {
+                      title: "Espèce et pathologie identifiées",
+                      desc: "Le nom exact de l'agent en cause (mérule, capricorne, vrillette, termite, champignon) et son niveau de gravité.",
+                    },
+                    {
+                      title: "Plan d'action étape par étape",
+                      desc: "Les actions à mener, dans le bon ordre, avec les délais à respecter pour stopper la dégradation.",
+                    },
+                    {
+                      title: "Préconisations de traitement",
+                      desc: "Les solutions curatives et préventives adaptées à votre situation, expliquées simplement.",
+                    },
+                    {
+                      title: "Rapport PDF + accès à nos experts",
+                      desc: "Un document complet téléchargeable et la possibilité d'être mis en relation avec notre équipe spécialisée.",
+                    },
+                  ].map((b) => (
+                    <div key={b.title} className="flex gap-3 bg-white px-6 py-4">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600">
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      <div>
+                        <p className="text-sm font-bold text-slate-900">{b.title}</p>
+                        <p className="mt-0.5 text-xs leading-5 text-slate-600">{b.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col items-center gap-3 px-6 py-6">
+                  <UnlockButton
+                    sessionId={sessionId}
+                    price="19.00"
+                    className="w-full max-w-md rounded-xl bg-emerald-600 py-4 text-base font-bold text-white shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all transform hover:scale-[1.01]"
+                  >
+                    Débloquer mon rapport complet — 19€
+                  </UnlockButton>
+                  <p className="text-[11px] font-medium text-emerald-700">
+                    Offert : 19€ déduits de vos futurs travaux avec nos partenaires
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[11px] text-slate-500">
+                    <span className="flex items-center gap-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5 text-slate-400"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                      Paiement sécurisé
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5 text-slate-400"><path d="M5 13l4 4L19 7" /></svg>
+                      Disponible immédiatement
+                    </span>
+                    <span>⭐ 4,9/5 — Plus de 1 200 audits ce mois-ci</span>
+                  </div>
+                  <div className="mt-1 flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-500">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-emerald-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                    ACO-HABITAT · Marque déposée à l&apos;INPI · Méthode protégée
+                  </div>
+                </div>
+                <div className="border-t border-slate-100 bg-slate-50 px-6 py-3">
+                  <p className="text-[10px] leading-4 text-slate-400">
+                    Pré-analyse indicative par imagerie IA, à valeur informative. Elle ne se substitue pas à un
+                    diagnostic réglementaire réalisé sur site par un professionnel habilité. Le cadre réglementaire
+                    complet figure dans le rapport.
+                  </p>
+                </div>
+              </section>
+            ) : (
+              /* ── CADRE RÉGLEMENTAIRE (client ayant payé) ─────────── */
+              <section className="rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 shadow-sm">
+                <div className="mb-3 flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 flex-shrink-0 text-amber-600">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                  <h2 className="text-sm font-bold text-amber-800">Cadre réglementaire et limites du rapport</h2>
+                </div>
+                <p className="text-xs leading-6 text-amber-900">{report.conclusion_juridique}</p>
+              </section>
+            )}
           </>
         )}
 
-        {/* ── ACTIONS ─────────────────────────────────────────────── */}
+        {/* ── ACTIONS ──────────────────────────────────��──────────── */}
         <section className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm">
           {session?.status === "completed" ? (
             <div className="flex items-center gap-3">
               {isActuallyPaid ? (
-                <a
-                  href={`/api/resultats/${sessionId}/pdf`}
-                  download={`Rapport_ACO-HABITAT_${reportRef}.pdf`}
+                <DownloadPdfButton
+                  sessionId={sessionId}
+                  reportRef={reportRef}
                   className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 transition-all"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  Télécharger le PDF — {reportRef}
-                </a>
+                />
               ) : (
                 <UnlockButton
                   sessionId={sessionId}
@@ -530,13 +780,13 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                 </p>
               </div>
               <div className="grid divide-y divide-slate-100 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-                {/* Signature ACO-HABITAT */}
+                {/* Signature DIAGNOSTIC-BOIS */}
                 <div className="flex flex-col justify-between px-6 py-6">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
                       Établi par
                     </p>
-                    <p className="mt-2 text-sm font-bold text-slate-900">ACO-HABITAT</p>
+                    <p className="mt-2 text-sm font-bold text-slate-900">DIAGNOSTIC-BOIS</p>
                     <p className="text-xs text-slate-500">Directeur Technique Senior</p>
                     <p className="text-xs text-slate-500">Pré-analyse par imagerie IA</p>
                   </div>
@@ -587,10 +837,11 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
 
         <footer className="py-4 text-center">
           <p className="text-[10px] text-slate-400">
-            {reportRef} · Généré le {session ? formatDate(session.updatedAt) : "—"} · Document non opposable · ACO-HABITAT © {new Date().getFullYear()}
+            {reportRef} · Généré le {session ? formatDate(session.updatedAt) : "—"} · Document non opposable · DIAGNOSTIC-BOIS © {new Date().getFullYear()}
           </p>
         </footer>
 
+      </div>
       </div>
     </main>
   );
