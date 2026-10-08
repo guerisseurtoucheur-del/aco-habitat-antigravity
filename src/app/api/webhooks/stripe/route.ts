@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
+import { diagnosticReportSchema } from "@/types/diagnostic";
+import { generateDiagnosticPdfBuffer } from "@/lib/pdf/diagnostic-report-template";
+import { sendReportToClient } from "@/lib/mailer";
 
 export async function POST(req: Request) {
   if (!isStripeConfigured()) {
