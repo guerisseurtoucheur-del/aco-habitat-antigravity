@@ -26,7 +26,7 @@ function extractDepartment(address: string | null | undefined): string | null {
   return null;
 }
 
-export async function sendLeadEmail(session: any, reportUrlFromCaller?: string) {
+export async function sendLeadEmail(session: any, reportUrlFromCaller?: string, pdfBuffer?: Buffer) {
   const baseUrl = getPublicBaseUrl();
   const sessionId = session.id || session.sessionId;
   const finalReportUrl = (reportUrlFromCaller && !reportUrlFromCaller.includes("localhost"))
