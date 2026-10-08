@@ -30,7 +30,6 @@ export const seoCities = [
   { name: "Annecy", slug: "annecy", zipPattern: "74", region: "Auvergne-Rhône-Alpes" },
   { name: "Perpignan", slug: "perpignan", zipPattern: "66", region: "Occitanie" },
   // Local pour ACO HABITAT (Alençon / Orne / Normandie)
-  { name: "l'Orne", slug: "orne", zipPattern: "61", region: "Normandie" },
   { name: "Alençon", slug: "alencon", zipPattern: "61", region: "Normandie" },
   { name: "Caen", slug: "caen", zipPattern: "14", region: "Normandie" },
   { name: "Rouen", slug: "rouen", zipPattern: "76", region: "Normandie" },

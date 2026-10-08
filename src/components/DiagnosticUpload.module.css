@@ -290,18 +290,19 @@
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  aspect-ratio: 4/3;
-  background: #f8fafc;
-  border: 2px dashed #cbd5e1;
+  min-height: 140px;
+  background: #ffffff;
+  border: 2px dashed #3b82f6;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.04);
 }
 
 .slot:hover {
   border-color: #0066ff;
-  background: rgba(0, 102, 255, 0.03);
+  background: rgba(0, 102, 255, 0.04);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 51, 102, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 51, 102, 0.12);
 }
 
 .slot.slotFilled {
@@ -325,15 +326,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 4px;
+  padding: 8px;
 }
 
 .slotIcon {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
-  background: #e2e8f0;
+  background: #eff6ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -341,26 +342,26 @@
 }
 
 .slot:hover .slotIcon {
-  background: rgba(0, 102, 255, 0.12);
+  background: rgba(0, 102, 255, 0.15);
   transform: scale(1.08);
 }
 
 .slotIcon svg {
   width: 18px;
   height: 18px;
-  color: #64748b;
+  color: #0066ff;
   transition: color 0.2s;
 }
 
 .slot:hover .slotIcon svg {
-  color: #0066ff;
+  color: #004fd4;
 }
 
 .slotNumber {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.1em;
-  color: #94a3b8;
+  color: #0066ff;
   text-transform: uppercase;
 }
 
@@ -369,14 +370,33 @@
   font-weight: 700;
   color: #0f172a;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .slotHint {
   font-size: 10px;
-  color: #94a3b8;
+  color: #64748b;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.2;
+}
+
+.slotUploadPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0066ff 0%, #004fd4 100%);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.slot:hover .slotUploadPill {
+  transform: scale(1.05);
 }
 
 /* ── Filled slot ─────────────────────────── */
@@ -686,3 +706,90 @@
   color: #0066ff;
   letter-spacing: 0.03em;
 }
+
+/* ── Mobile & Touch Optimization (iOS / Android) ── */
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+
+  .headerRow {
+    flex-direction: flex-row;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .stepper {
+    margin-bottom: 20px;
+  }
+
+  .stepDot {
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+  }
+
+  .stepItem:not(:last-child)::after {
+    top: 12px;
+    left: calc(50% + 12px);
+    right: calc(-50% + 12px);
+  }
+
+  .stepLabel {
+    font-size: 8px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Prevent iOS automatic input zoom by ensuring 16px font-size on mobile */
+  .input, .textarea {
+    font-size: 16px;
+    padding: 12px 14px;
+    min-height: 44px;
+  }
+
+  .slots {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .slot {
+    min-height: 130px;
+    border-radius: 12px;
+  }
+
+  .slotLabel {
+    font-size: 10.5px;
+  }
+
+  .slotHint {
+    font-size: 9.5px;
+  }
+
+  .consentBox {
+    padding: 14px 12px;
+  }
+
+  .consentCheckbox {
+    width: 20px;
+    height: 20px;
+  }
+
+  .submitBtn, .successBtn {
+    padding: 16px 18px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 380px) {
+  .slots {
+    grid-template-columns: 1fr;
+  }
+}
+

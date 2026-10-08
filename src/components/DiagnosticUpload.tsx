@@ -529,6 +529,7 @@ export function DiagnosticUpload() {
                   <span className={styles.slotNumber}>Vue {index + 1}</span>
                   <span className={styles.slotLabel}>{slot.label}</span>
                   <span className={styles.slotHint}>{slot.hint}</span>
+                  <span className={styles.slotUploadPill}>+ Ajouter photo 📷</span>
                 </div>
               )}
 
@@ -542,7 +543,6 @@ export function DiagnosticUpload() {
                 ref={(el) => { inputRefs.current[index] = el; }}
                 type="file"
                 accept="image/*"
-                capture="environment"
                 className={styles.hiddenInput}
                 onChange={(e) => handleFileSelected(index, e)}
                 aria-label={`Sélectionner photo ${index + 1}`}

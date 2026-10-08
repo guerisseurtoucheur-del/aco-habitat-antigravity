@@ -60,6 +60,23 @@ export default function ChatBot() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
+      {/* Bulle d'accroche au-dessus du bouton lorsque le chat est fermé */}
+      {!isOpen && (
+        <div
+          onClick={() => setIsOpen(true)}
+          className="flex absolute bottom-20 right-0 mb-1 cursor-pointer whitespace-nowrap bg-slate-900 text-white text-xs md:text-sm font-medium px-4 py-2.5 rounded-2xl shadow-2xl border border-slate-700 hover:bg-slate-800 transition-all items-center gap-2 animate-bounce"
+          style={{ animationDuration: "3s" }}
+        >
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+          </span>
+          <span>Une question ? 💬</span>
+          {/* Flèche pointant vers la bulle photo */}
+          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-slate-900 rotate-45 border-r border-b border-slate-700" />
+        </div>
+      )}
+
       {/* Bouton pour ouvrir/fermer le chat */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -80,10 +97,10 @@ export default function ChatBot() {
         <div className="absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] max-h-[80vh]">
           {/* Header */}
           <div className="bg-slate-800 text-white p-4 flex items-center gap-3 shadow-md relative z-10">
-            <img src="/kemal.jpg" alt="Expert ACO Habitat" className="w-12 h-12 rounded-full border-2 border-slate-600 object-cover" />
+            <img src="/kemal.jpg" alt="Assistant ACO-HABITAT" className="w-12 h-12 rounded-full border-2 border-slate-600 object-cover" />
             <div>
-              <h3 className="font-bold">Kémal Ousmani</h3>
-              <p className="text-xs text-teal-400">Expertise Bois & Humidité</p>
+              <h3 className="font-bold">Assistant ACO-HABITAT</h3>
+              <p className="text-xs text-teal-400">Spécialiste Bois & Humidité</p>
             </div>
           </div>
 
