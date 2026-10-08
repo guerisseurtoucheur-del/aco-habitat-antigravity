@@ -2,8 +2,22 @@
 
 import Link from 'next/link';
 import styles from './page.module.css';
+import dynamic from 'next/dynamic';
 import { DiagnosticUpload } from '@/components/DiagnosticUpload';
 import { LandingProductDemo } from '@/components/LandingProductDemo';
+import { CityAccordion } from '@/components/CityAccordion';
+
+const DynamicScene = dynamic(() => import('@/components/3d/HouseScene'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full flex-col items-center justify-center bg-[#0a0a0a] text-white border-y border-slate-800/50">
+      <div className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mb-4"></div>
+      <p className="font-extrabold text-sm tracking-widest text-slate-400 animate-pulse uppercase">
+        Initialisation du moteur 3D...
+      </p>
+    </div>
+  )
+});
 
 export default function HomePage() {
   return (
@@ -38,15 +52,15 @@ export default function HomePage() {
       {/* Hero : Message client clair */}
       <section className={styles.hero}>
         <div className="container">
-          <div className="inline-block border border-red-500/30 rounded-full px-4 py-1.5 mb-6">
+          <div className="inline-block border border-red-500/30 rounded-full px-4 py-1.5 mb-6 bg-red-950/30">
             <span className="text-xs uppercase tracking-widest text-red-400/90 font-medium">Pré-analyse en ligne gratuite</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
             Charpente, boiseries, bois de cave : ne laissez pas le doute s'installer. <br className="hidden md:block" />
-            <span className="text-[#34d399]">Diagnostiquez en 3 minutes, agissez avant les degats.</span>
+            <span className="text-[#34d399]">Diagnostiquez en 3 minutes, agissez avant les dégâts.</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
-            Envoyez vos photos, notre IA detecte les signes de <span className="text-[#ef4444] font-bold">MERULE</span>, capricorne, termites ou humidite. Vous saurez immediatement si ca vaut le deplacement d'un expert.
+            Envoyez vos photos, notre IA détecte les signes de <span className="text-[#ef4444] font-bold">MÉRULE</span>, capricorne, termites ou humidité. Vous saurez immédiatement si ça vaut le déplacement d'un expert.
           </p>
 
           <div className={styles.priceBox}>
@@ -69,6 +83,11 @@ export default function HomePage() {
             <div className={styles.trustItem}>Résultat lisible par tous</div>
           </div>
         </div>
+      </section>
+
+      {/* EXPÉRIENCE 3D INTERACTIVE */}
+      <section className="w-full h-[700px] md:h-[900px] relative z-20 border-y border-slate-800 bg-[#0a0a0a] shadow-2xl">
+        <DynamicScene />
       </section>
 
       <LandingProductDemo />
@@ -195,22 +214,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEO Cities Linking */}
-      <section className="bg-white py-12 border-t border-slate-200">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl font-bold text-slate-800 mb-6">Interventions & Diagnostics locaux</h2>
-          <div className="flex flex-wrap gap-3">
-            {['Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 'Montpellier', 'Strasbourg', 'Bordeaux', 'Lille', 'Rennes', 'Alencon', 'Caen', 'Rouen'].map(city => (
-              <Link key={city} href={`/diagnostic-bois-${city.toLowerCase()}`} className="text-sm text-slate-600 hover:text-teal-600 bg-slate-50 px-3 py-1.5 rounded-md border border-slate-100 hover:border-teal-200 transition-colors">
-                Diagnostic bois à {city === 'Alencon' ? 'Alençon' : city}
-              </Link>
-            ))}
-            <Link href="/diagnostic-bois-brest" className="text-sm text-slate-500 hover:text-teal-600 px-3 py-1.5">
-              Voir toutes les villes...
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* SEO Cities Linking Accordion */}
+      <CityAccordion />
 
       <footer className={styles.footer}>
         <div className="container">
