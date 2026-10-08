@@ -1,5 +1,23 @@
 import nodemailer from "nodemailer";
 
+function getGmailUser(): string {
+  return process.env.GMAIL_USER || "aco.habitat.contact@gmail.com";
+}
+
+function getTransporter() {
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: getGmailUser(),
+      pass: process.env.GMAIL_APP_PASSWORD || "qczwydyrhaypzydt",
+    },
+  });
+}
+
+function getFromAddress(): string {
+  return `"Diagnostic Bois ACO" <${getGmailUser()}>`;
+}
+
 function getPublicBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes("localhost")) {
     return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
@@ -48,7 +66,7 @@ export async function sendLeadEmail(session: any, reportUrlFromCaller?: string, 
   const gmailPass = process.env.GMAIL_APP_PASSWORD || "qczwydyrhaypzydt";
   const recipientEmail = process.env.LEAD_EMAIL_RECIPIENT || "aco.habitat.contact@gmail.com, kemal.ousmani@wanadoo.fr";
 
-  const mailOptions = {
+  const mailOptions: any = {
     from: `"Diagnostic Bois ACO" <${gmailUser}>`,
     to: recipientEmail,
     subject: `${subjectPrefix} Nouveau Lead : ${session.clientName || "Client"} (${deptDisplay})`,
@@ -158,7 +176,7 @@ export async function sendLeadEmail(session: any, reportUrlFromCaller?: string, 
   }
 
   try {
-    await transporter.sendMail(mailOptions);
+    await getTransporter().sendMail(mailOptions);
     console.log(`[mailer] Email envoye pour le lead ${session.clientName}`);
   } catch (error) {
     console.error("[mailer] Erreur envoi email :", error);
@@ -327,16 +345,8 @@ export async function sendReportToClient(session: any, reportUrl: string, pdfBuf
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: gmailUser,
-        pass: gmailPass,
-      },
-    });
-
     await transporter.sendMail(mailOptions);
-    console.log(`[mailer] Email envoyé avec succès à ${recipientEmail} (${statusTag}) pour le lead ${session.clientName}`);
+    console.log(`[mailer] Rapport envoyé à ${clientEmail}`);
   } catch (error) {
     console.error("[mailer] Erreur envoi rapport client :", error);
   }
