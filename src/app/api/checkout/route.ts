@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 import { getAnalysisSession } from "@/lib/analysis-store";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 
