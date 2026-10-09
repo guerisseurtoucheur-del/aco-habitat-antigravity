@@ -30,15 +30,15 @@ export default function HouseScene() {
 
   // Base de données des annotations
   const annotations = [
-    // CAPRICORNE
-    { id: 'c1', position: [-1.2, 0.8, -1.5], title: 'Trous ovales (Capricorne)', description: "Le capricorne cible le bois résineux sec. Ses larves creusent de larges galeries ovales destructrices.", icon: '🔎', type: 'capricorne' },
-    { id: 'c2', position: [1.2, 1, -1.5], title: 'Trous ronds (Vrillette)', description: "La vrillette préfère les zones légèrement humides. Ses trous sont parfaitement ronds, semblables à un impact de plomb.", icon: '🔎', type: 'capricorne' },
-    { id: 'c3', position: [-0.6, -0.4, -1.5], title: 'Galerie & vermoulure', description: "Présence de sciure fine et accumulée. Indique une attaque parasitaire active et la destruction interne des fibres du bois.", icon: '⚠️', type: 'capricorne' },
-    { id: 'c4', position: [0.8, -0.6, -1.5], title: 'Affaiblissement mécanique', description: "Danger critique : la résistance structurelle de la poutre est compromise. Risque d'effondrement à court terme.", icon: '🔴', type: 'capricorne' },
-    // MÉRULE
-    { id: 'm1', position: [-0.8, 0.4, -1.5], title: 'Pourriture cubique', description: "Le champignon détruit la cellulose. Le bois se fracture en petits cubes caractéristiques et s'effrite sous la pression.", icon: '⚠️', type: 'merule' },
-    { id: 'm2', position: [0.9, -0.3, -1.5], title: 'Mycélium & filaments', description: "Ces longs filaments blancs/gris traversent la maçonnerie pour chercher l'humidité, contaminant parfois plusieurs pièces.", icon: '🔎', type: 'merule' },
-    { id: 'm3', position: [1.1, 0.8, -1.5], title: 'Fructification (Syrphes)', description: "Couleur rouille au centre, bordure blanche cotonneuse. C'est l'organe reproducteur relâchant des millions de spores.", icon: '🚨', type: 'merule' },
+    // CAPRICORNE (Rapprochés du centre pour le format vertical mobile)
+    { id: 'c1', position: [-0.3, 0.8, -1.5], title: 'Trous ovales (Capricorne)', description: "Le capricorne cible le bois résineux sec. Ses larves creusent de larges galeries ovales destructrices.", icon: '🔎', type: 'capricorne' },
+    { id: 'c2', position: [0.4, 0.4, -1.5], title: 'Trous ronds (Vrillette)', description: "La vrillette préfère les zones légèrement humides. Ses trous sont parfaitement ronds, semblable à un impact de plomb.", icon: '🔎', type: 'capricorne' },
+    { id: 'c3', position: [-0.2, -0.4, -1.5], title: 'Galerie & vermoulure', description: "Présence de sciure fine et accumulée. Indique une attaque parasitaire active et la destruction interne des fibres.", icon: '⚠️', type: 'capricorne' },
+    { id: 'c4', position: [0.3, -0.8, -1.5], title: 'Affaiblissement mécanique', description: "Danger critique : la résistance structurelle de la poutre est compromise. Risque d'effondrement à court terme.", icon: '🔴', type: 'capricorne' },
+    // MÉRULE (Centrés sur la zone d'intérêt principale)
+    { id: 'm1', position: [-0.4, 0.5, -1.5], title: 'Pourriture cubique', description: "Le champignon détruit la cellulose. Le bois se fracture en petits cubes caractéristiques et s'effrite sous la pression.", icon: '⚠️', type: 'merule' },
+    { id: 'm2', position: [0.3, 0.0, -1.5], title: 'Mycélium & filaments', description: "Ces longs filaments blancs/gris traversent la maçonnerie pour chercher l'humidité, contaminant parfois plusieurs pièces.", icon: '🔎', type: 'merule' },
+    { id: 'm3', position: [0.1, -0.6, -1.5], title: 'Fructification (Syrphes)', description: "Couleur rouille au centre, bordure blanche cotonneuse. C'est l'organe reproducteur relâchant des millions de spores.", icon: '🚨', type: 'merule' },
   ];
 
   // === GÉNÉRATEUR DE SONS (Web Audio API) ===
