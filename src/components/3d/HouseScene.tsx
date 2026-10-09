@@ -217,16 +217,16 @@ export default function HouseScene() {
 
       {/* === UI MODAL === */}
       {activeZone && (
-        <div className="absolute top-1/2 right-4 md:right-16 -translate-y-1/2 z-50 pointer-events-auto">
-          <div className="bg-[#0f111a]/95 border border-[#1f2335] p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl w-[400px] animate-in fade-in slide-in-from-right-12 duration-500">
+        <div className="absolute top-1/2 left-4 right-4 md:left-auto md:right-16 -translate-y-1/2 z-50 pointer-events-auto">
+          <div className="bg-[#0f111a]/95 border border-[#1f2335] p-5 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl w-full md:w-[400px] max-w-full animate-in fade-in slide-in-from-right-12 duration-500 mx-auto">
             
-            <div className="flex justify-between items-start mb-6">
+            <div className="flex justify-between items-start mb-4 md:mb-6">
               <div>
-                <div className={`text-[11px] uppercase tracking-widest font-black mb-2 flex items-center gap-2 ${activeZone === 'merule' ? 'text-red-500' : 'text-orange-500'}`}>
+                <div className={`text-[9px] md:text-[11px] uppercase tracking-widest font-black mb-1 md:mb-2 flex items-center gap-2 ${activeZone === 'merule' ? 'text-red-500' : 'text-orange-500'}`}>
                   <span className={`w-2 h-2 rounded-full animate-pulse ${activeZone === 'merule' ? 'bg-red-500' : 'bg-orange-500'}`}></span>
                   {activeZone === 'merule' ? 'ALERTE - SOUS-SOL / CAVE' : 'ALERTE - COMBLES / CHARPENTE'}
                 </div>
-                <h3 className="font-bold text-3xl text-white leading-tight">
+                <h3 className="font-bold text-2xl md:text-3xl text-white leading-tight">
                   {activeZone === 'merule' ? 'Mérule Pleureuse' : 'Insectes Xylophages'}
                 </h3>
               </div>
@@ -252,8 +252,8 @@ export default function HouseScene() {
               </div>
             </div>
             
-            <div className="flex gap-4 mb-8">
-              <div className="w-1/2 relative rounded-2xl overflow-hidden shadow-lg aspect-video group">
+            <div className="flex gap-2 md:gap-4 mb-6 md:mb-8">
+              <div className="w-1/2 relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg aspect-video group">
                 <div className={`absolute top-2 left-2 z-10 text-[9px] uppercase font-black text-white px-2 py-0.5 rounded-full ${activeZone === 'merule' ? 'bg-red-600' : 'bg-orange-600'}`}>
                   AVANT (DÉGÂTS)
                 </div>
@@ -266,7 +266,7 @@ export default function HouseScene() {
                 />
               </div>
               
-              <div className="w-1/2 relative rounded-2xl overflow-hidden shadow-lg aspect-video group">
+              <div className="w-1/2 relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg aspect-video group">
                 <div className="absolute top-2 left-2 z-10 text-[9px] uppercase font-black text-white bg-teal-500 px-2 py-0.5 rounded-full shadow-md">
                   APRÈS TRAITEMENT
                 </div>
@@ -290,12 +290,12 @@ export default function HouseScene() {
             </a>
           </div>
 
-          <div className="absolute -bottom-16 right-0 flex items-center justify-end gap-3 pointer-events-none">
-            <div className="bg-[#1f2335] text-white text-xs font-bold px-4 py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+          <div className="absolute -bottom-14 md:-bottom-16 right-0 flex items-center justify-end gap-2 md:gap-3 pointer-events-none scale-90 md:scale-100 origin-bottom-right">
+            <div className="bg-[#1f2335] text-white text-[10px] md:text-xs font-bold px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-1.5 md:gap-2">
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-teal-400 animate-pulse"></span>
               UNE QUESTION ?
             </div>
-            <img src="/expert-avatar.jpg" className="w-10 h-10 rounded-full border-2 border-[#1f2335] object-cover bg-slate-800" alt="Expert ACO" onError={(e) => e.currentTarget.style.display = 'none'} />
+            <img src="/expert-avatar.jpg" className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-[#1f2335] object-cover bg-slate-800" alt="Expert ACO" onError={(e) => e.currentTarget.style.display = 'none'} />
           </div>
         </div>
       )}
