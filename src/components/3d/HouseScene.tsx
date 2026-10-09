@@ -172,19 +172,31 @@ export default function HouseScene() {
             zIndexRange={[40, 0]}
           >
             <div 
-              className={`group relative flex items-center cursor-pointer transition-all duration-300 ${selectedAnnotation === annotation.id ? 'scale-110 z-50' : selectedAnnotation ? 'opacity-30 pointer-events-none' : 'hover:scale-105 z-10'}`}
+              className={`group relative flex items-center cursor-pointer transition-all duration-500 ${selectedAnnotation === annotation.id ? 'scale-110 z-50' : selectedAnnotation ? 'opacity-30 pointer-events-none' : 'hover:scale-105 z-10'}`}
               onClick={(e) => { 
                 e.stopPropagation(); 
                 setSelectedAnnotation(annotation.id);
                 playTechClick(); // Son de clic "Tech"
               }}
             >
-              <div className={`w-4 h-4 rounded-full border-[3px] shadow-[0_0_15px_rgba(255,255,255,0.8)] transition-colors ${selectedAnnotation === annotation.id ? 'bg-white border-blue-500' : 'bg-slate-800 border-white'}`}>
-                <div className="absolute inset-0 rounded-full animate-ping bg-white/30" />
+              {/* Le point d'ancrage (Hotspot très visible) */}
+              <div className="relative flex items-center justify-center">
+                {/* Onde de choc (pulse coloré) */}
+                <div className={`absolute w-12 h-12 rounded-full animate-ping opacity-60 ${activeZone === 'merule' ? 'bg-red-500' : 'bg-orange-500'}`} style={{ animationDuration: '2s' }} />
+                {/* Cercle extérieur */}
+                <div className={`w-8 h-8 rounded-full border-2 backdrop-blur-md flex items-center justify-center transition-colors shadow-[0_0_20px_rgba(0,0,0,0.8)] ${selectedAnnotation === annotation.id ? 'border-white bg-white/20' : 'border-white/60 bg-black/50 group-hover:border-white group-hover:bg-black/70'}`}>
+                  {/* Point central lumineux */}
+                  <div className={`w-3 h-3 rounded-full shadow-[0_0_10px_currentColor] transition-colors ${selectedAnnotation === annotation.id ? 'bg-white' : activeZone === 'merule' ? 'bg-red-500' : 'bg-orange-400'}`} />
+                </div>
               </div>
-              <div className={`h-[2px] transition-all duration-300 ease-out ${selectedAnnotation === annotation.id ? 'w-10 bg-blue-400' : 'w-4 group-hover:w-8 bg-white/60'}`} />
-              <div className={`backdrop-blur-xl border border-white/20 text-white text-[10px] sm:text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xl whitespace-nowrap transition-all duration-300 ${selectedAnnotation === annotation.id ? 'bg-blue-900/90 ring-2 ring-blue-500/50' : 'bg-black/70 group-hover:bg-black/90'}`}>
-                <span className="mr-1.5">{annotation.icon}</span>{annotation.title}
+
+              {/* Ligne de connexion fluide */}
+              <div className={`h-[2px] transition-all duration-500 ease-out origin-left ${selectedAnnotation === annotation.id ? 'w-12 bg-white/80' : 'w-6 group-hover:w-10 bg-white/40'}`} />
+
+              {/* Étiquette texte style "Pillule" */}
+              <div className={`backdrop-blur-xl border text-white text-[10px] sm:text-xs font-bold px-4 py-2 rounded-full shadow-2xl whitespace-nowrap transition-all duration-500 ${selectedAnnotation === annotation.id ? 'border-white/60 bg-white/10 scale-105' : 'border-white/20 bg-black/70 group-hover:bg-black/90'}`}>
+                <span className="mr-2 text-sm sm:text-base align-middle">{annotation.icon}</span>
+                <span className="tracking-wide uppercase">{annotation.title}</span>
               </div>
             </div>
           </Html>
@@ -217,7 +229,7 @@ export default function HouseScene() {
 
       {/* === UI MODAL === */}
       {activeZone && (
-        <div className="absolute bottom-4 left-4 right-4 md:bottom-auto md:top-1/2 md:left-auto md:right-16 md:-translate-y-1/2 z-[60] pointer-events-auto flex justify-center">
+        <div className="absolute bottom-[100px] left-4 right-4 md:bottom-auto md:top-1/2 md:left-auto md:right-16 md:-translate-y-1/2 z-[60] pointer-events-auto flex justify-center">
           <div className="bg-[#0f111a]/95 border border-[#1f2335] p-5 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl w-full md:w-[400px] max-w-sm md:max-w-full animate-in fade-in slide-in-from-bottom-12 md:slide-in-from-right-12 duration-500 mx-auto">
             
             <div className="flex justify-between items-start mb-4 md:mb-6">
