@@ -19,6 +19,15 @@ const DynamicScene = dynamic(() => import('@/components/3d/HouseScene'), {
   )
 });
 
+const DynamicDestructionSimulator = dynamic(() => import('@/components/3d/DestructionSimulator').then(mod => mod.DestructionSimulator), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[400px] w-full items-center justify-center bg-slate-900 text-slate-500">
+      Chargement du simulateur...
+    </div>
+  )
+});
+
 export default function HomePage() {
   return (
     <div className={styles.page}>
@@ -106,6 +115,9 @@ export default function HomePage() {
       </section>
 
       <LandingProductDemo />
+
+      {/* NOUVEAU: Simulateur de destruction interactif */}
+      <DynamicDestructionSimulator />
 
       {/* Comment ca marche */}
       <section className={styles.howSection}>
