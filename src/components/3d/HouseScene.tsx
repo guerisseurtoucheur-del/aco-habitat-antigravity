@@ -106,16 +106,16 @@ export default function HouseScene() {
   return (
     <div className="relative w-full h-full bg-[#0a0a0a]">
       
-      {/* MODE REGLAGE - Affiche les coordonnées cliquées pour m'aider à placer les points */}
-      {activeZone && (
+      {/* MODE REGLAGE (Masqué en prod) */}
+      {/* activeZone && (
         <div className="absolute bottom-6 left-6 z-50 bg-black/80 text-green-400 p-3 rounded-lg font-mono text-xs border border-green-500/30">
           <p className="mb-1 text-white">Mode Réglage (Cliquez sur l'image) :</p>
           <p>Coordonnées : {debugPos || "Aucun clic"}</p>
         </div>
-      )}
+      ) */}
 
       {/* SÉLECTEUR DE SCÈNE (Centré en haut pour ne pas superposer le bouton Retour) */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-slate-900/40 p-2 rounded-full backdrop-blur-xl border border-slate-700/50 shadow-2xl">
+      <div className="absolute top-20 md:top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-4 bg-slate-900/40 p-2 rounded-full backdrop-blur-xl border border-slate-700/50 shadow-2xl w-[90%] max-w-fit justify-center">
         <button 
           onClick={() => { setSceneType('merule'); playTechClick(); }}
           className={`px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest transition-all ${sceneType === 'merule' ? 'bg-red-500/20 border border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'text-slate-400 hover:text-white border border-transparent'}`}
@@ -169,10 +169,10 @@ export default function HouseScene() {
             key={annotation.id} 
             position={new THREE.Vector3(...annotation.position)} 
             center 
-            zIndexRange={[100, 0]}
+            zIndexRange={[40, 0]}
           >
             <div 
-              className={`group relative flex items-center cursor-pointer transition-all duration-300 ${selectedAnnotation === annotation.id ? 'scale-110 z-50' : 'hover:scale-105 z-10'}`}
+              className={`group relative flex items-center cursor-pointer transition-all duration-300 ${selectedAnnotation === annotation.id ? 'scale-110 z-50' : selectedAnnotation ? 'opacity-30 pointer-events-none' : 'hover:scale-105 z-10'}`}
               onClick={(e) => { 
                 e.stopPropagation(); 
                 setSelectedAnnotation(annotation.id);
@@ -217,8 +217,8 @@ export default function HouseScene() {
 
       {/* === UI MODAL === */}
       {activeZone && (
-        <div className="absolute top-1/2 left-4 right-4 md:left-auto md:right-16 -translate-y-1/2 z-50 pointer-events-auto">
-          <div className="bg-[#0f111a]/95 border border-[#1f2335] p-5 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl w-full md:w-[400px] max-w-full animate-in fade-in slide-in-from-right-12 duration-500 mx-auto">
+        <div className="absolute bottom-4 left-4 right-4 md:bottom-auto md:top-1/2 md:left-auto md:right-16 md:-translate-y-1/2 z-[60] pointer-events-auto flex justify-center">
+          <div className="bg-[#0f111a]/95 border border-[#1f2335] p-5 md:p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl w-full md:w-[400px] max-w-sm md:max-w-full animate-in fade-in slide-in-from-bottom-12 md:slide-in-from-right-12 duration-500 mx-auto">
             
             <div className="flex justify-between items-start mb-4 md:mb-6">
               <div>
@@ -252,15 +252,13 @@ export default function HouseScene() {
               </div>
             </div>
             
-            <div className="flex gap-2 md:gap-4 mb-6 md:mb-8">
+            <div className="hidden md:flex gap-2 md:gap-4 mb-6 md:mb-8">
               <div className="w-1/2 relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg aspect-video group">
                 <div className={`absolute top-2 left-2 z-10 text-[9px] uppercase font-black text-white px-2 py-0.5 rounded-full ${activeZone === 'merule' ? 'bg-red-600' : 'bg-orange-600'}`}>
                   AVANT (DÉGÂTS)
                 </div>
                 <img 
-                  src={activeZone === 'merule' 
-                    ? "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=400&auto=format&fit=crop" 
-                    : bgCapricorne} 
+                  src={activeZone === 'merule' ? bgMerule : bgCapricorne} 
                   className="h-full w-full object-cover filter contrast-125 sepia-[0.3] group-hover:scale-110 transition-transform duration-700" 
                   alt="Dégâts" 
                 />
@@ -288,14 +286,6 @@ export default function HouseScene() {
             >
               Demander un Diagnostic Urgent
             </a>
-          </div>
-
-          <div className="absolute -bottom-14 md:-bottom-16 right-0 flex items-center justify-end gap-2 md:gap-3 pointer-events-none scale-90 md:scale-100 origin-bottom-right">
-            <div className="bg-[#1f2335] text-white text-[10px] md:text-xs font-bold px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-slate-700 shadow-xl flex items-center gap-1.5 md:gap-2">
-              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-teal-400 animate-pulse"></span>
-              UNE QUESTION ?
-            </div>
-            <img src="/expert-avatar.jpg" className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-[#1f2335] object-cover bg-slate-800" alt="Expert ACO" onError={(e) => e.currentTarget.style.display = 'none'} />
           </div>
         </div>
       )}
