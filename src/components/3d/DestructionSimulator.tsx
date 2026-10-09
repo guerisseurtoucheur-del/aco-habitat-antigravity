@@ -114,25 +114,25 @@ export function DestructionSimulator() {
   };
 
   return (
-    <div className="w-full h-[600px] md:h-[700px] bg-gradient-to-b from-slate-900 to-black relative border-y border-slate-800 shadow-2xl flex flex-col md:flex-row overflow-hidden">
+    <div className="w-full min-h-[750px] md:min-h-0 md:h-[700px] bg-gradient-to-b from-slate-900 to-black relative border-y border-slate-800 shadow-2xl flex flex-col md:flex-row overflow-hidden">
       
       {/* Panneau de contrôle 2D */}
-      <div className="w-full md:w-1/3 p-8 z-10 flex flex-col justify-center bg-black/50 backdrop-blur-md border-r border-slate-800/50">
-        <div className="inline-block border border-teal-500/30 rounded-full px-3 py-1 mb-6 bg-teal-950/30 w-max">
+      <div className="w-full md:w-1/3 p-6 md:p-8 z-10 flex flex-col justify-center bg-black/50 backdrop-blur-md border-b md:border-b-0 md:border-r border-slate-800/50">
+        <div className="inline-block border border-teal-500/30 rounded-full px-3 py-1 mb-4 md:mb-6 bg-teal-950/30 w-max">
           <span className="text-[10px] uppercase tracking-widest text-teal-400 font-bold">Simulateur 3D Temps Réel</span>
         </div>
         
-        <h2 className="text-3xl font-extrabold text-white mb-4 leading-tight">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3 md:mb-4 leading-tight">
           L'évolution de la <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">Mérule</span>
         </h2>
         
-        <p className="text-slate-400 text-sm mb-10">
-          Observez comment un simple dégât des eaux se transforme en désastre structurel si rien n'est fait. Utilisez le curseur temporel.
+        <p className="text-slate-400 text-xs md:text-sm mb-6 md:mb-10">
+          Observez comment un simple dégât des eaux se transforme en désastre structurel. Utilisez le curseur temporel.
         </p>
 
         {/* Le Slider (Curseur temporel) */}
-        <div className="mb-8">
-          <div className="flex justify-between text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">
+        <div className="mb-6 md:mb-8">
+          <div className="flex justify-between text-[10px] md:text-xs font-bold text-slate-500 mb-3 md:mb-4 uppercase tracking-wider">
             <span>Sain</span>
             <span>6 Mois</span>
             <span>12+ Mois</span>
@@ -148,9 +148,9 @@ export function DestructionSimulator() {
         </div>
 
         {/* Affichage du diagnostic dynamique */}
-        <div className="bg-slate-900/80 border border-slate-700 rounded-xl p-4 shadow-xl">
-          <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Diagnostic virtuel</div>
-          <div className={`font-bold text-lg leading-tight transition-colors duration-300 ${getStatusColor()}`}>
+        <div className="bg-slate-900/80 border border-slate-700 rounded-xl p-3 md:p-4 shadow-xl">
+          <div className="text-[9px] md:text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Diagnostic virtuel</div>
+          <div className={`font-bold text-sm md:text-lg leading-tight transition-colors duration-300 ${getStatusColor()}`}>
             {getStatusText()}
           </div>
         </div>
@@ -158,7 +158,7 @@ export function DestructionSimulator() {
       </div>
 
       {/* Rendu 3D */}
-      <div className="w-full md:w-2/3 h-full relative cursor-grab active:cursor-grabbing">
+      <div className="w-full h-[350px] md:h-full md:w-2/3 relative cursor-grab active:cursor-grabbing">
         <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} intensity={1.5} />
