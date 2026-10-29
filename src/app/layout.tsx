@@ -8,63 +8,45 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+import { JsonLd } from "@/components/JsonLd";
+
 export const metadata: Metadata = {
-  title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
+  title: "ACO-HABITAT — Diagnostic Bois, Mérule & Humidité par IA (Pré-analyse Gratuite)",
   description:
-    "Pre-analyse gratuite par image des pathologies du bois (merule, capricorne, termites, humidite). Rapport detaille par IA en quelques minutes. Assistant en ligne 24h/24 pour repondre a vos questions.",
-  keywords: ["diagnostic bois", "merule", "capricorne", "termites", "humidite", "charpente", "traitement bois", "expertise bois", "chatbot", "assistance 24h/24"],
-  authors: [{ name: "Diagnostic-Bois.com" }],
-  creator: "Diagnostic-Bois.com",
-  publisher: "Diagnostic-Bois.com",
-  metadataBase: new URL("https://diagnostic-bois.com"),
-  alternates: {
-    canonical: "/",
-  },
-  other: {
-    "ai:description": "Service francais de pre-analyse des pathologies du bois par intelligence artificielle. Detection de merule, capricorne, termites, vrillettes et problemes d'humidite. Rapport PDF gratuit en quelques minutes. Assistant virtuel disponible 24h/24 et 7j/7 pour repondre a toutes vos questions.",
-    "ai:site-type": "service, educational, chatbot",
-    "ai:industry": "construction, renovation, expertise-bois",
-    "ai:geographic-focus": "France",
-    "ai:language": "fr-FR",
-    "ai:features": "chatbot-24h, analyse-ia, rapport-pdf-gratuit",
-  },
+    "Spécialiste de la détection de la mérule, des termites, capricornes et insectes xylophages. Pré-analyse gratuite en 3 minutes par IA sur photo. Intervention Orne 61, Calvados 14, Mayenne 53, Eure 27, Eure-et-Loir 28, Sarthe 72.",
+  keywords: [
+    "diagnostic bois gratuit",
+    "mérule pleureuse",
+    "traitement charpente",
+    "capricorne des maisons",
+    "vrillette bois",
+    "termites",
+    "humidite charpente",
+    "ACO-HABITAT",
+    "diagnostic bois Normandie",
+    "Alençon",
+  ],
+  authors: [{ name: "ACO-HABITAT" }],
   openGraph: {
-    type: "website",
-    locale: "fr_FR",
+    title: "ACO-HABITAT — Diagnostic Bois, Mérule & Humidité par IA",
+    description: "Envoyez vos photos pour détecter la mérule, les capricornes ou l'humidité en 3 minutes. Rapport d'expert assisté par IA.",
     url: "https://diagnostic-bois.com",
-    siteName: "Diagnostic-Bois.com",
-    title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
-    description: "Pre-analyse gratuite par image des pathologies du bois. Rapport detaille par IA en quelques minutes. Assistant 24h/24.",
+    siteName: "ACO-HABITAT",
     images: [
       {
-        url: "https://diagnostic-bois.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Expert en traitement du bois inspectant une charpente - DIAGNOSTIC-BOIS.COM",
+        url: "https://diagnostic-bois.com/logo.png",
+        width: 800,
+        height: 600,
+        alt: "ACO-HABITAT Logo",
       },
     ],
+    locale: "fr_FR",
+    type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "DIAGNOSTIC-BOIS — Pre-analyse bois et humidite par IA",
-    description: "Pre-analyse gratuite par image des pathologies du bois. Rapport detaille par IA en quelques minutes.",
-    images: ["https://diagnostic-bois.com/og-image.png"],
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    shortcut: "/favicon.svg",
-    apple: [
-      { url: "/apple-touch-icon.jpg", sizes: "180x180", type: "image/jpeg" },
-    ],
-  },
-  manifest: "/manifest.json",
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -73,13 +55,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: "#0f766e",
 };
 
 export default function RootLayout({
@@ -176,16 +151,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <head>
-        <link rel="author" href="https://diagnostic-bois.com" />
-        <link rel="me" href="mailto:aco.habitat@orange.fr" />
-        <meta name="geo.region" content="FR-61" />
-        <meta name="geo.placename" content="Alencon" />
-        <meta name="geo.position" content="48.4333;0.0833" />
-        <meta name="ICBM" content="48.4333, 0.0833" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
-        />
+        <JsonLd />
       </head>
       <body>
         {children}

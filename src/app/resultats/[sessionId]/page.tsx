@@ -397,7 +397,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                   </div>
                   <UnlockButton 
                     sessionId={sessionId} 
-                    price="19.00"
+                    price="19"
                     className="rounded-xl bg-red-600 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-red-200 hover:bg-red-700 transition-all"
                   >
                     Stopper les dégâts (19€)
@@ -612,7 +612,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
                       </p>
                       <UnlockButton 
                         sessionId={sessionId} 
-                        price="19.00"
+                        price="19"
                         className="w-full rounded-xl bg-violet-600 py-4 text-sm font-bold text-white shadow-lg shadow-violet-200 hover:bg-violet-700 transition-all transform hover:scale-[1.02]"
                       >
                         Voir mon plan d&apos;action (19€)
@@ -747,7 +747,7 @@ export default async function DiagnosticDashboardPage({ params, searchParams }: 
               ) : (
                 <UnlockButton
                   sessionId={sessionId}
-                  price="19.00"
+                  price="19"
                   className="inline-flex flex-col items-center gap-1 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all"
                 >
                   <div className="flex items-center gap-2">

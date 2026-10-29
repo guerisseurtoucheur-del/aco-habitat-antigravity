@@ -1,150 +1,165 @@
 import nodemailer from "nodemailer";
 
-// Nom d'expediteur professionnel
-const SENDER_NAME = "DIAGNOSTIC-BOIS.COM";
-
-// Adresse de reception des leads (surchargeable via LEAD_EMAIL_RECIPIENT)
-const LEAD_RECIPIENT = "aco.habitat.contact@gmail.com";
-
-// Departements geres en direct (les autres sont des leads a revendre)
-const MANAGED_DEPARTMENTS = ["61", "72", "53", "27", "28", "14"];
-
-// Analyser l'adresse d'un lead pour determiner sa zone
-function analyzeLeadZone(address?: string) {
-  // Chercher un code postal francais (5 chiffres) dans l'adresse
-  const match = (address || "").match(/\b(\d{5})\b/);
-  const postalCode = match ? match[1] : null;
-  const department = postalCode ? postalCode.slice(0, 2) : null;
-  const isManaged = department ? MANAGED_DEPARTMENTS.includes(department) : false;
-
-  return {
-    postalCode,
-    department,
-    isManaged,
-    // Etiquette pour l'objet du mail (facile a filtrer / automatiser)
-    tag: !department ? "[A-VERIFIER]" : isManaged ? `[ZONE ${department}]` : `[REVENTE ${department}]`,
-  };
+function getGmailUser(): string {
+  return process.env.GMAIL_USER || "aco.habitat.contact@gmail.com";
 }
 
-// Transporteur Gmail reutilisable
 function getTransporter() {
   return nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
+      user: getGmailUser(),
+      pass: process.env.GMAIL_APP_PASSWORD || "qczwydyrhaypzydt",
     },
   });
 }
 
-// Formater l'expediteur avec nom professionnel
-function getFromAddress() {
-  return `"${SENDER_NAME}" <${process.env.GMAIL_USER}>`;
+function getFromAddress(): string {
+  return `"Diagnostic Bois ACO" <${getGmailUser()}>`;
 }
 
-export async function sendLeadEmail(session: any, reportUrl: string, result?: any, pdfBuffer?: Buffer) {
-  // Configurer le transporteur Gmail
-  const transporter = getTransporter();
+function getPublicBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes("localhost")) {
+    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, "")}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  }
+  return "https://diagnostic-bois.com";
+}
 
-  // Extraire les infos du rapport si disponibles
-  const analyses = result?.analyses || [];
-  const nbPathologies = analyses.filter((a: any) => a.pathologie && !a.pathologie.toLowerCase().includes("aucune")).length;
-  const maxUrgence = analyses.some((a: any) => a.urgence?.toLowerCase() === "critique") ? "CRITIQUE" :
-                     analyses.some((a: any) => a.urgence?.toLowerCase() === "moderee") ? "MODÉRÉE" : "FAIBLE";
-  const scoreConfiance = result?.score_confiance_general || "N/A";
+// Départements conservés pour ACO-HABITAT (Orne 61, Calvados 14, Mayenne 53, Eure 27, Eure-et-Loir 28, Sarthe 72)
+const OUR_DEPARTMENTS = ["61", "14", "53", "27", "28", "72"];
 
-  // Determiner la zone du lead (departement gere ou lead a revendre)
-  const zone = analyzeLeadZone(session.clientAddress);
+function extractDepartment(address: string | null | undefined): string | null {
+  if (!address) return null;
+  // Recherche d'un code postal français à 5 chiffres (ex: 61000, 62270, 72000, etc.)
+  const match = address.match(/\b(\d{2})\d{3}\b/);
+  if (match && match[1]) {
+    return match[1];
+  }
+  return null;
+}
+
+export async function sendLeadEmail(session: any, reportUrlFromCaller?: string, result?: any, pdfBuffer?: Buffer) {
+  const baseUrl = getPublicBaseUrl();
+  const sessionId = session.id || session.sessionId;
+  const finalReportUrl = (reportUrlFromCaller && !reportUrlFromCaller.includes("localhost"))
+    ? reportUrlFromCaller
+    : `${baseUrl}/resultats/${sessionId}`;
+
+  const clientAddress = session.clientAddress || "";
+  const dept = extractDepartment(clientAddress);
+  const isInSector = dept ? OUR_DEPARTMENTS.includes(dept) : false;
+
+  const statusTag = isInSector ? "SECTEUR_ACO" : "LEAD_A_REVENDRE";
+  const deptDisplay = dept ? `Dept ${dept}` : "Secteur Inconnu";
+
+  const subjectPrefix = isInSector
+    ? `🟢 [SECTEUR ACO - ${deptDisplay}]`
+    : `🔴 [À REVENDRE - ${deptDisplay}]`;
+
+  const gmailUser = process.env.GMAIL_USER || "aco.habitat.contact@gmail.com";
+  const gmailPass = process.env.GMAIL_APP_PASSWORD || "qczwydyrhaypzydt";
+  const recipientEmail = process.env.LEAD_EMAIL_RECIPIENT || "aco.habitat.contact@gmail.com, kemal.ousmani@wanadoo.fr";
 
   const mailOptions: any = {
-    from: getFromAddress(),
-    to: process.env.LEAD_EMAIL_RECIPIENT || LEAD_RECIPIENT,
-    subject: `${zone.tag} Lead DIAGNOSTIC-BOIS : ${session.clientName || "Client"} - ${maxUrgence}`,
+    from: `"Diagnostic Bois ACO" <${gmailUser}>`,
+    to: recipientEmail,
+    subject: `${subjectPrefix} Nouveau Lead : ${session.clientName || "Client"} (${deptDisplay})`,
     html: `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
-        
-        <!-- Header -->
-        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 24px; text-align: center;">
-          <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 600;">DIAGNOSTIC-BOIS.COM</h1>
-          <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 12px;">Nouveau lead entrant</p>
-        </div>
+      <!DOCTYPE html>
+      <html lang="fr">
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #0f172a; }
+          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+          .header { padding: 24px; text-align: center; background: #0f172a; color: #ffffff; }
+          .status-box { background: ${isInSector ? "#f0fdf4" : "#fef2f2"}; border: 2px solid ${isInSector ? "#22c55e" : "#ef4444"}; border-radius: 12px; padding: 18px; margin: 24px 24px 0 24px; text-align: left; }
+          .status-title { font-size: 15px; font-weight: 800; color: ${isInSector ? "#15803d" : "#b91c1c"}; margin: 0 0 6px 0; }
+          .status-sub { font-size: 12px; color: ${isInSector ? "#166534" : "#991b1b"}; margin: 0; line-height: 1.4; }
+          .content { padding: 24px; }
+          .table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+          .table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+          .table td.label { font-weight: 700; color: #64748b; width: 35%; }
+          .table td.val { font-weight: 600; color: #0f172a; }
+          .btn-container { text-align: center; margin: 28px 0 10px 0; }
+          .btn { background-color: #0066ff; color: #ffffff !important; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: 800; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(0,102,255,0.25); }
+          .footer { padding: 16px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; background: #f8fafc; }
+          .ai-tag { font-family: monospace; font-size: 11px; color: #475569; background: #e2e8f0; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 6px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1 style="margin: 0; font-size: 20px; font-weight: 800; tracking: 0.05em;">ACO-HABITAT</h1>
+            <p style="margin: 4px 0 0 0; font-size: 12px; opacity: 0.8;">Notification Lead & Diagnostic IA</p>
+          </div>
 
-        <!-- Alerte urgence -->
-        <div style="background: ${maxUrgence === "CRITIQUE" ? "#fef2f2" : maxUrgence === "MODÉRÉE" ? "#fffbeb" : "#f0fdf4"}; border-left: 4px solid ${maxUrgence === "CRITIQUE" ? "#ef4444" : maxUrgence === "MODÉRÉE" ? "#f59e0b" : "#22c55e"}; padding: 16px; margin: 0;">
-          <p style="margin: 0; font-weight: 600; color: ${maxUrgence === "CRITIQUE" ? "#dc2626" : maxUrgence === "MODÉRÉE" ? "#d97706" : "#16a34a"};">
-            Niveau d'urgence : ${maxUrgence}
-          </p>
-          <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">
-            ${nbPathologies} pathologie(s) detectee(s) | Score IA : ${scoreConfiance}
-          </p>
-        </div>
+          <!-- Encadré Qualification Lead (Vert / Rouge) -->
+          <div class="status-box">
+            <p class="status-title">
+              ${isInSector ? "🟢 LEAD NOTRE SECTEUR (ACO HABITAT)" : "🔴 LEAD À REVENDRE (HORS SECTEUR)"}
+            </p>
+            <p class="status-sub">
+              ${
+                isInSector
+                  ? `Le département ${dept || "?"} fait partie de notre secteur d'intervention (61, 14, 53, 27, 28, 72). À traiter par notre équipe.`
+                  : `Le département ${dept || "inconnu"} est hors de notre secteur. Lead qualifié pour la revente automatique.`
+              }
+            </p>
+            <div>
+              <span class="ai-tag">TAG_AGENT_IA: [STATUS:${statusTag}]</span>
+              <span class="ai-tag">DEPT: [${dept || "INCONNU"}]</span>
+            </div>
+          </div>
 
-        <!-- Bandeau zone (traiter en direct ou revendre) -->
-        <div style="background: ${zone.isManaged ? "#eff6ff" : zone.department ? "#fef2f2" : "#f8fafc"}; border-left: 4px solid ${zone.isManaged ? "#2563eb" : zone.department ? "#dc2626" : "#94a3b8"}; padding: 16px; margin: 0;">
-          <p style="margin: 0; font-weight: 700; color: ${zone.isManaged ? "#1d4ed8" : zone.department ? "#b91c1c" : "#475569"};">
-            ${zone.isManaged
-              ? `LEAD A TRAITER EN DIRECT - Departement ${zone.department}`
-              : zone.department
-                ? `LEAD A REVENDRE - Departement ${zone.department} (hors zone)`
-                : "ZONE A VERIFIER - Code postal introuvable dans l'adresse"}
-          </p>
-          <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">
-            ${zone.postalCode ? `Code postal : ${zone.postalCode}` : "Aucun code postal detecte"}
-            ${zone.isManaged ? " | Vous couvrez ce secteur" : zone.department ? " | Hors de vos departements (61, 72, 53, 27, 28, 14)" : ""}
-          </p>
-        </div>
+          <div class="content">
+            <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 12px;">Coordonnées du client :</h3>
+            <table class="table">
+              <tr>
+                <td class="label">Nom :</td>
+                <td class="val">${session.clientName || "Non renseigné"}</td>
+              </tr>
+              <tr>
+                <td class="label">Téléphone :</td>
+                <td class="val"><a href="tel:${session.clientPhone}" style="color: #0066ff; text-decoration: none;">${session.clientPhone || "Non renseigné"}</a></td>
+              </tr>
+              <tr>
+                <td class="label">Email :</td>
+                <td class="val"><a href="mailto:${session.clientEmail}" style="color: #0066ff; text-decoration: none;">${session.clientEmail || "Non renseigné"}</a></td>
+              </tr>
+              <tr>
+                <td class="label">Adresse du bien :</td>
+                <td class="val">${session.clientAddress || "Non renseigné"}</td>
+              </tr>
+              <tr>
+                <td class="label">Département :</td>
+                <td class="val">
+                  <strong>${dept ? `${dept}` : "Non déterminé"}</strong> 
+                  ${isInSector ? "<span style='color: #15803d; font-weight: bold;'>(Notre secteur 🟢)</span>" : "<span style='color: #b91c1c; font-weight: bold;'>(Lead à revendre 🔴)</span>"}
+                </td>
+              </tr>
+            </table>
 
-        <!-- Coordonnees client -->
-        <div style="padding: 24px;">
-          <h2 style="color: #0f172a; font-size: 16px; margin: 0 0 16px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">
-            Coordonnees du client
-          </h2>
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; color: #64748b; width: 120px;">Nom</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: 500;">${session.clientName || "Non renseigne"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #64748b;">Telephone</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: 500;">
-                <a href="tel:${session.clientPhone}" style="color: #0066ff; text-decoration: none;">${session.clientPhone || "Non renseigne"}</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #64748b;">Email</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: 500;">
-                <a href="mailto:${session.clientEmail}" style="color: #0066ff; text-decoration: none;">${session.clientEmail || "Non renseigne"}</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #64748b;">Adresse</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: 500;">${session.clientAddress || "Non renseigne"}</td>
-            </tr>
-          </table>
-        </div>
+            <div class="btn-container">
+              <a href="${finalReportUrl}" target="_blank" class="btn">
+                Voir le rapport du client
+              </a>
+            </div>
+          </div>
 
-        <!-- Bouton CTA -->
-        <div style="padding: 0 24px 24px 24px; text-align: center;">
-          <a href="${reportUrl}" style="display: inline-block; background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%); color: #ffffff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px;">
-            VOIR LE RAPPORT COMPLET
-          </a>
+          <div class="footer">
+            ACO-HABITAT · Système de qualification des leads et pré-analyse IA<br>
+            URL du rapport : <a href="${finalReportUrl}" style="color: #0066ff; text-decoration: underline;">${finalReportUrl}</a>
+          </div>
         </div>
-
-        <!-- Lien texte de secours -->
-        <div style="padding: 0 24px 24px 24px;">
-          <p style="margin: 0; font-size: 12px; color: #94a3b8; text-align: center;">
-            Si le bouton ne fonctionne pas, copiez ce lien :<br/>
-            <a href="${reportUrl}" style="color: #0066ff; word-break: break-all;">${reportUrl}</a>
-          </p>
-        </div>
-
-        <!-- Footer -->
-        <div style="background: #f8fafc; padding: 16px 24px; text-align: center; border-top: 1px solid #e2e8f0;">
-          <p style="margin: 0; font-size: 11px; color: #94a3b8;">
-            DIAGNOSTIC-BOIS.COM | Emis par ACO-HABITAT
-          </p>
-        </div>
-      </div>
+      </body>
+      </html>
     `,
   };
 
@@ -161,7 +176,7 @@ export async function sendLeadEmail(session: any, reportUrl: string, result?: an
   }
 
   try {
-    await transporter.sendMail(mailOptions);
+    await getTransporter().sendMail(mailOptions);
     console.log(`[mailer] Email envoye pour le lead ${session.clientName}`);
   } catch (error) {
     console.error("[mailer] Erreur envoi email :", error);
@@ -331,7 +346,7 @@ export async function sendReportToClient(session: any, reportUrl: string, pdfBuf
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`[mailer] Rapport envoye au client ${clientEmail}`);
+    console.log(`[mailer] Rapport envoyé à ${clientEmail}`);
   } catch (error) {
     console.error("[mailer] Erreur envoi rapport client :", error);
   }

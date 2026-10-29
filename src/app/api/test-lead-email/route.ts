@@ -32,11 +32,11 @@ export async function GET(request: Request) {
 
   try {
     // Lead dans la zone geree (departement 61 - Orne)
-    await sendLeadEmail(makeSession("TEST Zone - M. Dupont", "12 rue des Tanneurs, 61000 Alencon"), reportUrl, result)
+    await sendLeadEmail(makeSession("TEST Zone - M. Dupont", "12 rue des Tanneurs, 61000 Alencon"), reportUrl)
     out.sent.push("[ZONE 61] M. Dupont - 61000 Alencon")
 
     // Lead hors zone (a revendre - departement 75)
-    await sendLeadEmail(makeSession("TEST Revente - Mme Martin", "5 avenue de la Republique, 75011 Paris"), reportUrl, result)
+    await sendLeadEmail(makeSession("TEST Revente - Mme Martin", "5 avenue de la Republique, 75011 Paris"), reportUrl)
     out.sent.push("[REVENTE 75] Mme Martin - 75011 Paris")
 
     out.status = "ok"

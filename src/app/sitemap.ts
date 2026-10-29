@@ -1,91 +1,55 @@
-import type { MetadataRoute } from "next"
-
-const BASE_URL = "https://diagnostic-bois.com"
-
-/**
- * Sitemap dynamique généré automatiquement par Next.js.
- * Ajouter une nouvelle URL publique = ajouter une ligne dans le tableau ci-dessous.
- * Les pages privées/techniques (diagnostic, resultats, succes) sont volontairement
- * exclues : elles ne doivent pas être indexées par Google.
- */
-
-type Entry = {
-  path: string
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]
-  priority: number
-  lastModified: string
-}
-
-const entries: Entry[] = [
-  // Page principale
-  { path: "", changeFrequency: "weekly", priority: 1.0, lastModified: "2026-05-26" },
-
-  // Guide - Index
-  { path: "/guide", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-05-26" },
-
-  // Notre savoir-faire
-  { path: "/guide/notre-savoir-faire", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
-
-  // Le traitement du bois
-  { path: "/guide/traitement-du-bois", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
-
-  // Reconnaître les pathologies
-  { path: "/guide/reconnaitre-les-pathologies", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-07-16" },
-
-  // FAQ
-  { path: "/guide/faq", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-16" },
-
-  // Qui sommes-nous
-  { path: "/guide/qui-sommes-nous", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-16" },
-
-  // Guide - Pathologies
-  { path: "/guide/merule", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
-  { path: "/guide/capricorne", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
-  { path: "/guide/termites", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
-  { path: "/guide/vrillettes", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/humidite", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-26" },
-  { path: "/guide/pourriture-cubique", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
-  { path: "/guide/lyctus", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/merule-obligations-legales", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
-
-  // Guide - Régions
-  { path: "/guide/diagnostic-bois-normandie", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-bretagne", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-ile-de-france", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-pays-de-la-loire", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-nouvelle-aquitaine", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-hauts-de-france", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-grand-est", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-26" },
-  { path: "/guide/diagnostic-bois-paca", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-26" },
-
-  // Guide - Départements
-  { path: "/guide/diagnostic-bois-orne", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-31" },
-  { path: "/guide/diagnostic-bois-calvados", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-sarthe", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
-  { path: "/guide/diagnostic-bois-mayenne", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
-  { path: "/guide/diagnostic-bois-eure", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
-  { path: "/guide/diagnostic-bois-eure-et-loir", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-05-31" },
-
-  // Guide - Villes du Calvados
-  { path: "/guide/diagnostic-bois-caen", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-falaise", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-conde-en-normandie", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-vire", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-lisieux", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-  { path: "/guide/diagnostic-bois-bayeux", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-18" },
-
-  // Pages légales
-  { path: "/cgv", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-05-26" },
-  { path: "/mentions-legales", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-05-26" },
-  { path: "/confidentialite", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-05-26" },
-  { path: "/cookies", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-05-26" },
-]
+import { MetadataRoute } from 'next';
+import { seoCities, seoPathologies } from '@/data/seo-content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return entries.map((entry) => ({
-    url: `${BASE_URL}${entry.path}`,
-    lastModified: new Date(entry.lastModified),
-    changeFrequency: entry.changeFrequency,
-    priority: entry.priority,
-  }))
+  const baseUrl = 'https://diagnostic-bois.com';
+
+  const citiesUrls = seoCities.map((city) => ({
+    url: `${baseUrl}/diagnostic-bois-${city.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const pathologiesUrls = seoPathologies.map((patho) => ({
+    url: `${baseUrl}/pathologie/${patho.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
+  const staticUrls = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/diagnostic/nouveau`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/mentions-legales`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/cgv`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/confidentialite`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+  ];
+
+  return [...staticUrls, ...pathologiesUrls, ...citiesUrls];
 }

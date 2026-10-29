@@ -1,18 +1,23 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
-import { sendReportToClient } from "@/lib/mailer";
-import { generateDiagnosticPdfBuffer } from "@/lib/pdf/diagnostic-report-template";
+import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { diagnosticReportSchema } from "@/types/diagnostic";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+import { generateDiagnosticPdfBuffer } from "@/lib/pdf/diagnostic-report-template";
+import { sendReportToClient } from "@/lib/mailer";
 
 export async function POST(req: Request) {
-  console.log("[Stripe Webhook] Received webhook request");
-  
+  if (!isStripeConfigured()) {
+    return NextResponse.json({ error: "Stripe non configuré" }, { status: 503 });
+  }
+
+  const webhookSecret = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
+  if (!webhookSecret) {
+    return NextResponse.json({ error: "STRIPE_WEBHOOK_SECRET manquant" }, { status: 503 });
+  }
+
+  const stripe = getStripe();
   const body = await req.text();
   const signature = (await headers()).get("stripe-signature") as string;
 

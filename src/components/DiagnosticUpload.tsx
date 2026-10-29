@@ -580,26 +580,7 @@ export function DiagnosticUpload() {
                   <span className={styles.slotNumber}>Vue {index + 1}</span>
                   <span className={styles.slotLabel}>{slot.label}</span>
                   <span className={styles.slotHint}>{slot.hint}</span>
-                  <div className={styles.slotButtons}>
-                    <button
-                      type="button"
-                      className={styles.slotBtnCamera}
-                      onClick={(e) => { e.stopPropagation(); cameraInputRefs.current[index]?.click(); }}
-                      disabled={isBusy}
-                    >
-                      <IconCamera />
-                      <span>Prendre</span>
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.slotBtnGallery}
-                      onClick={(e) => { e.stopPropagation(); inputRefs.current[index]?.click(); }}
-                      disabled={isBusy}
-                    >
-                      <IconGallery />
-                      <span>Galerie</span>
-                    </button>
-                  </div>
+                  <span className={styles.slotUploadPill}>+ Ajouter photo 📷</span>
                 </div>
               )}
 
@@ -613,15 +594,6 @@ export function DiagnosticUpload() {
                 ref={(el) => { inputRefs.current[index] = el; }}
                 type="file"
                 accept="image/*"
-                className={styles.hiddenInput}
-                onChange={(e) => handleFileSelected(index, e)}
-                aria-label={`Sélectionner photo ${index + 1} depuis galerie`}
-              />
-              <input
-                ref={(el) => { cameraInputRefs.current[index] = el; }}
-                type="file"
-                accept="image/*"
-                capture="environment"
                 className={styles.hiddenInput}
                 onChange={(e) => handleFileSelected(index, e)}
                 aria-label={`Prendre photo ${index + 1} avec appareil`}

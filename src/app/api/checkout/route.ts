@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import Stripe from "stripe";
 import { getAnalysisSession } from "@/lib/analysis-store";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import { getStripe, isStripeConfigured } from "@/lib/stripe";
 
 // Construit l'URL de base du site de maniere fiable (env var > headers > fallback)
 function getBaseUrl(requestHeaders: Headers): string {
@@ -29,6 +27,17 @@ function getBaseUrl(requestHeaders: Headers): string {
 
 export async function POST(req: Request) {
   try {
+    if (!isStripeConfigured()) {
+      return NextResponse.json(
+        {
+          error:
+            "Paiement Stripe non configuré. Ajoutez STRIPE_SECRET_KEY (sk_test_...) dans .env.local puis redémarrez npm run dev.",
+        },
+        { status: 503 },
+      );
+    }
+
+    const stripe = getStripe();
     const { sessionId } = await req.json();
     const requestHeaders = await headers();
     const baseUrl = getBaseUrl(requestHeaders);
@@ -41,6 +50,7 @@ export async function POST(req: Request) {
     if (!sessionData) {
       return NextResponse.json({ error: "Session introuvable" }, { status: 404 });
     }
+
 
     // Créer la session Stripe Checkout
     const checkoutSession = await stripe.checkout.sessions.create({

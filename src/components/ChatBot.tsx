@@ -1,221 +1,166 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
-import { useChat } from '@ai-sdk/react'
-import { DefaultChatTransport } from 'ai'
-import styles from './ChatBot.module.css'
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
-// Fonction pour convertir les liens markdown en HTML cliquables
-function parseMarkdownLinks(text: string) {
-  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
-  const parts: (string | { text: string; url: string })[] = []
-  let lastIndex = 0
-  let match
-
-  while ((match = linkRegex.exec(text)) !== null) {
-    // Ajouter le texte avant le lien
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index))
-    }
-    // Ajouter le lien
-    parts.push({ text: match[1], url: match[2] })
-    lastIndex = match.index + match[0].length
-  }
-
-  // Ajouter le texte restant
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex))
-  }
-
-  return parts
-}
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
 
 export default function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [input, setInput] = useState('')
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  
-  const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
-  })
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: "assistant",
+      content: "Bonjour ! Je suis l'assistant ACO Habitat. Avez-vous une question sur la mérule, les termites, ou nos traitements de charpente ?",
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const isLoading = status === 'streaming' || status === 'submitted'
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    scrollToBottom();
+  }, [messages, isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!input.trim() || isLoading) return
-    sendMessage({ text: input })
-    setInput('')
-  }
+  const sendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
 
-  const quickQuestions = [
-    "Comment reconnaitre la merule ?",
-    "Quels sont les signes du capricorne ?",
-    "Mon bois est humide, que faire ?",
-  ]
+    const userMsg = input.trim();
+    setInput("");
+    const newMessages: Message[] = [...messages, { role: "user", content: userMsg }];
+    setMessages(newMessages);
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+
+      if (!res.ok) throw new Error("Erreur serveur");
+      
+      const data = await res.json();
+      if (data.reply) {
+        setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      }
+    } catch (error) {
+      setMessages((prev) => [...prev, { role: "assistant", content: "Désolé, je rencontre un problème de connexion momentané." }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <>
-      {/* Bulle d'invitation */}
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Bulle d'accroche au-dessus du bouton lorsque le chat est fermé */}
       {!isOpen && (
-        <button
-          className={styles.inviteBubble}
+        <div
           onClick={() => setIsOpen(true)}
-          aria-label="Ouvrir le chat expert"
+          className="flex absolute bottom-20 right-0 mb-1 cursor-pointer whitespace-nowrap bg-slate-900 text-white text-xs md:text-sm font-medium px-4 py-2.5 rounded-2xl shadow-2xl border border-slate-700 hover:bg-slate-800 transition-all items-center gap-2 animate-bounce"
+          style={{ animationDuration: "3s" }}
         >
-          Une question ?
-        </button>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+          </span>
+          <span>Une question ? 💬</span>
+          {/* Flèche pointant vers la bulle photo */}
+          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-slate-900 rotate-45 border-r border-b border-slate-700" />
+        </div>
       )}
 
-      {/* Bouton flottant */}
-      <button 
-        className={styles.floatingButton}
+      {/* Bouton pour ouvrir/fermer le chat */}
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Fermer le chat" : "Ouvrir le chat expert"}
+        className={`rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center overflow-hidden border-4 border-white ${
+          isOpen ? "bg-slate-800 text-white w-14 h-14" : "w-16 h-16 bg-white"
+        }`}
+        aria-label="Discuter avec l'assistant"
       >
         {isOpen ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+          <span className="text-xl font-bold leading-none">✕</span>
         ) : (
-          <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" className={styles.floatingPhoto} />
+          <img src="/kemal.jpg" alt="Expert ACO Habitat" className="w-full h-full object-cover" />
         )}
       </button>
 
-      {/* Fenetre de chat */}
+      {/* Fenêtre de chat */}
       {isOpen && (
-        <div className={styles.chatWindow}>
-          <div className={styles.chatHeader}>
-            <div className={styles.headerInfo}>
-              <div className={styles.expertAvatar}>
-                <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
-              </div>
-              <div>
-                <h3 className={styles.headerTitle}>Expert Bois</h3>
-                <p className={styles.headerSubtitle}>35 ans d&apos;experience</p>
-              </div>
+        <div className="absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] max-h-[80vh]">
+          {/* Header */}
+          <div className="bg-slate-800 text-white p-4 flex items-center gap-3 shadow-md relative z-10">
+            <img src="/kemal.jpg" alt="Assistant ACO-HABITAT" className="w-12 h-12 rounded-full border-2 border-slate-600 object-cover" />
+            <div>
+              <h3 className="font-bold">Assistant ACO-HABITAT</h3>
+              <p className="text-xs text-teal-400">Spécialiste Bois & Humidité</p>
             </div>
-            <button 
-              className={styles.closeButton}
-              onClick={() => setIsOpen(false)}
-              aria-label="Fermer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
           </div>
 
-          <div className={styles.messagesContainer}>
-            {messages.length === 0 && (
-              <div className={styles.welcomeMessage}>
-                <div className={styles.welcomeIcon}>
-                  <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
-                </div>
-                <h4>Bonjour, je suis votre expert bois</h4>
-                <p>Avec plus de 35 ans d&apos;experience dans le diagnostic des pathologies du bois, je peux vous aider a identifier merule, capricorne, vrillettes ou problemes d&apos;humidite.</p>
-                
-                <div className={styles.quickQuestions}>
-                  <p className={styles.quickLabel}>Questions frequentes :</p>
-                  {quickQuestions.map((question, index) => (
-                    <button
-                      key={index}
-                      className={styles.quickButton}
-                      onClick={() => {
-                        sendMessage({ text: question })
-                      }}
-                    >
-                      {question}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {messages.map((message) => (
-              <div 
-                key={message.id} 
-                className={`${styles.message} ${message.role === 'user' ? styles.userMessage : styles.assistantMessage}`}
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {message.role === 'assistant' && (
-                  <div className={styles.messageAvatar}>
-                    <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
-                  </div>
-                )}
-                <div className={styles.messageContent}>
-                  {message.parts.map((part, index) => {
-                    if (part.type === 'text') {
-                      const parsed = parseMarkdownLinks(part.text)
-                      return (
-                        <span key={index}>
-                          {parsed.map((p, i) => 
-                            typeof p === 'string' ? (
-                              <span key={i}>{p}</span>
-                            ) : (
-                              <a 
-                                key={i} 
-                                href={p.url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className={styles.chatLink}
-                              >
-                                {p.text}
-                              </a>
-                            )
-                          )}
-                        </span>
-                      )
-                    }
-                    return null
-                  })}
+                <div
+                  className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
+                    msg.role === "user"
+                      ? "bg-teal-600 text-white rounded-br-sm"
+                      : "bg-white border border-slate-200 text-slate-700 rounded-bl-sm shadow-sm"
+                  }`}
+                >
+                  {msg.content}
                 </div>
               </div>
             ))}
-            
             {isLoading && (
-              <div className={`${styles.message} ${styles.assistantMessage}`}>
-                <div className={styles.messageAvatar}>
-                  <img src="/expert-aco-habitat.jpeg" alt="Votre expert ACO-HABITAT" />
-                </div>
-                <div className={styles.typingIndicator}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+              <div className="flex justify-start">
+                <div className="bg-white border border-slate-200 text-slate-500 rounded-2xl rounded-bl-sm px-4 py-2 text-sm shadow-sm flex gap-1">
+                  <span className="animate-bounce">.</span>
+                  <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>.</span>
+                  <span className="animate-bounce" style={{ animationDelay: "0.4s" }}>.</span>
                 </div>
               </div>
             )}
-            
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.inputForm}>
+          {/* Raccourci vers le diagnostic (si jamais l'IA n'y pense pas, le bouton est là) */}
+          <div className="bg-slate-100 p-2 border-t border-slate-200 text-center">
+            <Link href="/#diagnostic-upload" onClick={() => setIsOpen(false)} className="text-xs font-bold text-teal-600 hover:text-teal-500 underline">
+              Lancer une analyse photo gratuite 📸
+            </Link>
+          </div>
+
+          {/* Formulaire d'entrée */}
+          <form onSubmit={sendMessage} className="p-3 bg-white border-t border-slate-200 flex gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Posez votre question..."
-              className={styles.input}
+              className="flex-1 border border-slate-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
               disabled={isLoading}
             />
-            <button 
-              type="submit" 
-              className={styles.sendButton}
+            <button
+              type="submit"
               disabled={isLoading || !input.trim()}
+              className="bg-slate-800 hover:bg-slate-700 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-50"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
+              ➤
             </button>
           </form>
         </div>
       )}
-    </>
-  )
+    </div>
+  );
 }

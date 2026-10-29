@@ -2,8 +2,31 @@
 
 import Link from 'next/link';
 import styles from './page.module.css';
+import dynamic from 'next/dynamic';
 import { DiagnosticUpload } from '@/components/DiagnosticUpload';
 import { LandingProductDemo } from '@/components/LandingProductDemo';
+import { CityAccordion } from '@/components/CityAccordion';
+
+const DynamicScene = dynamic(() => import('@/components/3d/HouseScene'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full flex-col items-center justify-center bg-[#0a0a0a] text-white border-y border-slate-800/50">
+      <div className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mb-4"></div>
+      <p className="font-extrabold text-sm tracking-widest text-slate-400 animate-pulse uppercase">
+        Initialisation du moteur 3D...
+      </p>
+    </div>
+  )
+});
+
+const DynamicDestructionSimulator = dynamic(() => import('@/components/3d/DestructionSimulator').then(mod => mod.DestructionSimulator), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[400px] w-full items-center justify-center bg-slate-900 text-slate-500">
+      Chargement du simulateur...
+    </div>
+  )
+});
 
 export default function HomePage() {
   return (
@@ -33,22 +56,19 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Bande de confiance */}
-      <div className={styles.trustStrip}>
-        <div className="container">
-          <div className={styles.trustStripInner}>
-            <span className={styles.trustStripItem}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              ACO-HABITAT · Marque déposée à l&apos;INPI
-            </span>
-            <span className={styles.trustStripItem}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
-              Méthode protégée (dépôt e-Soleau)
-            </span>
-            <span className={styles.trustStripItem}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              Spécialiste du bois depuis 2006
-            </span>
+      {/* Trust Bar (Screenshot) */}
+      <div className="bg-[#1a4731] text-white text-xs md:text-sm py-3 border-b border-green-900/50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 opacity-90">
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">⬡</span> ACO-HABITAT · Marque déposée à l'INPI
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">✓</span> Méthode protégée (dépôt e-Soleau)
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">⬡</span> Spécialiste du bois depuis 2006
+            </div>
           </div>
         </div>
       </div>
@@ -56,16 +76,15 @@ export default function HomePage() {
       {/* Hero : Message client clair */}
       <section className={styles.hero}>
         <div className="container">
-          <div className={`${styles.heroBadge} ${styles.heroBadgeRed}`}>
-            <span className="text-xs">Pré-analyse en ligne gratuite</span>
+          <div className="inline-block border border-red-500/30 rounded-full px-4 py-1.5 mb-6 bg-red-950/30">
+            <span className="text-xs uppercase tracking-widest text-red-400/90 font-medium">Pré-analyse en ligne gratuite</span>
           </div>
-          <h1 className={styles.heroTitle}>
-            Charpente, boiseries, bois de cave : ne laissez pas le doute s&apos;installer. <br />
-            <span className={styles.heroAccent}>Diagnostiquez en 3 minutes, agissez avant les degats.</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+            Charpente, boiseries, bois de cave : ne laissez pas le doute s'installer. <br className="hidden md:block" />
+            <span className="text-[#34d399]">Diagnostiquez en 3 minutes, agissez avant les dégâts.</span>
           </h1>
-          <p className={styles.heroSubtitle}>
-            Envoyez vos photos, notre IA detecte les signes de <span className={styles.meruleText}>MERULE</span>, 
-            capricorne, termites ou humidite. Vous saurez immediatement si ca vaut le deplacement d&apos;un expert.
+          <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
+            Envoyez vos photos, notre IA détecte les signes de <span className="text-[#ef4444] font-bold">MÉRULE</span>, capricorne, termites ou humidité. Vous saurez immédiatement si ça vaut le déplacement d'un expert.
           </p>
 
           <div className={styles.priceBox}>
@@ -90,7 +109,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* EXPÉRIENCE 3D INTERACTIVE */}
+      <section className="w-full h-[700px] md:h-[900px] relative z-20 border-y border-slate-800 bg-[#0a0a0a] shadow-2xl">
+        <DynamicScene />
+      </section>
+
       <LandingProductDemo />
+
+      {/* NOUVEAU: Simulateur de destruction interactif */}
+      <DynamicDestructionSimulator />
 
       {/* Comment ca marche */}
       <section className={styles.howSection}>
@@ -121,25 +148,85 @@ export default function HomePage() {
           <h2 className={styles.sectionTitle}>Pathologies que nous détectons</h2>
           <div className={styles.pathoGrid}>
             {[
-              { label: 'Hylotrupes bajulus', cat: 'Xylophage', name: 'Capricorne des maisons' },
-              { label: 'Anobium punctatum', cat: 'Xylophage', name: 'Petite Vrillette' },
-              { label: 'Serpula lacrymans', cat: 'Lignivore', name: 'Mérule Pleureuse' },
-              { label: 'Coniophora puteana', cat: 'Lignivore', name: 'Coniophore des caves' },
+              { label: 'Hylotrupes bajulus', cat: 'Xylophage', name: 'Capricorne des maisons', slug: 'capricorne-des-maisons' },
+              { label: 'Anobium punctatum', cat: 'Xylophage', name: 'Petite Vrillette', slug: 'petite-vrillette' },
+              { label: 'Serpula lacrymans', cat: 'Lignivore', name: 'Mérule Pleureuse', slug: 'merule-pleureuse' },
+              { label: 'Coniophora puteana', cat: 'Lignivore', name: 'Coniophore des caves', slug: 'coniophore-des-caves' },
+              { label: 'Reticulitermes spp.', cat: 'Xylophage', name: 'Termites', slug: 'termites' },
+              { label: 'Xestobium rufovillosum', cat: 'Xylophage', name: 'Grosse Vrillette', slug: 'grosse-vrillette' },
               { label: 'Hygrométrie Ascensionnelle', cat: 'Désordre', name: 'Remontées capillaires' },
               { label: 'Infiltration Pariétale', cat: 'Désordre', name: 'Fuites / Humidité' },
-            ].map((p) => (
-              <div key={p.label} className={styles.pathoItem}>
-                <div className={styles.pathoName}>{p.name}</div>
-                <div className={styles.pathoScientific}>{p.label}</div>
-                {p.cat === 'Lignivore' ? (
-                  <span className="badge badge-danger">
-                    Champignon <span className={styles.lignivoreWord}>Lignivore</span>
-                  </span>
-                ) : (
-                  <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : 'badge-success'}`}>{p.cat}</span>
-                )}
+            ].map((p) => {
+              const content = (
+                <>
+                  <div className={styles.pathoName}>{p.name}</div>
+                  <div className={styles.pathoScientific}>{p.label}</div>
+                  <span className={`badge ${p.cat === 'Xylophage' ? 'badge-warning' : p.cat === 'Lignivore' ? 'badge-danger' : 'badge-tech'}`}>{p.cat}</span>
+                </>
+              );
+
+              return p.slug ? (
+                <Link href={`/pathologie/${p.slug}`} key={p.label} className={`${styles.pathoItem} hover:border-teal-500 transition-colors block`}>
+                  {content}
+                </Link>
+              ) : (
+                <div key={p.label} className={styles.pathoItem}>
+                  {content}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Vidéos Intervention */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 relative overflow-hidden border-y border-slate-700 shadow-2xl z-10">
+        {/* Glow effect */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-teal-500/20 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div className="container relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-teal-400 font-bold tracking-widest uppercase text-sm mb-3 block">Notre Expertise en Action</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">Traitement curatif de la <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">Mérule</span></h2>
+            <p className="text-lg text-slate-300">
+              Découvrez nos méthodes de traitement en profondeur. Piquage, brûlage au chalumeau, et injection au cœur de la maçonnerie. Ne laissez aucune chance aux champignons lignivores.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-6xl mx-auto perspective-1000">
+            {/* Vidéo 1 */}
+            <div className="group relative transition-all duration-500 hover:-translate-y-4 hover:rotate-2">
+              <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-3xl blur opacity-30 group-hover:opacity-70 transition duration-500"></div>
+              <div className="relative bg-slate-900 ring-1 ring-slate-800 rounded-3xl p-3 shadow-2xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02]">
+                <video 
+                  src="/videos/merule-1.mp4" 
+                  controls 
+                  className="w-full rounded-2xl bg-black aspect-video object-contain"
+                  preload="metadata"
+                />
+                <div className="p-5 text-center">
+                  <h3 className="text-xl font-bold text-white mb-2">Phase d'intervention - Étape 1</h3>
+                  <p className="text-sm text-slate-400">Sécurisation et traitement des maçonneries</p>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Vidéo 2 */}
+            <div className="group relative transition-all duration-500 hover:-translate-y-4 hover:-rotate-2">
+              <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl blur opacity-30 group-hover:opacity-70 transition duration-500"></div>
+              <div className="relative bg-slate-900 ring-1 ring-slate-800 rounded-3xl p-3 shadow-2xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02]">
+                <video 
+                  src="/videos/merule-2.mp4" 
+                  controls 
+                  className="w-full rounded-2xl bg-black aspect-video object-contain"
+                  preload="metadata"
+                />
+                <div className="p-5 text-center">
+                  <h3 className="text-xl font-bold text-white mb-2">Phase d'intervention - Étape 2</h3>
+                  <p className="text-sm text-slate-400">Application du fongicide et brûlage</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -218,6 +305,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* SEO Cities Linking Accordion */}
+      <CityAccordion />
 
       <footer className={styles.footer}>
         <div className="container">
